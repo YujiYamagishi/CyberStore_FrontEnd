@@ -1,0 +1,223 @@
+/* Reset */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+/* Body */
+body {
+  background: #f4f4f4;
+  color: #111;
+  line-height: 1.5;
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 15px;
+  background: #fff;
+  border-bottom: 1px solid #ddd;
+}
+.logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+}
+.menu-btn {
+  font-size: 1.4rem;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+/* Hero Section */
+.iphone {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 40px 20px;
+}
+.iphone img {
+  width: 100%;
+  max-width: 320px;
+  margin: 20px auto 0;
+  display: block;
+}
+.iphone-text h2 {
+  font-size: 2rem;
+  margin: 10px 0;
+}
+.iphone-text span {
+  font-weight: bold;
+}
+.subtitle {
+  opacity: 0.8;
+  font-size: 1rem;
+}
+.desc {
+  margin: 10px 0 20px;
+  font-size: 0.9rem;
+}
+.btn {
+  background: none;
+  border: 1px solid #fff;
+  padding: 10px 20px;
+  color: #fff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.btn:hover {
+  background: #fff;
+  color: #111;
+}
+
+/* Product Sections */
+.airpods {
+  background: #fff;
+  margin: 15px 0;
+  padding: 20px;
+  text-align: center;
+}
+.airpods img {
+  max-width: 180px;
+  margin-bottom: 15px;
+}
+.airpods h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+.airpods span {
+  font-weight: bold;
+}
+.airpods p {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+/* Dark Section */
+.visionpro {
+  background: #111;
+  color: #fff;
+  text-align: center;
+  padding: 20px;
+}
+.visionpro p {
+  color: #ddd;
+}
+
+.visionpro h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+.visionpro span {
+  font-weight: bold;
+}
+.visionpro p {
+  font-size: 0.85rem;
+  color: #ffffff;
+}
+
+
+.playstation {
+  background: #fff;
+  margin: 15px 0;
+  padding: 20px;
+  text-align: center;
+}
+.playstation img {
+  max-width: 180px;
+  margin-bottom: 15px;
+}
+.playstation h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+.playstation {
+  font-weight: bold;
+}
+.playstation p {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.macbook {
+  background: #fff;
+  margin: 15px 0;
+  padding: 20px;
+  text-align: center;
+}
+.macbook img {
+  max-width: 180px;
+  margin-bottom: 15px;
+}
+.macbook h3 {
+  font-size: 1.1rem;
+  margin-bottom: 5px;
+}
+.macbook {
+  font-weight: bold;
+}
+.macbook p {
+  font-size: 0.85rem;
+  color: #444;
+}
+
+.btn-mac {
+  background: #000000;
+  border: 1px solid #000000;
+  padding: 10px 20px;
+  color: #ffffff;
+  font-size: 0.9rem;
+  cursor: pointer;
+  border-radius: 5px;
+}
+.btn-mac:hover {
+  background: #000000;
+  color: #111;
+}
+
+.browse-container {
+  padding: 2rem;
+  font-family: sans-serif;
+}
+
+.browse-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.browse-arrows span {
+  font-size: 20px;
+  margin: 0 5px;
+  cursor: pointer;
+}
+
+.category-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 15px;
+}
+
+.category-card {
+  background-color: #f2f2f2;
+  border-radius: 12px;
+  padding: 20px;
+  text-align: center;
+  transition: transform 0.2s;
+  cursor: pointer;
+}
+
+.category-card:hover {
+  transform: scale(1.05);
+}
+
+.icon {
+  font-size: 30px;
+  margin-bottom: 10px;
+}
