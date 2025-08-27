@@ -1,7 +1,13 @@
 import React, { useState } from 'react';
-import iphone14promax from '../assets/iphone14promax.webp';
 
-
+import iphone14promax from '../../assets/iphone-14-pro-max.webp';
+import blackmagic from '../../assets/blackmagic.png';
+import applewatch from '../../assets/applewatch.png';
+import airpods from '../../assets/airpods.png';
+import galaxywatch from '../../assets/samsung-watch6.png';
+import fold from '../../assets/z-fold.png';
+import febuds from '../../assets/fe-buds.png';
+import ipad from '../../assets/ipad.png';
 
 type Product = {
   id: number;
@@ -17,49 +23,49 @@ const products: Product[] = [
     id: 1,
     title: 'Apple iPhone 14 Pro Max 128GB',
     price: '$900',
-    image:iphone14promax,
+    image: iphone14promax,
   },
   {
     id: 2,
     title: 'Blackmagic Pocket Cinema Camera 6K',
     price: '$2535',
-    image: '/images/blackmagic.png',
+    image: blackmagic,
   },
   {
     id: 3,
     title: 'Apple Watch Series 9 GPS 41mm',
     price: '$399',
-    image: '/images/applewatch.png',
+    image: applewatch,
   },
   {
     id: 4,
     title: 'AirPods Max Silver',
     price: '$549',
-    image: '/images/airpodsmax.png',
+    image: airpods,
   },
   {
     id: 5,
     title: 'Samsung Galaxy Watch6 Classic',
     price: '$369',
-    image: '/images/galaxywatch.png',
+    image: galaxywatch,
   },
   {
     id: 6,
     title: 'Galaxy Z Fold5 Unlocked | 256GB',
     price: '$1799',
-    image: '/images/fold5.png',
+    image: fold,
   },
   {
     id: 7,
     title: 'Galaxy Buds FE Graphite',
     price: '$99.99',
-    image: '/images/galaxybuds.png',
+    image: febuds,
   },
   {
     id: 8,
     title: 'Apple iPad 9 10.2" 64GB Wi-Fi Silver',
     price: '$398',
-    image: '/images/ipad.png',
+    image: ipad,
   },
 ];
 
