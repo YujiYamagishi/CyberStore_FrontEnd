@@ -450,6 +450,86 @@ body {
 
 
 
+.big-summer {
+  position: relative;
+  min-height: 70vh;              /* ajusta altura principal */
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 80px 20px;
+  color: #fff;
+  text-align: center;
+  overflow: hidden;
+}
+
+/* overlay para escurecer a imagem e garantir leitura */
+.big-summer::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.7) 100%);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.big-summer__content {
+  position: relative; /* acima do overlay */
+  z-index: 1;
+  max-width: 720px;
+  width: 100%;
+  padding: 0 16px;
+}
+
+/* Tipografia */
+.big-summer__subtitle {
+  font-size: 2.25rem;   /* 36px */
+  font-weight: 300;
+  margin: 0 0 8px;
+  letter-spacing: 1px;
+}
+
+.big-summer__title {
+  font-size: 4.5rem;    /* 72px */
+  font-weight: 700;
+  margin: 0 0 18px;
+  line-height: 1;
+}
+
+.big-summer__text {
+  font-size: 1rem;
+  color: #e6e6e6;
+  margin: 0 auto 28px;
+  max-width: 560px;
+  line-height: 1.6;
+}
+
+/* Botão */
+.big-summer__btn {
+  display: inline-block;
+  background: transparent;
+  border: 2px solid #ffffff;
+  color: #ffffff;
+  padding: 14px 34px;
+  border-radius: 10px;
+  font-size: 1rem;
+  cursor: pointer;
+ 
+}
+.big-summer__btn:hover {
+  background: #ffffff;
+  color: #000000;
+  box-shadow: 0 8px 30px rgba(255,255,255,0.08);
+}
+
+
+
+
+
+
+
 
 .footer {
   background: #000;
@@ -510,4 +590,23 @@ body {
 
 .footer .social a:hover {
  color: #fff;
+}
+
+
+
+
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .big-summer__subtitle { font-size: 1.9rem; } /* 30px */
+  .big-summer__title { font-size: 3.6rem; }    /* 58px */
+  .big-summer__text { font-size: 0.98rem; padding: 0 8px; }
+  .big-summer { min-height: 60vh; padding: 60px 16px; }
+}
+
+@media (max-width: 480px) {
+  .big-summer__subtitle { font-size: 1.6rem; }   /* 26px */
+  .big-summer__title { font-size: 2.9rem; }      /* 46px */
+  .big-summer__text { font-size: 0.95rem; }
+  .big-summer { min-height: 55vh; padding: 40px 12px;}
 }
