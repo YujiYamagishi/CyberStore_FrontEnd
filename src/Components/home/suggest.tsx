@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-
 import iphone14promax from '../../assets/iphone-14-pro-max.webp';
 import blackmagic from '../../assets/blackmagic.png';
 import applewatch from '../../assets/applewatch.png';
