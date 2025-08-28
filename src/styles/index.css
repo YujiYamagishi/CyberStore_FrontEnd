@@ -1,4 +1,4 @@
-/* Reset */
+
 * {
   margin: 0;
   padding: 0;
@@ -13,7 +13,6 @@ body {
   line-height: 1.5;
 }
 
-/*///////////////////// NAVBAR /////////////////////////*/
 /* Navbar */
 .navbar {
   background-color: white;
@@ -43,7 +42,7 @@ body {
   background: none;
   border: none;
   cursor: pointer;
-  color: #1f2937; /* text-gray-800 */
+  color: #1f2937; 
   margin-left: auto;
   display: block;
 }
@@ -60,7 +59,7 @@ body {
   padding: 1.5rem 0;
   gap: 1rem;
   font-weight: 500;
-  color: #4b5563; /* text-gray-700 */
+  color: #4b5563; 
 }
 
 .navbar-mobile-menu li {
@@ -76,7 +75,7 @@ body {
   background: #111;
   color: #fff;
   text-align: center;
-  padding: 100px 20px 40px; /* padding-top aumentado para compensar navbar fixa */
+  padding: 100px 20px 40px; 
 }
 
 .iphone img {
@@ -416,8 +415,8 @@ body {
 /* Grade de produtos responsiva */
 .discount-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* 2 colunas de tamanho igual */
-  gap: 1rem; /* Espaço entre os cards */
+  grid-template-columns: repeat(2, 1fr); 
+  gap: 1rem; 
 }
 
 /* Cartão de produto */
@@ -427,7 +426,7 @@ body {
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
   text-align: center;
   position: relative;
-  width: 100%; /* Ocupa todo o espaço da coluna */
+  width: 100%; 
   box-sizing: border-box;
 }
 
@@ -435,6 +434,7 @@ body {
 .discount-image-container { 
   position: relative; 
 } 
+
 /* Imagem do produto */ 
 .discount-img { 
   width: 100%; 
@@ -452,7 +452,7 @@ body {
 
 .big-summer {
   position: relative;
-  min-height: 70vh;              /* ajusta altura principal */
+  min-height: 70vh;              
   background-position: center;
   background-size: cover;
   background-repeat: no-repeat;
@@ -465,7 +465,6 @@ body {
   overflow: hidden;
 }
 
-/* overlay para escurecer a imagem e garantir leitura */
 .big-summer::after {
   content: "";
   position: absolute;
@@ -476,23 +475,23 @@ body {
 }
 
 .big-summer__content {
-  position: relative; /* acima do overlay */
+  position: relative; 
   z-index: 1;
   max-width: 720px;
   width: 100%;
   padding: 0 16px;
 }
 
-/* Tipografia */
+
 .big-summer__subtitle {
-  font-size: 2.25rem;   /* 36px */
+  font-size: 2.25rem;   
   font-weight: 300;
   margin: 0 0 8px;
   letter-spacing: 1px;
 }
 
 .big-summer__title {
-  font-size: 4.5rem;    /* 72px */
+  font-size: 4.5rem;   
   font-weight: 700;
   margin: 0 0 18px;
   line-height: 1;
@@ -506,7 +505,7 @@ body {
   line-height: 1.6;
 }
 
-/* Botão */
+
 .big-summer__btn {
   display: inline-block;
   background: transparent;
@@ -598,15 +597,15 @@ body {
 
 /* Responsividade */
 @media (max-width: 768px) {
-  .big-summer__subtitle { font-size: 1.9rem; } /* 30px */
-  .big-summer__title { font-size: 3.6rem; }    /* 58px */
+  .big-summer__subtitle { font-size: 1.9rem; } 
+  .big-summer__title { font-size: 3.6rem; }   
   .big-summer__text { font-size: 0.98rem; padding: 0 8px; }
   .big-summer { min-height: 60vh; padding: 60px 16px; }
 }
 
 @media (max-width: 480px) {
-  .big-summer__subtitle { font-size: 1.6rem; }   /* 26px */
-  .big-summer__title { font-size: 2.9rem; }      /* 46px */
+  .big-summer__subtitle { font-size: 1.6rem; }   
+  .big-summer__title { font-size: 2.9rem; }     
   .big-summer__text { font-size: 0.95rem; }
   .big-summer { min-height: 55vh; padding: 40px 12px;}
 }

@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import "../styles/index.css"; // Importando o CSS externo
+import "../styles/index.css"; 
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);

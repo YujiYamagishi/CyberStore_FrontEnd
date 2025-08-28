@@ -4,14 +4,14 @@ import React from 'react';
 function Footer() {
   return (
     <footer className="footer">
-      {/* Logo + descrição */}
+      
       <h1>cyber</h1>
       <p>
         We are a residential interior design firm located in Portland.
         Our boutique-studio offers more than
       </p>
 
-      {/* Services */}
+      
       <div className="footer-section">
         <h2>Services</h2>
         <ul>
@@ -24,7 +24,7 @@ function Footer() {
         </ul>
       </div>
 
-      {/* Assistance to the buyer */}
+      
       <div className="footer-section">
         <h2>Assistance to the buyer</h2>
         <ul>
@@ -37,7 +37,7 @@ function Footer() {
         </ul>
       </div>
 
-      {/* Social icons */}
+     
       <div className="social">
         <a href="#">✕</a>
         <a href="#">📘</a>
