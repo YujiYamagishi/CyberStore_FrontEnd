@@ -1,13 +1,20 @@
-
-import Home from '../src/pages/home'
+import { Routes, Route } from 'react-router-dom';
+import Home from './pages/home';
+import ProductDetails from './pages/ProductDetails';
+import Navbar from './Components/navbar';
+import Footer from './Components/footer';
 
 function App() {
   return (
-    <div className="min-h-screen bg-gray-50">
-     
-      <main className="pt-20 px-4">
-        <Home/>
+    <div className="min-h-screen bg-gray-50 flex flex-col">
+      <Navbar />
+      <main className="pt-20 flex-grow">
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/product/:productId" element={<ProductDetails />} />
+        </Routes>
       </main>
+      <Footer />
     </div>
   );
 }

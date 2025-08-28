@@ -1,12 +1,14 @@
 
 import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
-import App from './App'; // importa o componente App
-import '../src/styles/index.css'; // seu CSS global
+import App from './App';
+import '../src/styles/index.css';
+import { BrowserRouter } from 'react-router-dom';
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <App />
-  </StrictMode>
+    <BrowserRouter>
+      <App />
+    </BrowserRouter>
+  </StrictMode>,
 );
-

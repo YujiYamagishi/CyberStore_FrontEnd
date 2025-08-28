@@ -4,6 +4,7 @@ import iphone14gold from '../../assets/iphone14gold.png';
 import airpods from '../../assets/airpods.png';
 import watch from '../../assets/applewatch.png';
 import iphone14white from '../../assets/iphone14white.png';
+import { Link } from 'react-router-dom';
 
 type Product = {
   id: number;
@@ -53,7 +54,9 @@ export default function DiscountProducts() {
             </div>
             <p className="discount-title-text">{product.title}</p>
             <p className="discount-price">{product.price}</p>
-            <button className="buy-button">Buy Now</button>
+            <Link to={`/product/${product.id}`}>
+              <button className="buy-button">Buy Now</button>
+            </Link>
           </div>
         ))}
       </div>
