@@ -144,7 +144,7 @@ body {
 
 
 .visionpro {
-  background: #353535;
+  background: #EDEDED;
   color: #fff;
   text-align: center;
   padding: 20px;
@@ -785,8 +785,8 @@ body {
   font-size: 15px;
   margin: 0.5rem 0 0.75rem;
   color: #111;
-  min-height: 40px; 
-
+  
+}
 
 .product-price {
   font-weight: bold;
@@ -832,57 +832,59 @@ body {
     padding: 0.6rem 1.2rem;
   }
 
-  .footer {
-  background: #000;
-  color: #ddd;
-  padding: 3rem 5%;
+  /* ========== FOOTER DESKTOP STYLES ========== */
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 60px 20px;
+  font-family: Arial, sans-serif;
 }
 
 .footer-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; 
-  gap: 4rem;
-  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
-
+/* ===== Left Section ===== */
 .footer-left h1 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 16px;
 }
 
 .footer-left p {
   font-size: 14px;
-  max-width: 300px;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin: 0 0 20px;
+  color: #ccc;
 }
 
-.footer-left .social {
+.social {
   display: flex;
-  gap: 1.2rem;
-}
-
-.footer-left .social a {
-  color: #ddd;
+  gap: 16px;
   font-size: 18px;
-  text-decoration: none;
-  transition: color 0.3s ease;
 }
 
-.footer-left .social a:hover {
+.social a {
   color: #fff;
+  text-decoration: none;
+  transition: opacity 0.3s;
 }
 
+.social a:hover {
+  opacity: 0.7;
+}
 
+/* ===== Footer Sections ===== */
 .footer-section h2 {
   font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #fff;
+  margin-bottom: 16px;
+  font-weight: bold;
 }
 
 .footer-section ul {
@@ -891,16 +893,19 @@ body {
   margin: 0;
 }
 
-.footer-section ul li {
+.footer-section li {
+  margin-bottom: 12px;
   font-size: 14px;
-  margin: 0.5rem 0;
+  color: #ccc;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
-.footer-section ul li:hover {
+.footer-section li:hover {
   color: #fff;
 }
-}
+
+
 
 
 
@@ -916,5 +921,4 @@ body {
   .big-summer__title { font-size: 2.9rem; }     
   .big-summer__text { font-size: 0.95rem; }
   .big-summer { min-height: 55vh; padding: 40px 12px;}
-}
 }

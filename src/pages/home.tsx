@@ -16,7 +16,7 @@ function App() {
         <Suggest/>
         <ProductsNavigation/>
         <DiscountProducts/>
-        <BigSummer/>
+        <BigSummer/>       
       </main>
     </div>
   );
