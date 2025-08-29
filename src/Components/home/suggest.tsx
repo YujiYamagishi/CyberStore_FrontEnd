@@ -7,6 +7,7 @@ import galaxywatch from '../../assets/samsung-watch6.png';
 import fold from '../../assets/z-fold.png';
 import febuds from '../../assets/fe-buds.png';
 import ipad from '../../assets/ipad.png';
+import { Link } from 'react-router-dom';
 
 type Product = {
   id: number;
@@ -91,7 +92,9 @@ export default function Suggest() {
             <img src={product.image} alt={product.title} className="product-img" />
             <h4 className="product-title">{product.title}</h4>
             <p className="product-price">{product.price}</p>
-            <button className="buy-button">Buy Now</button>
+            <Link to={`/product/${product.id}`}>
+              <button className="buy-button">Buy Now</button>
+            </Link>
           </div>
         ))}
       </div>
