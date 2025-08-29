@@ -513,19 +513,19 @@ body {
 
 
 .big-summer-text .btn {
-  background-color: transparent; /* Fundo transparente */
-  color: #fff; /* Texto branco */
-  border: 1px solid #fff; /* Borda branca fina */
-  padding: 12px 30px; /* Espaçamento interno */
+  background-color: transparent; 
+  color: #fff; 
+  border: 1px solid #fff; 
+  padding: 12px 30px; 
   font-size: 16px;
-  border-radius: 6px; /* Bordas arredondadas */
+  border-radius: 6px; 
   cursor: pointer;
-  transition: all 0.3s ease; /* Transição suave */
+  transition: all 0.3s ease; 
 }
 
 .big-summer-text .btn:hover {
-  background-color: rgba(255, 255, 255, 0.1); /* Leve fundo ao passar mouse */
-  border-color: #fff; /* Mantém a borda branca */
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-color: #fff; 
 }
 
 
