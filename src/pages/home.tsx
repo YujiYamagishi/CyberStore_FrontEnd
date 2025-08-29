@@ -7,7 +7,7 @@ import ProductsNavigation from '../Components/home/productsnavigation'
 import DiscountProducts from '../Components/home/discountproducts'
 import BigSummer from '../Components/home/bigsummer'
 import Footer from '../Components/footer'
-import '../styles/index.css'
+import '../styles/home.css'
 
 function App() {
   return (
