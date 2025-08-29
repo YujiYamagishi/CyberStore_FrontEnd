@@ -15,7 +15,7 @@ export default function Hero() {
             IPhone 14 <span>Pro</span>
           </h2>
           <p className="desc">Created to change everything for the better. For everyone.</p>
-          <button className="btn">Shop Now</button>
+          <button className="btn-iphone">Shop Now</button>
         </div>
         <img src={iphone} alt="iPhone 14 Pro" />
       </section>

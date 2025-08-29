@@ -5,6 +5,10 @@ import Suggest from '../Components/home/suggest'
 import ProductsNavigation from '../Components/home/productsnavigation'
 import DiscountProducts from '../Components/home/discountproducts'
 import BigSummer from '../Components/home/bigsummer'
+
+
+import Footer from '../Components/footer'
+
 import '../styles/home.css'
 
 function App() {
