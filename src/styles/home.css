@@ -121,7 +121,7 @@ body {
 
 
 .airpods {
-  background: #fff;
+  background: #EDEDED;
   margin: 15px 0;
   padding: 20px;
   text-align: center;
@@ -144,7 +144,7 @@ body {
 
 
 .visionpro {
-  background: #111;
+  background: #353535;
   color: #fff;
   text-align: center;
   padding: 20px;
@@ -189,7 +189,7 @@ body {
 }
 
 .macbook {
-  background: #fff;
+  background: #EDEDED;
   margin: 15px 0;
   padding: 20px;
   text-align: center;
@@ -600,7 +600,58 @@ body {
 
 
 @media (min-width: 1024px) {
-.category-grid {
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 15px;
+    padding: 20px;
+  }
+
+ 
+  .iphone {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+    padding: 60px 40px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .iphone img {
+    max-width: 400px;
+    margin: 0;
+  }
+  .iphone-text {
+    max-width: 500px;
+  }
+
+  
+  .playstation {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+  }
+
+
+  .macbook {
+    grid-column: 3 / span 2;
+    grid-row: 2;
+  }
+
+ 
+  .airpods {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+
+  .visionpro {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .category-grid {
     display: flex;
     overflow-x: auto;
     gap: 1rem;

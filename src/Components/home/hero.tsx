@@ -6,8 +6,7 @@ import macbook from '../../assets/macbook.png'
 
 export default function Hero() {
   return (
-    <>
-      
+    <div className="hero-container">
       <section className="iphone">
         <div className="iphone-text">
           <p className="subtitle">Pro. Beyond.</p>
@@ -20,7 +19,6 @@ export default function Hero() {
         <img src={iphone} alt="iPhone 14 Pro" />
       </section>
 
-      
       <section className="airpods">
         <img src={airpods} alt="AirPods Max" />
         <h3>
@@ -29,7 +27,6 @@ export default function Hero() {
         <p>Computational audio. Listen, it’s powerful</p>
       </section>
 
-     
       <section className="visionpro">
         <img src={visionpro} alt="Apple Vision Pro" />
         <h3>
@@ -38,7 +35,6 @@ export default function Hero() {
         <p>An immersive way to experience entertainment</p>
       </section>
 
-      
       <section className="playstation">
         <img src={playstation} alt="Playstation 5" />
         <h3>Playstation 5</h3>
@@ -48,7 +44,6 @@ export default function Hero() {
         </p>
       </section>
 
-      
       <section className="macbook">
         <img src={macbook} alt="Macbook Air" />
         <h3>Macbook Air</h3>
@@ -58,6 +53,6 @@ export default function Hero() {
         </p>
         <button className="btn-mac">Shop Now</button>
       </section>
-    </>
-  );
+    </div>
+  )
 }
