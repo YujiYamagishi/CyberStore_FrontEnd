@@ -512,23 +512,21 @@ body {
 }
 
 
-.big-summer__btn {
-  display: inline-block;
-  background: transparent;
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  padding: 14px 34px;
-  border-radius: 10px;
-  font-size: 1rem;
+.big-summer-text .btn {
+  background-color: transparent; /* Fundo transparente */
+  color: #fff; /* Texto branco */
+  border: 1px solid #fff; /* Borda branca fina */
+  padding: 12px 30px; /* Espaçamento interno */
+  font-size: 16px;
+  border-radius: 6px; /* Bordas arredondadas */
   cursor: pointer;
- 
-}
-.big-summer__btn:hover {
-  background: #ffffff;
-  color: #000000;
-  box-shadow: 0 8px 30px rgba(255,255,255,0.08);
+  transition: all 0.3s ease; /* Transição suave */
 }
 
+.big-summer-text .btn:hover {
+  background-color: rgba(255, 255, 255, 0.1); /* Leve fundo ao passar mouse */
+  border-color: #fff; /* Mantém a borda branca */
+}
 
 
 
@@ -832,7 +830,7 @@ body {
     padding: 0.6rem 1.2rem;
   }
 
-  /* ========== FOOTER DESKTOP STYLES ========== */
+
 .footer {
   background-color: #000;
   color: #fff;
@@ -850,7 +848,7 @@ body {
   margin: 0 auto;
 }
 
-/* ===== Left Section ===== */
+
 .footer-left h1 {
   font-size: 20px;
   font-weight: bold;
@@ -880,7 +878,7 @@ body {
   opacity: 0.7;
 }
 
-/* ===== Footer Sections ===== */
+
 .footer-section h2 {
   font-size: 16px;
   margin-bottom: 16px;
