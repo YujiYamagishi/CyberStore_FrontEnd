@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Menu, X } from "lucide-react";
-import "../styles/index.css"; 
+import "../styles/index.css";
+import { Link } from 'react-router-dom';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
@@ -22,7 +23,7 @@ export default function Navbar() {
         <div className="navbar-mobile-menu">
           <ul>
             <li>Home</li>
-            <li>Shop</li>
+            <li><Link to="/products">Shop</Link></li>
             <li>Contact Us</li>
             <li>Blog</li>
           </ul>
