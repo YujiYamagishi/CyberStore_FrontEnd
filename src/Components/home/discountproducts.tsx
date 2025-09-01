@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Link } from "react-router-dom";
-
+import ProductCard from "../card"; 
 type Product = {
   id: number;
   title: string;
@@ -23,23 +22,19 @@ export default function DiscountProducts() {
       <h2 className="discount-title">Discounts up to -50%</h2>
 
       <div className="discount-grid">
-        {discountProducts.map((product) => (
-          <div className="discount-card" key={product.id}>
-            <div className="discount-image-container">
-              <img
-                src={product.image}
-                alt={product.title}
-                className="discount-img"
-              />
-              <span className="heart">♡</span>
-            </div>
-            <p className="discount-title-text">{product.title}</p>
-            <p className="discount-price">{product.price}</p>
-            <Link to={`/product/${product.id}`}>
-              <button className="buy-button">Buy Now</button>
-            </Link>
-          </div>
-        ))}
+        {discountProducts.length > 0 ? (
+          discountProducts.map((product) => (
+            <ProductCard
+              key={product.id}
+              id={product.id}
+              title={product.title}
+              price={product.price}
+              image={product.image}
+            />
+          ))
+        ) : (
+          <p>No discount products found.</p>
+        )}
       </div>
     </section>
   );
