@@ -44,7 +44,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
         {}
         <div className="navbar-links hidden md:flex">
           <a href="#">Home</a>
-          <a href="#">Shop</a>
+          <a><Link to="/products">Shop</Link></a>
           <a href="#">Contact Us</a>
           <a href="#">Blog</a>
         </div>
