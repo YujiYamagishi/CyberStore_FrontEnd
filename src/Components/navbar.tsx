@@ -1,7 +1,13 @@
 import { useState } from "react";
+
+import { Menu, X } from "lucide-react";
+import "../styles/index.css";
+import { Link } from 'react-router-dom';
+
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
 import { Link } from "react-router-dom";
 import "../styles/index.css";
+
 
 type NavbarProps = {
   onSearch: (query: string) => void;
@@ -78,7 +84,7 @@ export default function Navbar({ onSearch }: NavbarProps) {
 
           <ul>
             <li>Home</li>
-            <li>Shop</li>
+            <li><Link to="/products">Shop</Link></li>
             <li>Contact Us</li>
             <li>Blog</li>
           </ul>

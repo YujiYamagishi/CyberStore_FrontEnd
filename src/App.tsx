@@ -1,6 +1,7 @@
 import { Routes, Route } from 'react-router-dom';
 import Home from './pages/home';
 import ProductDetails from './pages/ProductDetails';
+import Products from './pages/products';
 import Navbar from './Components/navbar';
 import Footer from './Components/footer';
 
@@ -11,6 +12,7 @@ function App() {
       <main className="pt-20 flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/products" element={<Products />} />
           <Route path="/product/:productId" element={<ProductDetails />} />
         </Routes>
       </main>

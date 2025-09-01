@@ -1,0 +1,135 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
+
+.filters-container {
+  display: grid;
+  grid-template-columns: repeat(2, 156px);
+  justify-content: center;
+  gap: 16px;
+  margin: 0 auto;
+  padding-top: 75px;
+  padding-bottom: 45px;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+}
+
+.filter-button,
+.sort-select {
+  width: 156px;
+  height: 56px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background: #fff;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 16px;
+  cursor: pointer;
+  font-family: 'Inter', sans-serif;
+  font-size: 15px;
+  font-weight: 400;
+  color: #111;
+}
+
+.filter-button:hover,
+.sort-select:hover {
+  border-color: #aaa;
+}
+
+/* Grid dos produtos */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 24px;
+  padding: 20px;
+}
+
+.products-page {
+  padding: 1.5rem 1rem;
+  background: #fff;
+}
+
+/* Texto quantidade */
+.products-count {
+  font-size: 1rem;
+  margin-bottom: 1rem;
+  color: #333;
+  padding-left: 20px;
+}
+
+/* Grid dos produtos */
+.products-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* sempre 2 colunas */
+  gap: 1rem;
+}
+
+/* Desktop: aumenta o número de colunas */
+@media (min-width: 768px) {
+  .products-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* Paginação */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px; /* espaçamento padrão entre botões/indicadores */
+  margin-top: 20px;
+  font-family: Arial, sans-serif;
+}
+
+/* Botões padrão (números) */
+.page-btn {
+  border: 1px solid #ddd;
+  background: #fff;
+  color: #000;
+  padding: 8px 12px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: 0.2s;
+}
+
+.page-btn:hover:not(:disabled) {
+  background: #f5f5f5;
+}
+
+.page-btn.active {
+  background: #000;
+  color: #fff;
+  border-color: #000;
+}
+
+.page-btn:disabled {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+/* Estilo especial para as setas */
+.page-btn.prev,
+.page-btn.next {
+  background: transparent;
+  border: none;
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0;
+  color: #000;
+}
+
+/* Espaçamento das setas em relação aos números */
+.page-btn.prev {
+  margin-right: 24px;
+}
+
+.page-btn.next {
+  margin-left: 24px;
+}
+
+.dots {
+  padding: 8px 12px;
+  color: #777;
+  font-size: 14px;
+}
