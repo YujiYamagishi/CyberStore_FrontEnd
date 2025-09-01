@@ -987,13 +987,23 @@ body {
   grid-column: 1;
   grid-row: 3;
   background: #fff;
-  width: 360px;
-  height: 272px;
-  padding: 20px;
+  padding: 0px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row; /* ← alterado de column para row */
   justify-content: center;
-  align-items: flex-start;
+  align-items: center; /* Alinha verticalmente */
+  gap: 20px; /* Espaço entre a imagem e o texto */
+  max-width: 220px;
+}
+
+.airpods img {
+  width: 104px;
+  height: 272px;
+}
+
+.airpods h3, span, p{
+  max-width: 220px;
+  text-align: left;
 }
 
 .visionpro {

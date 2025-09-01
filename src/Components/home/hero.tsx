@@ -75,9 +75,9 @@ export default function Hero() {
       <section className="airpods">
         <img src={isDesktop ? airpodsDesktop : airpods} alt="AirPods Max" />
         <h3>
-          Apple AirPods <span>Max</span>
+          Apple AirPods <span>Max</span> <p>Computational audio. Listen, it’s powerful</p>
         </h3>
-        <p>Computational audio. Listen, it’s powerful</p>
+        
       </section>
 
       <section className="visionpro">
