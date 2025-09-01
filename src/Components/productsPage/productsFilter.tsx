@@ -7,17 +7,17 @@ const ProductsFilter: React.FC<{ onSort: (value: string) => void }> = ({ onSort 
   const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const value = e.target.value;
     setSort(value);
-    onSort(value); // envia o valor para a página de produtos
+    onSort(value); 
   };
 
   return (
     <div className="filters-container">
-      {/* Botão de Filtros */}
+      {}
       <button className="filter-button">
         Filters <FaSlidersH />
       </button>
 
-      {/* Dropdown de ordenação */}
+      {}
       <select value={sort} onChange={handleChange} className="sort-select">
         <option value="high">By price: High to Low</option>
         <option value="low">By price: Low to High</option>
