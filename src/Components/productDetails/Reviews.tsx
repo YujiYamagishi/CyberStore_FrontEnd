@@ -3,7 +3,8 @@ import ronald from '../../assets/ronald.png';
 import darcy from '../../assets/darcy.png';
 import john from '../../assets/john.png';
 import { useState } from 'react';
-import { FaStar } from 'react-icons/fa';
+import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
+import { ChevronDown, ChevronUp } from 'lucide-react';
 
 const reviewsData = {
   averageRating: 4.8,
@@ -75,11 +76,21 @@ const visibleReviews = areAllReviewsVisible ? reviewsData.comments.length : 3;
       <h2 className="section-title">Reviews</h2>
       <div className="reviews-summary">
         <div className="summary-score">
-          <p className="average-rating">{reviewsData.averageRating}</p>
-          <div className="summary-stars">
-            <FaStar /><FaStar /><FaStar /><FaStar /><FaStar />
+          <div className="summary-rating-and-text">
+            <p className="average-rating">{reviewsData.averageRating}</p>
+            <p className="total-reviews">of {reviewsData.totalReviews} reviews</p>
           </div>
-          <p className="total-reviews">of {reviewsData.totalReviews} reviews</p>
+          <div className="summary-stars">
+            {[1, 2, 3, 4, 5].map((starValue) => {
+              if (reviewsData.averageRating >= starValue) {
+                return <FaStar key={starValue} />;
+              }
+              if (reviewsData.averageRating >= starValue - 0.5) {
+                return <FaStarHalfAlt key={starValue} />;
+              }
+              return <FaRegStar key={starValue} />;
+            })}
+          </div>
         </div>
         <div className="summary-bars">
           {reviewsData.ratings.map(item => (
@@ -104,7 +115,15 @@ const visibleReviews = areAllReviewsVisible ? reviewsData.comments.length : 3;
                 <p className="comment-date">{comment.date}</p>
               </div>
               <div className="comment-stars">
-                {'★'.repeat(comment.rating)}{'☆'.repeat(5 - comment.rating)}
+                {[1, 2, 3, 4, 5].map((starValue) => {
+                  if (comment.rating >= starValue) {
+                    return <FaStar key={starValue} />;
+                  }
+                  if (comment.rating >= starValue - 0.5) {
+                    return <FaStarHalfAlt key={starValue} />;
+                  }
+                  return <FaRegStar key={starValue} />;
+                })}
               </div>
               <p className="comment-text">{comment.text}</p>
             </div>
@@ -116,6 +135,7 @@ const visibleReviews = areAllReviewsVisible ? reviewsData.comments.length : 3;
         <div className="view-more-container">
           <button className="view-more-button" onClick={toggleReviews}>
             {areAllReviewsVisible ? 'View Less' : 'View More'}
+            {areAllReviewsVisible ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
           </button>
         </div>
       )}

@@ -8,8 +8,7 @@ export default function ProductDetails() {
   const { productId } = useParams();
 
   return (
-    <div>
-      <h1>ID do Produto: {productId}</h1>
+    <div className="page-content-wrapper">
       <ProductInfo />
       <Reviews />
       <RelatedProducts />

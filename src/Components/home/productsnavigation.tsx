@@ -54,7 +54,7 @@ export default function ProductsNavigation() {
   }, []);
 
   if (isDesktop) {
-    // DESKTOP VIEW
+  
     return (
       <section className="product-grid-wrapper">
         {products.map((product) => (
@@ -79,7 +79,7 @@ export default function ProductsNavigation() {
     );
   }
 
-  // MOBILE VIEW
+
   const product = products[currentIndex];
 
   return (
