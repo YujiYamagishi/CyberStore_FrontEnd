@@ -897,7 +897,7 @@ body {
     grid-template-columns: repeat(4, 1fr);
     grid-template-rows: auto auto;
 
-    gap: 15px;
+    gap: 1px;
 
     
    
@@ -906,46 +906,111 @@ body {
 
  
   .iphone {
-    grid-column: 1 / span 4;
-    grid-row: 1;
-    padding: 60px 40px;
-    text-align: left;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-  }
-  .iphone img {
-    max-width: 400px;
-    margin: 0;
-  }
-  .iphone-text {
-    max-width: 500px;
-  }
+  grid-column: 1 / span 4;
+  grid-row: 1;
+  padding: 60px 80px; 
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+
+
+.iphone img {
+  width: 406px;      
+  height: auto;       
+  object-fit: contain;
+  margin-right: 40px; 
+}
+
+.iphone-text {
+  max-width: 500px;
+  color: #fff;
+}
+
+.iphone-text h1 {
+  font-size: 56px;
+  font-weight: 600;
+  margin: 0;
+}
+
+.iphone-text p {
+  font-size: 18px;
+  margin: 15px 0;
+  color: #ccc;
+}
+
+.iphone-text button {
+  background: transparent;
+  border: 1px solid #fff;
+  padding: 10px 20px;
+  color: #fff;
+  cursor: pointer;
+  font-size: 16px;
+  border-radius: 4px;
+}
+
+
+
 
   
   .playstation {
-    grid-column: 1 / span 2;
-    grid-row: 2;
-  }
+  grid-column: 1 / span 2;
+  grid-row: 2;
+  width: 720px;
+  height: 328px;
+  background: #f5f5f5;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
 
 
-  .macbook {
-    grid-column: 3 / span 2;
-    grid-row: 2;
 
-  }
+.macbook {
+  grid-column: 3 / span 2;
+  grid-row: 2 / span 2;
+  background: #f5f5f5;
+  width: 720px;
+  height: 600px;
+  padding: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: stretch;
+}
 
  
-  .airpods {
-    grid-column: 1;
-    grid-row: 3;
-  }
+ .airpods {
+  grid-column: 1;
+  grid-row: 3;
+  background: #fff;
+  width: 360px;
+  height: 272px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
+
+.visionpro {
+  grid-column: 2;
+  grid-row: 3;
+  background: #111;
+  color: #fff;
+  width: 360px;
+  height: 272px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+}
 
 
-  .visionpro {
-    grid-column: 2;
-    grid-row: 3;
-  }
 
   .category-grid {
     display: flex;

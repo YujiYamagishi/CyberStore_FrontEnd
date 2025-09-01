@@ -1,43 +1,59 @@
+import { useState, useEffect } from 'react'
 import iphone from '../../assets/iphone.png'
+import iphoneDesktop from '../../assets/iphone-desktop.png'
 import airpods from '../../assets/airpods.png'
+import airpodsDesktop from '../../assets/airpods-desktop.png'
 import visionpro from '../../assets/visionpro.png'
+import visionproDesktop from '../../assets/visionpro-desktop.png'
 import playstation from '../../assets/playstation.png'
+import playstationDesktop from '../../assets/playstation-desktop.png'
 import macbook from '../../assets/macbook.png'
+import macbookDesktop from '../../assets/macbook-desktop.png'
 
 export default function Hero() {
+  const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024)
+
+  useEffect(() => {
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024)
+    window.addEventListener('resize', handleResize)
+    return () => window.removeEventListener('resize', handleResize)
+  }, [])
+
   return (
     <div className="hero-container">
       <section className="iphone">
-        <div className="iphone-text">
-          <p className="subtitle">Pro. Beyond.</p>
-          <h2>
-            IPhone 14 <span>Pro</span>
-          </h2>
-          <p className="desc">Created to change everything for the better. For everyone.</p>
-          <button className="btn-iphone">Shop Now</button>
-        </div>
-        <img src={iphone} alt="iPhone 14 Pro" />
-      </section>
-
-      <section className="airpods">
-        <img src={airpods} alt="AirPods Max" />
-        <h3>
-          Apple AirPods<span>Max</span>
-        </h3>
-        <p>Computational audio. Listen, it’s powerful</p>
-      </section>
-
-      <section className="visionpro">
-        <img src={visionpro} alt="Apple Vision Pro" />
-        <h3>
-          Apple Vision <span>Pro</span>
-        </h3>
-        <p>An immersive way to experience entertainment</p>
+        {isDesktop ? (
+          <>
+            <div className="iphone-text">
+              <p className="subtitle">Pro. Beyond.</p>
+              <h2>
+                IPhone 14 <span>Pro</span>
+              </h2>
+              <p className="desc">Created to change everything for the better. For everyone.</p>
+              <button className="btn-iphone">Shop Now</button>
+            </div>
+            <img src={isDesktop ? iphoneDesktop : iphone} alt="iPhone 14 Pro" />
+          </>
+        ) : (
+          <>
+            <img src={isDesktop ? iphoneDesktop : iphone} alt="iPhone 14 Pro" />
+            <div className="iphone-text">
+              <p className="subtitle">Pro. Beyond.</p>
+              <h2>
+                IPhone 14 <span>Pro</span>
+              </h2>
+              <p className="desc">Created to change everything for the better. For everyone.</p>
+              <button className="btn-iphone">Shop Now</button>
+            </div>
+          </>
+        )}
       </section>
 
       <section className="playstation">
-        <img src={playstation} alt="Playstation 5" />
-        <h3>Playstation <span>5</span> </h3>
+        <img src={isDesktop ? playstationDesktop : playstation} alt="Playstation 5" />
+        <h3>
+          Playstation <span>5</span>
+        </h3>
         <p>
           Incredibly powerful CPU, GPU, and an SSD with integrated I/O will
           redefine your PlayStation experience.
@@ -45,13 +61,31 @@ export default function Hero() {
       </section>
 
       <section className="macbook">
-        <img src={macbook} alt="Macbook Air" />
-        <h3>Macbook <span>Air</span></h3>
+        <img src={isDesktop ? macbookDesktop : macbook} alt="Macbook Air" />
+        <h3>
+          Macbook <span>Air</span>
+        </h3>
         <p>
           The new 15-inch MacBook Air makes room for more of what you love with
           a spacious Liquid Retina display.
         </p>
         <button className="btn-mac">Shop Now</button>
+      </section>
+
+      <section className="airpods">
+        <img src={isDesktop ? airpodsDesktop : airpods} alt="AirPods Max" />
+        <h3>
+          Apple AirPods <span>Max</span>
+        </h3>
+        <p>Computational audio. Listen, it’s powerful</p>
+      </section>
+
+      <section className="visionpro">
+        <img src={isDesktop ? visionproDesktop : visionpro} alt="Apple Vision Pro" />
+        <h3>
+          Apple Vision <span>Pro</span>
+        </h3>
+        <p>An immersive way to experience entertainment</p>
       </section>
     </div>
   )
