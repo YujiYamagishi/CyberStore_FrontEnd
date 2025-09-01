@@ -1,87 +1,117 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import ProductsFilter from "../Components/productsPage/productsFilter";
 import ProductCard from "../Components/card";
 import "../styles/products.css";
 
-import iphone14gold from "../assets/iphone14gold.png";
+type Product = {
+  id: number;
+  title: string;
+  price: string;
+  image: string;
+};
 
-const productsData = Array.from({ length: 20 }, (_, i) => ({
-  id: i + 1,
-  title: `Produto Demo ${i + 1}`,
-  price: `$${(i + 1) * 50}`,
-  image: iphone14gold,
-}));
+const priceToNumber = (value: string): number => {
+  const clean = value.replace(/[^\d.,-]/g, "").replace(/,/g, "");
+  const n = parseFloat(clean);
+  return isNaN(n) ? 0 : n;
+};
 
 export default function Products() {
+  const [products, setProducts] = useState<Product[]>([]);
+  const [filtered, setFiltered] = useState<Product[]>([]);
+  const [sortOption, setSortOption] = useState("high");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedProducts = productsData.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
+  const location = useLocation();
+  const query = new URLSearchParams(location.search).get("search") || "";
 
-  const totalPages = Math.ceil(productsData.length / itemsPerPage);
+  useEffect(() => {
+    fetch("/products.json")
+      .then((res) => res.json())
+      .then((data) => {
+        const normalized = (data.products || []).map((p: any) => ({
+          ...p,
+          price: String(p.price),
+        }));
+        setProducts(normalized);
+      })
+      .catch(() => setProducts([]));
+  }, []);
+
+  useEffect(() => {
+    let result = query
+      ? products.filter((p) =>
+          p.title.toLowerCase().includes(query.toLowerCase())
+        )
+      : products;
+
+    if (sortOption === "high") {
+      result = [...result].sort(
+        (a, b) => priceToNumber(b.price) - priceToNumber(a.price)
+      );
+    } else if (sortOption === "low") {
+      result = [...result].sort(
+        (a, b) => priceToNumber(a.price) - priceToNumber(b.price)
+      );
+    } else if (sortOption === "name") {
+      result = [...result].sort((a, b) => a.title.localeCompare(b.title));
+    }
+
+    setFiltered(result);
+    setCurrentPage(1);
+  }, [products, query, sortOption]);
+
+  const startIndex = (currentPage - 1) * itemsPerPage;
+  const paginatedProducts = filtered.slice(startIndex, startIndex + itemsPerPage);
+  const totalPages = Math.ceil(filtered.length / itemsPerPage);
 
   return (
     <main className="products-page">
-      <ProductsFilter onSort={() => {}} />
+      <ProductsFilter onSort={setSortOption} />
 
       <p className="products-count">
-        Products Result: <strong>{productsData.length}</strong>
+        Products Result: <strong>{filtered.length}</strong>
       </p>
 
       <div className="products-grid">
-        {paginatedProducts.map((p) => (
-          <ProductCard key={p.id} {...p} />
-        ))}
+        {paginatedProducts.length > 0 ? (
+          paginatedProducts.map((p) => <ProductCard key={p.id} {...p} />)
+        ) : (
+          <p>No products found.</p>
+        )}
       </div>
 
-      {/* Paginação */}
-      <div className="pagination">
-        {/* Botão Anterior */}
-        <button
-          className="page-btn prev"
-          disabled={currentPage === 1}
-          onClick={() => setCurrentPage((p) => p - 1)}
-        >
-          &lt;
-        </button>
+      {totalPages > 1 && (
+        <div className="pagination">
+          <button
+            className="page-btn prev"
+            disabled={currentPage === 1}
+            onClick={() => setCurrentPage((p) => p - 1)}
+          >
+            &lt;
+          </button>
 
-        {/* Números da paginação */}
-        {Array.from({ length: totalPages }, (_, i) => i + 1)
-          .filter((page) => {
-            // mostra sempre primeira e última
-            if (page === 1 || page === totalPages) return true;
-            // mostra as 2 próximas e anteriores da página atual
-            if (page >= currentPage - 1 && page <= currentPage + 1) return true;
-            return false;
-          })
-          .map((page, idx, arr) => (
-            <React.Fragment key={page}>
-              {/* Adiciona reticências quando há "pulo" */}
-              {idx > 0 && arr[idx - 1] !== page - 1 && (
-                <span className="dots">...</span>
-              )}
-              <button
-                className={`page-btn ${currentPage === page ? "active" : ""}`}
-                onClick={() => setCurrentPage(page)}
-              >
-                {page}
-              </button>
-            </React.Fragment>
+          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+            <button
+              key={page}
+              className={`page-btn ${currentPage === page ? "active" : ""}`}
+              onClick={() => setCurrentPage(page)}
+            >
+              {page}
+            </button>
           ))}
 
-        {/* Botão Próximo */}
-        <button
-          className="page-btn next"
-          disabled={currentPage === totalPages}
-          onClick={() => setCurrentPage((p) => p + 1)}
-        >
-          &gt;
-        </button>
-      </div>
+          <button
+            className="page-btn next"
+            disabled={currentPage === totalPages}
+            onClick={() => setCurrentPage((p) => p + 1)}
+          >
+            &gt;
+          </button>
+        </div>
+      )}
     </main>
   );
 }
