@@ -1,12 +1,12 @@
 import { useState } from "react";
 
-import { Menu, X } from "lucide-react";
+
 import "../styles/index.css";
 import { Link } from 'react-router-dom';
 
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
-import { Link } from "react-router-dom";
-import "../styles/index.css";
+
+
 
 
 type NavbarProps = {
