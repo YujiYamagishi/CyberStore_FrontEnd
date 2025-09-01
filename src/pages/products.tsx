@@ -1,6 +1,6 @@
 import React, { useState } from "react";
-import ProductsFilter from "../components/productsPage/productsFilter";
-import ProductCard from "../components/card";
+import ProductsFilter from "../Components/productsPage/productsFilter";
+import ProductCard from "../Components/card";
 import "../styles/products.css";
 
 import iphone14gold from "../assets/iphone14gold.png";
