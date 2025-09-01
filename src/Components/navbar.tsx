@@ -1,13 +1,8 @@
 import { useState } from "react";
-
-
-import "../styles/index.css";
-import { Link } from 'react-router-dom';
-
+import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
 
-
-
+import "../styles/index.css";
 
 type NavbarProps = {
   onSearch: (query: string) => void;
@@ -16,10 +11,21 @@ type NavbarProps = {
 export default function Navbar({ onSearch }: NavbarProps) {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
+  const navigate = useNavigate();
 
   const handleSearchChange = (value: string) => {
     setSearchTerm(value);
-    onSearch(value); 
+    onSearch(value);
+  };
+
+  const handleSearchSubmit = () => {
+    const query = searchTerm.trim();
+    if (query !== "") {
+      onSearch(query);
+      navigate(`/products?search=${encodeURIComponent(query)}`);
+    } else {
+      navigate("/products");
+    }
   };
 
   return (
@@ -36,15 +42,18 @@ export default function Navbar({ onSearch }: NavbarProps) {
             onChange={(e) => handleSearchChange(e.target.value)}
             className="w-full p-2 border rounded-md"
           />
-          <button className="absolute right-2 top-2">
+          <button
+            className="absolute right-2 top-2"
+            onClick={handleSearchSubmit}
+          >
             <Search size={20} />
           </button>
         </div>
 
         {}
         <div className="navbar-links hidden md:flex">
-          <a href="#">Home</a>
-          <a><Link to="/products">Shop</Link></a>
+          <Link to="/">Home</Link>
+          <Link to="/products">Shop</Link>
           <a href="#">Contact Us</a>
           <a href="#">Blog</a>
         </div>
@@ -68,7 +77,6 @@ export default function Navbar({ onSearch }: NavbarProps) {
       {}
       {isOpen && (
         <div className="navbar-mobile-menu">
-          {}
           <div className="navbar-search flex md:hidden relative w-full">
             <input
               type="text"
@@ -77,13 +85,16 @@ export default function Navbar({ onSearch }: NavbarProps) {
               onChange={(e) => handleSearchChange(e.target.value)}
               className="w-full p-2 border rounded-md"
             />
-            <button className="absolute right-2 top-2">
+            <button
+              className="absolute right-2 top-2"
+              onClick={handleSearchSubmit}
+            >
               <Search size={20} />
             </button>
           </div>
 
           <ul>
-            <li>Home</li>
+            <li><Link to="/">Home</Link></li>
             <li><Link to="/products">Shop</Link></li>
             <li>Contact Us</li>
             <li>Blog</li>
