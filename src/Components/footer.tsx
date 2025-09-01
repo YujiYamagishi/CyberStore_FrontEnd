@@ -5,7 +5,7 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         
-        {/* Coluna esquerda */}
+        {}
         <div className="footer-left">
           <h1>cyber</h1>
           <p>
@@ -20,7 +20,7 @@ function Footer() {
           </div>
         </div>
 
-        {/* Coluna do meio */}
+        {}
         <div className="footer-section">
           <h2>Services</h2>
           <ul>
@@ -33,7 +33,7 @@ function Footer() {
           </ul>
         </div>
 
-        {/* Coluna direita */}
+        {}
         <div className="footer-section">
           <h2>Assistance to the buyer</h2>
           <ul>

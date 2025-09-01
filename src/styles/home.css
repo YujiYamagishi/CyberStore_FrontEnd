@@ -9,8 +9,12 @@
 
 body {
   background: #ffffff;
-  color: #111;
-  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 
@@ -20,9 +24,11 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  height:88px;
   z-index: 50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: sans-serif;
+  padding: 24px 16px;
 }
 
 .navbar-container {
@@ -36,6 +42,9 @@ body {
   font-size: 1.25rem;
   font-weight: bold;
   color: black;
+  width: 40px;
+  height: 40px;
+ 
 }
 
 .navbar-toggle {
@@ -50,6 +59,7 @@ body {
 .navbar-mobile-menu {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width:40px;
 }
 
 .navbar-mobile-menu ul {
@@ -70,99 +80,208 @@ body {
   color: black;
 }
 
+.navbar-search {
+  flex: 1;
+  display: none;
+}
+
+.navbar-search input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #f5f5f5;
+  font-size: 0.9rem;
+  display: none;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  display: none;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #333;
+  display: none;
+}
+
+.navbar-links a:hover {
+  color: #000;
+  font-weight: 500;
+  display: none;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  display: none;
+}
+
+
 .iphone {
-  background: #111;
+  background: #211C24;
   color: #fff;
+  width: 100%;
+  height: 769px;  
+  position: relative;
+  overflow: hidden;
+  padding-top: 150px;
+  margin: 0;
+}
+
+.iphone-text {
   text-align: center;
-  padding: 100px 20px 40px; 
 }
 
 .iphone img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;             
+  transform: translateX(-50%); 
   width: 100%;
-  max-width: 320px;
-  margin: 20px auto 0;
-  display: block;
-}
-
-.iphone-text h2 {
-  font-size: 2rem;
-  margin: 10px 0;
-}
-
-.iphone-text span {
-  font-weight: bold;
+  width: 321px;
+  height: 289px;
 }
 
 .subtitle {
-  opacity: 0.8;
-  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 32px;
+  letter-spacing: 0;
+  text-align: center;
+  opacity: 0.4;
+  margin: 0; 
 }
 
+
+.iphone-text h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 100; 
+  font-size: 72px;
+  line-height: 72px;
+  letter-spacing: -1%;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.iphone-text h2 span {
+  display: block;
+  font-weight: 600; 
+  font-size: 72px;
+  line-height: 72px;
+  letter-spacing: -1%;
+  margin-top: -10px; 
+}
+
+
 .desc {
-  margin: 10px 0 20px;
-  font-size: 0.9rem;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 250px;
+  margin: 10px auto 20px;
 }
 
 .btn-iphone {
-  background: none;
+  display: inline-flex; 
+  align-items: center;  
+  justify-content: center; 
+  padding: 16px 56px;
+  border-radius: 6px;
   border: 1px solid #fff;
-  padding: 10px 20px;
+  background: none;
   color: #fff;
   font-size: 0.9rem;
   cursor: pointer;
-  border-radius: 5px;
+  
+  white-space: nowrap;
+  transition: 0.3s;
 }
 
 .btn-iphone:hover {
-  background: #ffffff;
-  color: #000000;
+  background: #fff;
+  color: #000;
 }
 
 
 
 .airpods {
-  background: #fff;
+  background: #EDEDED;
   margin: 15px 0;
   padding: 20px;
   text-align: center;
 }
 .airpods img {
-  max-width: 180px;
+  width: 192px;
+  height:200px ;
   margin-bottom: 15px;
 }
 .airpods h3 {
-  font-size: 1.1rem;
+  font-weight: 300; 
+  font-size: 34px; 
+  line-height: 40px; 
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
+
 .airpods span {
   font-weight: bold;
+  padding-left: 8px;
 }
+
 .airpods p {
-  font-size: 0.85rem;
-  color: #444;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto; 
 }
 
 
 .visionpro {
-  background: #111;
+  background: #353535;
   color: #fff;
+  font-weight: 300; 
+  font-size: 34px; 
+  line-height: 40px; 
+  letter-spacing: 0;
   text-align: center;
   padding: 20px;
 }
 .visionpro p {
-  color: #ddd;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto;
 }
 
 .visionpro h3 {
-  font-size: 1.1rem;
+  font-weight: 300; 
+  font-size: 34px; 
+  line-height: 40px; 
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
 .visionpro span {
   font-weight: bold;
-}
-.visionpro p {
-  font-size: 0.85rem;
-  color: #ffffff;
 }
 
 
@@ -173,52 +292,94 @@ body {
   text-align: center;
 }
 .playstation img {
-  max-width: 180px;
+  width: 200px;
+  height: 200px;
   margin-bottom: 15px;
 }
+
+
 .playstation h3 {
-  font-size: 1.1rem;
+  font-weight: 300; 
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
-.playstation {
-  font-weight: bold;
+
+.playstation h3 span {
+  font-weight: 500; 
 }
 .playstation p {
-  font-size: 0.85rem;
-  color: #444;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto;
 }
 
+
+
 .macbook {
-  background: #fff;
+  background: #EDEDED;
   margin: 15px 0;
   padding: 20px;
   text-align: center;
 }
+
 .macbook img {
-  max-width: 180px;
+  width: 330px;
   margin-bottom: 15px;
 }
+
 .macbook h3 {
-  font-size: 1.1rem;
+  font-weight: bold; 
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
-.macbook {
-  font-weight: bold;
+
+.macbook span{
+   font-weight: 200; 
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 5px;
 }
+
+
 .macbook p {
-  font-size: 0.85rem;
-  color: #444;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto;
 }
 
 .btn-mac {
-  background: #000000;
+  display: inline-flex; 
+  align-items: center;  
+  justify-content: center; 
+  padding: 16px 56px;
+  border-radius: 6px;
   border: 1px solid #000000;
-  padding: 10px 20px;
-  color: #ffffff;
-  font-size: 0.9rem;
+  background: none;
+  color: #000000;
+  font-size: 16px;
   cursor: pointer;
-  border-radius: 5px;
+  margin-top: 20px;
 }
+
+
 .btn-mac:hover {
   background: #ffffff;
   color: #111;
@@ -234,10 +395,11 @@ body {
 }
 
 .browse-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  font-weight: 500; 
+  font-size: 14px;
+  line-height: 32px;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 .browse-arrows span {
@@ -254,12 +416,19 @@ body {
 
 .category-card {
   background-color: #EDEDED;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 15px; 
+  padding: 24px 52px;  
   text-align: center;
+  align-items: center;
   transition: transform 0.2s;
   cursor: pointer;
+  min-width: 135px;    
+  height: 128px;      
+  display: flex;
+  flex-direction: column;
+  gap: 8px;            
 }
+
 
 .category-card:hover {
   transform: scale(1.05);
@@ -271,9 +440,10 @@ body {
 }
 
 
+
+
 .suggest-container {
   padding: 1.5rem;
-  font-family: sans-serif;
 }
 
 .tabs {
@@ -319,6 +489,7 @@ body {
 .product-title {
   font-size: 14px;
   margin: 0.5rem 0;
+  
 }
 
 .product-price {
@@ -344,22 +515,22 @@ body {
 
 
 
+
+
 .product-mobile-container {
-  max-width:100%;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  width:100%;
+  height: 723px;
+  padding: 56px 32px;
   text-align: center;
-  font-family: sans-serif;
 }
 
 .product-nav-images {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
   margin-top:2rem;
-  
+  height: 331px;
 }
+
 
 .button-product-nav {
   margin-top: 2rem;
@@ -412,17 +583,30 @@ body {
 }
 
 
-.discount-title {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+.discount-title-text {
+  font-size: 16px;
+  font-weight: 500;
+  height: 48px;
 }
 
+.discount-price{
+  font-size: 24px;
+  font-weight: 600;
+  height: 24px;
+}
 
 .discount-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 1rem; 
+}
+
+.buy-button{
+  margin-top: 20px;
+  padding: 12px 50px;
+  font-size: 14px;
+  max-width: 139px;
+  text-align: center;
 }
 
 
@@ -433,7 +617,9 @@ body {
   text-align: center;
   position: relative;
   width: 100%; 
+  height: 352px;
   box-sizing: border-box;
+  margin-top: 20px;
 }
 
 
@@ -443,8 +629,8 @@ body {
 
 
 .discount-img { 
-  width: 100%; 
-  height: auto; 
+  width: 104px; 
+  height: 104px; 
   max-height: 120px; 
   object-fit: contain; 
   display: block; 
@@ -512,23 +698,21 @@ body {
 }
 
 
-.big-summer__btn {
-  display: inline-block;
-  background: transparent;
-  border: 2px solid #ffffff;
-  color: #ffffff;
-  padding: 14px 34px;
-  border-radius: 10px;
-  font-size: 1rem;
+.big-summer-text .btn {
+  background-color: transparent; 
+  color: #fff; 
+  border: 1px solid #fff; 
+  padding: 12px 30px; 
+  font-size: 16px;
+  border-radius: 6px; 
   cursor: pointer;
- 
-}
-.big-summer__btn:hover {
-  background: #ffffff;
-  color: #000000;
-  box-shadow: 0 8px 30px rgba(255,255,255,0.08);
+  transition: all 0.3s ease; 
 }
 
+.big-summer-text .btn:hover {
+  background-color: rgba(255, 255, 255, 0.1); 
+  border-color: #fff; 
+}
 
 
 
@@ -541,6 +725,7 @@ body {
   color: #ddd;
   text-align: center;
   padding: 3rem 1rem;
+  height: 816px;
 }
 
 .footer h1 {
@@ -559,12 +744,13 @@ body {
 
 .footer-section {
   margin-bottom: 2rem;
+  margin-top: 20px;
 }
 
 .footer h2 {
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 16px;
   color: #fff;
 }
 
@@ -600,7 +786,156 @@ body {
 
 
 @media (min-width: 1024px) {
-.category-grid {
+
+  .navbar {
+  width: 100%;
+  background: #fff;
+  border-bottom: 1px solid #eee;
+  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1000;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 20px;
+}
+
+.navbar-logo {
+  font-size: 1.2rem;
+  font-weight: bold;
+  color: #000;
+  white-space: nowrap;
+}
+
+.navbar-search {
+  flex: 1;
+  display: flex;
+}
+
+.navbar-search input {
+  width: 100%;
+  padding: 8px 12px;
+  border: 1px solid #e5e5e5;
+  border-radius: 6px;
+  background: #f5f5f5;
+  font-size: 0.9rem;
+  display: flex;
+}
+
+.navbar-links {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  display: flex;
+}
+
+.navbar-links a {
+  text-decoration: none;
+  font-size: 0.9rem;
+  color: #333;
+  display: flex;
+}
+
+.navbar-links a:hover {
+  color: #000;
+  font-weight: 500;
+  display: flex;
+}
+
+.navbar-icons {
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  display: flex;
+}
+
+.navbar-toggle {
+  display: none;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #333;
+}
+
+.navbar-mobile-menu {
+  display: none;
+  flex-direction: column;
+  background: #fff;
+  padding: 15px;
+  border-top: 1px solid #eee;
+}
+
+.navbar-mobile-menu ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.navbar-mobile-menu li {
+  padding: 12px 0;
+  border-bottom: 1px solid #f0f0f0;
+  font-size: 1rem;
+}
+
+
+  .hero-container {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    grid-template-rows: auto auto;
+    gap: 15px;
+    padding: 20px;
+  }
+
+ 
+  .iphone {
+    grid-column: 1 / span 4;
+    grid-row: 1;
+    padding: 60px 40px;
+    text-align: left;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .iphone img {
+    max-width: 400px;
+    margin: 0;
+  }
+  .iphone-text {
+    max-width: 500px;
+  }
+
+  
+  .playstation {
+    grid-column: 1 / span 2;
+    grid-row: 2;
+  }
+
+
+  .macbook {
+    grid-column: 3 / span 2;
+    grid-row: 2;
+  }
+
+ 
+  .airpods {
+    grid-column: 1;
+    grid-row: 3;
+  }
+
+
+  .visionpro {
+    grid-column: 2;
+    grid-row: 3;
+  }
+
+  .category-grid {
     display: flex;
     overflow-x: auto;
     gap: 1rem;
@@ -734,8 +1069,8 @@ body {
   font-size: 15px;
   margin: 0.5rem 0 0.75rem;
   color: #111;
-  min-height: 40px; 
-
+  
+}
 
 .product-price {
   font-weight: bold;
@@ -781,57 +1116,59 @@ body {
     padding: 0.6rem 1.2rem;
   }
 
-  .footer {
-  background: #000;
-  color: #ddd;
-  padding: 3rem 5%;
+
+.footer {
+  background-color: #000;
+  color: #fff;
+  padding: 60px 20px;
+  font-family: Arial, sans-serif;
 }
 
 .footer-container {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr; 
-  gap: 4rem;
-  max-width: 1200px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 48px;
+  max-width: 1240px;
   margin: 0 auto;
 }
 
 
 .footer-left h1 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 1rem;
-  color: #fff;
+  font-size: 20px;
+  font-weight: bold;
+  margin: 0 0 16px;
 }
 
 .footer-left p {
   font-size: 14px;
-  max-width: 300px;
   line-height: 1.6;
-  margin-bottom: 2rem;
+  margin: 0 0 20px;
+  color: #ccc;
 }
 
-.footer-left .social {
+.social {
   display: flex;
-  gap: 1.2rem;
-}
-
-.footer-left .social a {
-  color: #ddd;
+  gap: 16px;
   font-size: 18px;
-  text-decoration: none;
-  transition: color 0.3s ease;
 }
 
-.footer-left .social a:hover {
+.social a {
   color: #fff;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.social a:hover {
+  opacity: 0.7;
 }
 
 
 .footer-section h2 {
   font-size: 16px;
-  font-weight: 600;
-  margin-bottom: 1rem;
-  color: #fff;
+  margin-bottom: 16px;
+  font-weight: bold;
 }
 
 .footer-section ul {
@@ -840,16 +1177,19 @@ body {
   margin: 0;
 }
 
-.footer-section ul li {
+.footer-section li {
+  margin-bottom: 12px;
   font-size: 14px;
-  margin: 0.5rem 0;
+  color: #ccc;
   cursor: pointer;
+  transition: color 0.3s;
 }
 
-.footer-section ul li:hover {
+.footer-section li:hover {
   color: #fff;
 }
-}
+
+
 
 
 

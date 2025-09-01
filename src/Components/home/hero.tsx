@@ -6,8 +6,7 @@ import macbook from '../../assets/macbook.png'
 
 export default function Hero() {
   return (
-    <>
-      
+    <div className="hero-container">
       <section className="iphone">
         <div className="iphone-text">
           <p className="subtitle">Pro. Beyond.</p>
@@ -20,16 +19,14 @@ export default function Hero() {
         <img src={iphone} alt="iPhone 14 Pro" />
       </section>
 
-      
       <section className="airpods">
         <img src={airpods} alt="AirPods Max" />
         <h3>
-          Apple <span>AirPods Max</span>
+          Apple AirPods<span>Max</span>
         </h3>
         <p>Computational audio. Listen, it’s powerful</p>
       </section>
 
-     
       <section className="visionpro">
         <img src={visionpro} alt="Apple Vision Pro" />
         <h3>
@@ -38,26 +35,24 @@ export default function Hero() {
         <p>An immersive way to experience entertainment</p>
       </section>
 
-      
       <section className="playstation">
         <img src={playstation} alt="Playstation 5" />
-        <h3>Playstation 5</h3>
+        <h3>Playstation <span>5</span> </h3>
         <p>
           Incredibly powerful CPU, GPU, and an SSD with integrated I/O will
           redefine your PlayStation experience.
         </p>
       </section>
 
-      
       <section className="macbook">
         <img src={macbook} alt="Macbook Air" />
-        <h3>Macbook Air</h3>
+        <h3>Macbook <span>Air</span></h3>
         <p>
           The new 15-inch MacBook Air makes room for more of what you love with
           a spacious Liquid Retina display.
         </p>
         <button className="btn-mac">Shop Now</button>
       </section>
-    </>
-  );
+    </div>
+  )
 }
