@@ -473,10 +473,9 @@ body {
 }
 
 .product-card {
-  background: #fff;
+  background: #f6f6f6;
   padding: 1rem;
   border-radius: 12px;
-  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
   text-align: center;
 }
 
