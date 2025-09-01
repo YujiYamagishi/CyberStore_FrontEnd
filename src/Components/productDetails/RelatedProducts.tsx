@@ -8,26 +8,26 @@ import { Heart } from 'lucide-react';
 const relatedProductsData = [
   {
     id: 1,
-    title: 'Apple iPhone 14 Pro 512GB Gold',
+    title: 'Apple iPhone 14 Pro 512GB Gold (MQ233)',
     price: '$900',
     image: iphone14gold,
   },
   {
     id: 4,
     title: 'AirPods Max Silver',
-    price: '$549',
+    price: '$2535',
     image: airpods,
   },
   {
     id: 3,
-    title: 'Apple Watch Series 9 GPS 41mm',
+    title: 'Apple Watch Series 9 GPS 41mm Starlight Aluminium Case',
     price: '$399',
     image: watch,
   },
   {
     id: 8,
-    title: 'Apple iPhone 14 Pro 1TB Gold',
-    price: '$1499',
+    title: 'Apple iPhone 14 Pro 1TB Gold (MQ2V3)',
+    price: '$549',
     image: iphone14white,
   },
 ];
@@ -43,7 +43,9 @@ export default function RelatedProducts() {
               <Heart size={20} className="heart-icon"/>
             </div>
             <img src={product.image} alt={product.title} className="product-img" />
-            <h4 className="product-title">{product.title}</h4>
+            <h4 className="product-title" title={product.title}>
+              {product.title}
+            </h4>
             <p className="product-price">{product.price}</p>
             <Link to={`/product/${product.id}`}>
               <button className="buy-button">Buy Now</button>
