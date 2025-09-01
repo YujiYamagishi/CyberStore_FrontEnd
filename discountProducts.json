@@ -1,0 +1,26 @@
+[
+  {
+    "id": 1,
+    "title": "Apple iPhone 14 Pro 512GB Gold",
+    "price": "$900",
+    "image": "/assets/iphone14gold.png"
+  },
+  {
+    "id": 2,
+    "title": "AirPods Max Silver",
+    "price": "$2535",
+    "image": "/assets/airpods.png"
+  },
+  {
+    "id": 3,
+    "title": "Apple Watch Series 9 GPS 41mm",
+    "price": "$399",
+    "image": "/assets/applewatch.png"
+  },
+  {
+    "id": 4,
+    "title": "Apple iPhone 14 Pro 1TB Gold (Midnight)",
+    "price": "$549",
+    "image": "/assets/iphone14white.png"
+  }
+]
