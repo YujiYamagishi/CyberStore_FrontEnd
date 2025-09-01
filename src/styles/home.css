@@ -9,8 +9,12 @@
 
 body {
   background: #ffffff;
-  color: #111;
-  line-height: 1.5;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  overflow-x: hidden;
+  padding: 0;
+  margin: 0;
 }
 
 
@@ -20,9 +24,11 @@ body {
   top: 0;
   left: 0;
   width: 100%;
+  height:88px;
   z-index: 50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   font-family: sans-serif;
+  padding: 24px 16px;
 }
 
 .navbar-container {
@@ -36,6 +42,9 @@ body {
   font-size: 1.25rem;
   font-weight: bold;
   color: black;
+  width: 40px;
+  height: 40px;
+ 
 }
 
 .navbar-toggle {
@@ -50,6 +59,7 @@ body {
 .navbar-mobile-menu {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  width:40px;
 }
 
 .navbar-mobile-menu ul {
@@ -113,54 +123,93 @@ body {
 }
 
 
-
-
 .iphone {
-  background: #111;
+  background: #211C24;
   color: #fff;
+  width: 100%;
+  height: 769px;  
+  position: relative;
+  overflow: hidden;
+  padding-top: 150px;
+  margin: 0;
+}
+
+.iphone-text {
   text-align: center;
-  padding: 100px 20px 40px; 
 }
 
 .iphone img {
+  position: absolute;
+  bottom: 0;
+  left: 50%;             
+  transform: translateX(-50%); 
   width: 100%;
-  max-width: 320px;
-  margin: 20px auto 0;
-  display: block;
-}
-
-.iphone-text h2 {
-  font-size: 2rem;
-  margin: 10px 0;
-}
-
-.iphone-text span {
-  font-weight: bold;
+  width: 321px;
+  height: 289px;
 }
 
 .subtitle {
-  opacity: 0.8;
-  font-size: 1rem;
+  font-family: 'Inter', sans-serif;
+  font-weight: 600;
+  font-size: 25px;
+  line-height: 32px;
+  letter-spacing: 0;
+  text-align: center;
+  opacity: 0.4;
+  margin: 0; 
 }
 
+
+.iphone-text h2 {
+  font-family: 'Inter', sans-serif;
+  font-weight: 100; 
+  font-size: 72px;
+  line-height: 72px;
+  letter-spacing: -1%;
+  text-align: center;
+  margin: 10px 0;
+}
+
+.iphone-text h2 span {
+  display: block;
+  font-weight: 600; 
+  font-size: 72px;
+  line-height: 72px;
+  letter-spacing: -1%;
+  margin-top: -10px; 
+}
+
+
 .desc {
-  margin: 10px 0 20px;
-  font-size: 0.9rem;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 250px;
+  margin: 10px auto 20px;
 }
 
 .btn-iphone {
-  background: none;
+  display: inline-flex; 
+  align-items: center;  
+  justify-content: center; 
+  padding: 16px 56px;
+  border-radius: 6px;
   border: 1px solid #fff;
-  padding: 10px 20px;
+  background: none;
   color: #fff;
   font-size: 0.9rem;
   cursor: pointer;
-  border-radius: 5px;
+  
+  white-space: nowrap;
+  transition: 0.3s;
 }
 
 .btn-iphone:hover {
-  background: #ffffff;
-  color: #000000;
+  background: #fff;
+  color: #000;
 }
 
 
@@ -172,42 +221,67 @@ body {
   text-align: center;
 }
 .airpods img {
-  max-width: 180px;
+  width: 192px;
+  height:200px ;
   margin-bottom: 15px;
 }
 .airpods h3 {
-  font-size: 1.1rem;
+  font-weight: 300; 
+  font-size: 34px; 
+  line-height: 40px; 
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
+
 .airpods span {
   font-weight: bold;
+  padding-left: 8px;
 }
+
 .airpods p {
-  font-size: 0.85rem;
-  color: #444;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto; 
 }
 
 
 .visionpro {
   background: #353535;
   color: #fff;
+  font-weight: 300; 
+  font-size: 34px; 
+  line-height: 40px; 
+  letter-spacing: 0;
   text-align: center;
   padding: 20px;
 }
 .visionpro p {
-  color: #ddd;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto;
 }
 
 .visionpro h3 {
-  font-size: 1.1rem;
+  font-weight: 300; 
+  font-size: 34px; 
+  line-height: 40px; 
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
 .visionpro span {
   font-weight: bold;
-}
-.visionpro p {
-  font-size: 0.85rem;
-  color: #ffffff;
 }
 
 
@@ -218,20 +292,36 @@ body {
   text-align: center;
 }
 .playstation img {
-  max-width: 180px;
+  width: 200px;
+  height: 200px;
   margin-bottom: 15px;
 }
+
+
 .playstation h3 {
-  font-size: 1.1rem;
+  font-weight: 300; 
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
-.playstation {
-  font-weight: bold;
+
+.playstation h3 span {
+  font-weight: 500; 
 }
 .playstation p {
-  font-size: 0.85rem;
-  color: #444;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto;
 }
+
+
 
 .macbook {
   background: #EDEDED;
@@ -239,31 +329,57 @@ body {
   padding: 20px;
   text-align: center;
 }
+
 .macbook img {
-  max-width: 180px;
+  width: 330px;
   margin-bottom: 15px;
 }
+
 .macbook h3 {
-  font-size: 1.1rem;
+  font-weight: bold; 
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
   margin-bottom: 5px;
 }
-.macbook {
-  font-weight: bold;
+
+.macbook span{
+   font-weight: 200; 
+  font-size: 34px;
+  line-height: 40px;
+  letter-spacing: 0;
+  text-align: center;
+  margin-bottom: 5px;
 }
+
+
 .macbook p {
-  font-size: 0.85rem;
-  color: #444;
+  font-weight: 500; 
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0;
+  text-align: center;
+  color: #909090;
+  max-width: 317px; 
+  margin: 0 auto;
 }
 
 .btn-mac {
-  background: #000000;
+  display: inline-flex; 
+  align-items: center;  
+  justify-content: center; 
+  padding: 16px 56px;
+  border-radius: 6px;
   border: 1px solid #000000;
-  padding: 10px 20px;
-  color: #ffffff;
-  font-size: 0.9rem;
+  background: none;
+  color: #000000;
+  font-size: 16px;
   cursor: pointer;
-  border-radius: 5px;
+  margin-top: 20px;
 }
+
+
 .btn-mac:hover {
   background: #ffffff;
   color: #111;
@@ -279,10 +395,11 @@ body {
 }
 
 .browse-header {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  margin-bottom: 20px;
+  font-weight: 500; 
+  font-size: 14px;
+  line-height: 32px;
+  text-align: left;
+  margin-bottom: 5px;
 }
 
 .browse-arrows span {
@@ -299,12 +416,19 @@ body {
 
 .category-card {
   background-color: #EDEDED;
-  border-radius: 12px;
-  padding: 20px;
+  border-radius: 15px; 
+  padding: 24px 52px;  
   text-align: center;
+  align-items: center;
   transition: transform 0.2s;
   cursor: pointer;
+  min-width: 135px;    
+  height: 128px;      
+  display: flex;
+  flex-direction: column;
+  gap: 8px;            
 }
+
 
 .category-card:hover {
   transform: scale(1.05);
@@ -316,9 +440,10 @@ body {
 }
 
 
+
+
 .suggest-container {
   padding: 1.5rem;
-  font-family: sans-serif;
 }
 
 .tabs {
@@ -364,6 +489,7 @@ body {
 .product-title {
   font-size: 14px;
   margin: 0.5rem 0;
+  
 }
 
 .product-price {
@@ -389,22 +515,22 @@ body {
 
 
 
+
+
 .product-mobile-container {
-  max-width:100%;
-  margin: 0 auto;
-  padding: 2rem 1rem;
+  width:100%;
+  height: 723px;
+  padding: 56px 32px;
   text-align: center;
-  font-family: sans-serif;
 }
 
 .product-nav-images {
   display: flex;
   justify-content: center;
-  gap: 1rem;
-  margin-bottom: 1rem;
   margin-top:2rem;
-  
+  height: 331px;
 }
+
 
 .button-product-nav {
   margin-top: 2rem;
@@ -457,17 +583,30 @@ body {
 }
 
 
-.discount-title {
-  font-size: 1.25rem;
-  margin-bottom: 1rem;
-  font-weight: 600;
+.discount-title-text {
+  font-size: 16px;
+  font-weight: 500;
+  height: 48px;
 }
 
+.discount-price{
+  font-size: 24px;
+  font-weight: 600;
+  height: 24px;
+}
 
 .discount-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 1rem; 
+}
+
+.buy-button{
+  margin-top: 20px;
+  padding: 12px 50px;
+  font-size: 14px;
+  max-width: 139px;
+  text-align: center;
 }
 
 
@@ -478,7 +617,9 @@ body {
   text-align: center;
   position: relative;
   width: 100%; 
+  height: 352px;
   box-sizing: border-box;
+  margin-top: 20px;
 }
 
 
@@ -488,8 +629,8 @@ body {
 
 
 .discount-img { 
-  width: 100%; 
-  height: auto; 
+  width: 104px; 
+  height: 104px; 
   max-height: 120px; 
   object-fit: contain; 
   display: block; 
@@ -584,6 +725,7 @@ body {
   color: #ddd;
   text-align: center;
   padding: 3rem 1rem;
+  height: 816px;
 }
 
 .footer h1 {
@@ -602,12 +744,13 @@ body {
 
 .footer-section {
   margin-bottom: 2rem;
+  margin-top: 20px;
 }
 
 .footer h2 {
   font-size: 16px;
   font-weight: 600;
-  margin-bottom: 0.75rem;
+  margin-bottom: 16px;
   color: #fff;
 }
 
