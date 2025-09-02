@@ -57,7 +57,11 @@ body {
 .navbar-mobile-menu {
   background-color: white;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  width:40px;
+  width: 100%; 
+  position: absolute;
+  top: 88px; 
+  left: 0;
+  z-index: 40;
 }
 
 .navbar-mobile-menu ul {
@@ -67,8 +71,9 @@ body {
   padding: 1.5rem 0;
   gap: 1rem;
   font-weight: 500;
-  color: #4b5563; 
+  color: #4b5563;
 }
+
 
 .navbar-mobile-menu li {
   cursor: pointer;
