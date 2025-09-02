@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-import Navbar from "../navbar";
+
 import ProductCard from "../card"; 
 
 type Product = {
@@ -29,7 +29,7 @@ export default function Suggest() {
 
   return (
     <>
-      <Navbar onSearch={() => {}} />
+      
 
       <section className="suggest-container">
         <div className="tabs">

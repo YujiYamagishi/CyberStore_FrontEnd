@@ -1,5 +1,6 @@
 import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
+import '../styles/card.css'
 
 type ProductCardProps = {
   id: number;

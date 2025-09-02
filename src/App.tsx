@@ -5,6 +5,7 @@ import ProductsPage from './pages/productsPage';
 import Navbar from './Components/navbar';
 import Footer from './Components/footer';
 
+
 function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">

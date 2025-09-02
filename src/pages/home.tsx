@@ -7,6 +7,7 @@ import DiscountProducts from '../Components/home/discountproducts'
 import BigSummer from '../Components/home/bigsummer'
 import '../styles/home.css'
 
+
 function App() {
   return (
     <div className="min-h-screen bg-gray-50">
