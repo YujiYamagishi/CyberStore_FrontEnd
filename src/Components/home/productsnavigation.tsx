@@ -13,6 +13,7 @@ const products = [
     images: [popular],
     background: '#fff',
     color: '#000',
+    buttonWhite: false,
   },
   {
     id: 2,
@@ -22,6 +23,7 @@ const products = [
     images: [ipad],
     background: '#fff',
     color: '#000',
+    buttonWhite: false,
   },
   {
     id: 3,
@@ -31,6 +33,7 @@ const products = [
     images: [galaxy],
     background: '#f0f0f0',
     color: '#000',
+    buttonWhite: false,
   },
   {
     id: 4,
@@ -39,7 +42,8 @@ const products = [
       'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [macbook],
     background: '#424040ff',
-    color: '#2C2C2C',
+    color: '#fff', // texto branco
+    buttonWhite: true, // botão branco com texto branco
   },
 ];
 
@@ -48,14 +52,12 @@ export default function ProductsNavigation() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Layout para desktop (grid)
+  // Layout para desktop
   if (isDesktop) {
     return (
       <section className="product-grid-wrapper">
@@ -75,14 +77,25 @@ export default function ProductsNavigation() {
             </div>
             <h2>{product.title}</h2>
             <p>{product.description}</p>
-            <button className="product-grid-button">Shop Now</button>
+            <button
+              className="product-grid-button"
+              style={
+                product.buttonWhite
+                  ? { backgroundColor: product.background, 
+                    color: '#fff',   
+                    border: `1px solid #fff`, }
+                  : {}
+              }
+            >
+              Shop Now
+            </button>
           </div>
         ))}
       </section>
     );
   }
 
-  // Layout para mobile (navegação com dots)
+  // Layout para mobile
   const product = products[currentIndex];
 
   return (
@@ -107,7 +120,18 @@ export default function ProductsNavigation() {
       <h2>{product.title}</h2>
       <p>{product.description}</p>
 
-      <button className="button-product-nav">Shop Now</button>
+      <button
+        className="button-product-nav"
+        style={
+          product.buttonWhite
+            ? { backgroundColor: product.background, 
+                color: '#fff',   
+                border: `1px solid #fff`}
+            : {}
+        }
+      >
+        Shop Now
+      </button>
 
       <div className="product-nav-dots">
         {products.map((_, idx) => (
