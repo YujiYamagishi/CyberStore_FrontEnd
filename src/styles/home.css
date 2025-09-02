@@ -2,11 +2,12 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: Arial, sans-serif;
+  font-family: 'Inter';
 }
 
 
 body {
+  font-family: 'Inter';
   display: flex;
   justify-content: center;
   background: #ffffff;
@@ -25,7 +26,6 @@ body {
   height:88px;
   z-index: 50;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  font-family: sans-serif;
   padding: 24px 16px;
 }
 
@@ -152,7 +152,6 @@ body {
 }
 
 .subtitle {
-  font-family: 'Inter', sans-serif;
   font-weight: 600;
   font-size: 25px;
   line-height: 32px;
@@ -164,7 +163,6 @@ body {
 
 
 .iphone-text h2 {
-  font-family: 'Inter', sans-serif;
   font-weight: 100; 
   font-size: 72px;
   line-height: 72px;
@@ -205,7 +203,6 @@ body {
   color: #fff;
   font-size: 0.9rem;
   cursor: pointer;
-  
   white-space: nowrap;
   transition: 0.3s;
 }
@@ -264,6 +261,7 @@ body {
   text-align: center;
   padding: 20px;
 }
+
 .visionpro p {
   font-weight: 500; 
   font-size: 16px;
@@ -283,6 +281,7 @@ body {
   text-align: center;
   margin-bottom: 5px;
 }
+
 .visionpro span {
   font-weight: bold;
 }
@@ -392,7 +391,6 @@ body {
   max-width: 1000px;
   margin: 0 auto;
   padding: 2rem;
-  font-family: sans-serif;
 }
 
 .browse-header {
@@ -538,7 +536,7 @@ body {
   display: flex; 
   justify-content: center; 
   margin-top: 2rem; 
-  height: auto; /* deixa altura livre */ 
+  height: auto; 
 } 
   
   .product-nav-images img, 
@@ -588,13 +586,8 @@ body {
 
 
 
-
-
-
-
 .discount-section {
   padding: 1rem;
-  font-family: sans-serif;
   max-width: 100%;
   overflow-x: hidden;
 }
@@ -730,11 +723,6 @@ body {
   background-color: rgba(255, 255, 255, 0.1); 
   border-color: #fff; 
 }
-
-
-
-
-
 
 
 .footer {
@@ -916,35 +904,64 @@ body {
 .iphone {
   grid-column: 1 / span 4;
   grid-row: 1;
-  padding: 5% 8%;
+  padding: 5% 8%;        
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;  
+  gap: 40px;               
 }
 
 .iphone img {
   width: clamp(200px, 30%, 406px);
   height: auto;
   object-fit: contain;
-  margin-right: 2%;
+  margin-right: 0;        
+  margin-left: 350px;      
 }
 
 .iphone-text {
   max-width: 30%;
   color: #fff;
+  text-align: left;        
 }
 
-.iphone-text h1 {
-  font-size: clamp(32px, 3vw, 56px);
-  font-weight: 600;
+.iphone-text .subtitle {
+  font-size: 25px; 
+  font-weight: 500;                   
+  margin: 0 0 0.5rem 0;               
+  color: #fff;    
+  text-align: left;                    
+  margin-bottom: 20px;
+}
+
+.iphone-text h2 {
+  font-size: 96px;
+  font-weight: 300;
   margin: 0;
+  white-space: nowrap; 
 }
 
-.iphone-text p {
-  font-size: clamp(14px, 1.2vw, 18px);
-  margin: 1% 0;
-  color: #ccc;
+.iphone-text h2 span {
+  font-size: 96px;
+  font-weight: 400;   
+  display: inline;    
+  margin-left: 0.3rem; 
 }
+
+.iphone-text .desc {
+  font-size: 18px;
+  margin: 1% 0;
+  color: #909090;
+  white-space: nowrap; 
+  overflow: visible;    
+  text-overflow: ellipsis; 
+  margin-bottom: 20px;
+}
+
+
+
+
+
 .playstation {
   grid-column: 1 / span 2;
   grid-row: 2;
@@ -952,21 +969,21 @@ body {
   padding: 0;                     
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;  /* garante que fique colada à esquerda */   
+  justify-content: flex-start; 
   align-items: center;            
-  gap: 20px; /* espaço entre imagem e texto */
+  gap: 20px; 
 }
 
 .playstation img {
-  width: clamp(200px, 25vw, 360px);   /* cresce proporcionalmente até 360px */
-  height: auto;                        /* mantém proporção */
-  max-height: auto;                   /* altura máxima fixa */
+  width: clamp(200px, 25vw, 360px); 
+  height: auto;                      
+  max-height: auto;                  
   margin: 0;
   padding: 0;
 }
 
 .playstation .text {
-  margin-left: 0;     /* remove margem antiga */
+  margin-left: 0;     
   max-width: 360px;
 }
 
@@ -1084,18 +1101,18 @@ body {
   grid-row: 3;
   background: #353535;
   color: #fff;
-  padding: 0;                 /* remove padding que empurra a imagem */
+  padding: 0;                
   display: flex;
   flex-direction: row;
-  justify-content: flex-start; /* alinha todo conteúdo à esquerda */
+  justify-content: flex-start;
   align-items: center;
 }
 
 .visionpro img {
   width: 136px;
   height: auto;
-  margin: 0; /* remove margem */
-  padding: 0; /* remove padding */
+  margin: 0; 
+  padding: 0;
 }
 
 
@@ -1124,8 +1141,6 @@ body {
     flex: 0 0 auto;
     width: 140px;
   }
-
-
 
 
 
@@ -1312,7 +1327,6 @@ body {
   background-color: #000;
   color: #fff;
   padding: 90px 20px;
-  font-family: Arial, sans-serif;
 }
 
 .footer-container {
