@@ -1,29 +1,21 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
-
 import "../styles/index.css";
 
-type NavbarProps = {
-  onSearch: (query: string) => void;
-};
-
-export default function Navbar({ onSearch }: NavbarProps) {
+export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const navigate = useNavigate();
 
-  const handleSearchChange = (value: string) => {
-    setSearchTerm(value);
-    onSearch(value);
+  const handleSearch = () => {
+    navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
+    setIsOpen(false);
   };
 
-  const handleSearchSubmit = () => {
-    if (searchTerm.trim() !== "") {
-      onSearch(searchTerm); 
-      navigate(`/products?search=${encodeURIComponent(searchTerm)}`);
-    } else {
-      navigate("/products");
+  const handleSearchKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      handleSearch();
     }
   };
 
@@ -32,39 +24,37 @@ export default function Navbar({ onSearch }: NavbarProps) {
       <div className="navbar-container">
         <div className="navbar-logo">cyber</div>
 
-        {/* Search desktop */}
+        {/* Search bar para desktop */}
         <div className="navbar-search hidden md:flex relative w-96">
           <input
             type="text"
             placeholder="Search products..."
             value={searchTerm}
-            onChange={(e) => handleSearchChange(e.target.value)}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            onKeyPress={handleSearchKeyPress}
             className="w-full p-2 border rounded-md"
           />
-          <button
-            className="absolute right-2 top-2"
-            onClick={handleSearchSubmit}
-          >
+          <button onClick={handleSearch} className="absolute right-2 top-2">
             <Search size={20} />
           </button>
         </div>
 
-        {/* Links desktop */}
+        {/* Links de navegação para desktop */}
         <div className="navbar-links hidden md:flex">
-          <a href="#">Home</a>
+          <Link to="/">Home</Link>
           <Link to="/products">Shop</Link>
-          <a href="#">Contact Us</a>
-          <a href="#">Blog</a>
+          <Link to="/contact">Contact Us</Link>
+          <Link to="/blog">Blog</Link>
         </div>
 
-        {/* Icons */}
+        {/* Ícones de navegação */}
         <div className="navbar-icons">
           <Heart size={22} />
           <ShoppingCart size={22} />
           <User size={22} />
         </div>
 
-        {/* Toggle mobile */}
+        {/* Botão de menu mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="navbar-toggle md:hidden"
@@ -73,30 +63,22 @@ export default function Navbar({ onSearch }: NavbarProps) {
         </button>
       </div>
 
-      {/* Mobile menu */}
+      {/* Menu mobile sem a search bar */}
       {isOpen && (
         <div className="navbar-mobile-menu">
-          <div className="navbar-search flex md:hidden relative w-full">
-            <input
-              type="text"
-              placeholder="Search products..."
-              value={searchTerm}
-              onChange={(e) => handleSearchChange(e.target.value)}
-              className="w-full p-2 border rounded-md"
-            />
-            <button
-              className="absolute right-2 top-2"
-              onClick={handleSearchSubmit}
-            >
-              <Search size={20} />
-            </button>
-          </div>
-
           <ul>
-            <li>Home</li>
-            <li><Link to="/products">Shop</Link></li>
-            <li>Contact Us</li>
-            <li>Blog</li>
+            <li>
+              <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+            </li>
+            <li>
+              <Link to="/products" onClick={() => setIsOpen(false)}>Shop</Link>
+            </li>
+            <li>
+              <Link to="/contact" onClick={() => setIsOpen(false)}>Contact Us</Link>
+            </li>
+            <li>
+              <Link to="/blog" onClick={() => setIsOpen(false)}>Blog</Link>
+            </li>
           </ul>
         </div>
       )}
