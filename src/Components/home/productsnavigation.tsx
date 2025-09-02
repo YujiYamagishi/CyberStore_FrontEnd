@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import './ProductsNavigation.css';
 
 import popular from '../../assets/blue buds.png';
 import watch from '../../assets/applewatch.png';
@@ -20,7 +21,7 @@ const products = [
     title: 'Ipad Pro',
     description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [ipad],
-    background: '#f0f0f0',
+    background: '#fff',
     color: '#000',
   },
   {
@@ -28,7 +29,7 @@ const products = [
     title: 'Samsung Galaxy',
     description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [galaxy],
-    background: '#fff',
+    background: '#f0f0f0',
     color: '#000',
   },
   {
@@ -37,7 +38,7 @@ const products = [
     description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [macbook],
     background: '#424040ff',
-    color: '#ffffffff',
+    color: '#2C2C2C',
   },
 ];
 
@@ -54,7 +55,6 @@ export default function ProductsNavigation() {
   }, []);
 
   if (isDesktop) {
-  
     return (
       <section className="product-grid-wrapper">
         {products.map((product) => (
@@ -70,38 +70,35 @@ export default function ProductsNavigation() {
             </div>
             <h2>{product.title}</h2>
             <p>{product.description}</p>
-            <button className="product-grid-button">
-              Shop Now
-            </button>
+            <button className="product-grid-button">Shop Now</button>
           </div>
         ))}
       </section>
     );
   }
 
-
   const product = products[currentIndex];
 
   return (
-    <section className="product-mobile-container" style={{ backgroundColor: product.background, color: product.color }}>
+    <section
+      className="product-mobile-container"
+      style={{ backgroundColor: product.background, color: product.color }}
+    >
       <div className="product-nav-images">
         {product.images.map((imgSrc, i) => (
           <img
             key={i}
             src={imgSrc}
             alt={`${product.title} image ${i + 1}`}
-            style={{ maxWidth: '150px', maxHeight: '150px', objectFit: 'contain' }}
+            className="product-image"
           />
         ))}
       </div>
+
       <h2>{product.title}</h2>
       <p>{product.description}</p>
 
-
-      <button className="button-product-nav">
-        Shop Now
-      </button>
-
+      <button className="button-product-nav">Shop Now</button>
 
       <div className="product-nav-dots">
         {products.map((_, idx) => (
