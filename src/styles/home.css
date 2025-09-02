@@ -332,8 +332,7 @@ body {
   margin-bottom: 15px;
 }
 
-.macbook h3 {
-  font-weight: bold; 
+.macbook h3 { 
   font-size: 34px;
   line-height: 40px;
   letter-spacing: 0;
@@ -342,7 +341,7 @@ body {
 }
 
 .macbook span{
-   font-weight: 200; 
+  font-weight: 200; 
   font-size: 34px;
   line-height: 40px;
   letter-spacing: 0;
@@ -819,6 +818,7 @@ body {
   font-weight: bold;
   color: #000;
   white-space: nowrap;
+  margin-top: 10px;
 }
 
 .navbar-search {
@@ -957,14 +957,31 @@ body {
   .playstation {
   grid-column: 1 / span 2;
   grid-row: 2;
-  width: 720px;
-  height: 328px;
   background: #f5f5f5;
-  padding: 40px;
+  padding: 0px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: center;
+  align-items: center; /* ← corrigido de "left" para "center" */
+}
+
+.playstation img {
+  width: 420px;
+  height: 413px;
+  padding: 0px;
+  margin-bottom: 0px;
+}
+
+.playstation .text {
+  margin-left: 24px; /* Espaço entre imagem e texto */
+  max-width: 360px;  /* Define uma largura razoável para o conteúdo */
+}
+
+.playstation h3,
+.playstation span,
+.playstation p {
+  text-align: left;
+  padding: 0px;
 }
 
 
@@ -974,25 +991,81 @@ body {
   grid-row: 2 / span 2;
   background: #f5f5f5;
   width: 720px;
-  height: 600px;
-  padding: 40px;
+  height: 700px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row-reverse;
   justify-content: center;
-  align-items: stretch;
+  align-items: center;
+  gap: 20px;
+  
 }
 
+
+.macbook img {
+  flex: 1;
+  width: 292px;
+  height: auto;
+}
+
+
+
+.macbook h3 {
+  font-size: 64px;
+  font-weight: 400; /* ← não bold */
+  max-width: 200px;
+  line-height: 1.1;
+}
+
+.macbook span {
+  display: block;          /* ← força quebra de linha */
+  font-size: 64px;
+  font-weight: 700;        /* ← bold */
+  margin-top: 8px;         /* ← espaçamento vertical entre h3 e span */
+}
+
+.macbook h3,
+.macbook span,
+.macbook p {
+  text-align: left;
+  margin: 0;
+  padding: 0;
+}
+
+.macbook p {
+  max-width: 350px;
+}
+
+.macbook .text {
+  text-align: left;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  padding-left: 40px;
+  flex: 1;
+  
+}
+
+.btn-mac {
+  margin-top: 20px;
+  padding: 10px 20px;
+  background: white;
+  border: 1px solid black;
+  cursor: pointer;
+  width: fit-content;
+}
+
+
+
  
- .airpods {
+.airpods {
   grid-column: 1;
   grid-row: 3;
   background: #fff;
   padding: 0px;
   display: flex;
-  flex-direction: row; /* ← alterado de column para row */
+  flex-direction: row;
   justify-content: center;
-  align-items: center; /* Alinha verticalmente */
-  gap: 20px; /* Espaço entre a imagem e o texto */
+  align-items: center;
   max-width: 220px;
 }
 
@@ -1001,23 +1074,48 @@ body {
   height: 272px;
 }
 
-.airpods h3, span, p{
-  max-width: 220px;
-  text-align: left;
+/* Novo container para o texto */
+.airpods .text {
+  margin-left: 22px; /* espaço entre a imagem e o texto */
 }
+
+.airpods h3,
+.airpods span,
+.airpods p {
+  width: 100px;
+  text-align: left;
+  padding: 0px;
+}
+
+
 
 .visionpro {
   grid-column: 2;
   grid-row: 3;
-  background: #111;
+  background: #353535;
   color: #fff;
-  width: 360px;
-  height: 272px;
-  padding: 20px;
+  padding:0px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
-  align-items: flex-start;
+  align-items: center;
+}
+
+.visionpro img{
+  width: 136px;
+  height: 190px;
+  margin-right: 20px;
+}
+
+.visionpro h3{
+  text-align: left;
+  max-width: 180px;
+}
+
+.visionpro span,
+.visionpro p {
+  text-align: left;
+  
 }
 
 
