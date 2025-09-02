@@ -945,8 +945,6 @@ body {
   margin: 1% 0;
   color: #ccc;
 }
-
-
 .playstation {
   grid-column: 1 / span 2;
   grid-row: 2;
@@ -954,21 +952,26 @@ body {
   padding: 0;                     
   display: flex;
   flex-direction: row;
-  justify-content: flex-start;     
+  justify-content: flex-start;  /* garante que fique colada à esquerda */   
   align-items: center;            
+  gap: 20px; /* espaço entre imagem e texto */
 }
 
 .playstation img {
-  width: 420px;
-  height: auto;
-  margin-bottom: 0;
+  width: clamp(200px, 25vw, 360px);   /* cresce proporcionalmente até 360px */
+  height: auto;                        /* mantém proporção */
+  max-height: auto;                   /* altura máxima fixa */
+  margin: 0;
   padding: 0;
-  
 }
 
 .playstation .text {
-  margin-left: 0;
+  margin-left: 0;     /* remove margem antiga */
   max-width: 360px;
+}
+
+.playstation h3, .playstation span {
+  font-weight: bold;
 }
 
 .playstation h3,
@@ -1008,12 +1011,21 @@ body {
   gap: 10px;               
 }
 
-
+.macbook h3{
+  font-size: 64px;
+  font-weight: 200;
+  
+}
+.macbook span{
+  font-size: 64px;
+  display: block;
+  font-weight: 700;
+}
 
 .macbook h3,
 .macbook span,
 .macbook p {
-  margin: 0;
+  margin-top: 20px;
   padding: 0;
   text-align: left; 
 }
@@ -1072,18 +1084,20 @@ body {
   grid-row: 3;
   background: #353535;
   color: #fff;
-  padding: 1%;
+  padding: 0;                 /* remove padding que empurra a imagem */
   display: flex;
   flex-direction: row;
-  justify-content: center;
+  justify-content: flex-start; /* alinha todo conteúdo à esquerda */
   align-items: center;
 }
 
 .visionpro img {
-  width: clamp(100px, 10%, 136px);
+  width: 136px;
   height: auto;
-  margin-right: 1%;
+  margin: 0; /* remove margem */
+  padding: 0; /* remove padding */
 }
+
 
 .visionpro h3,
 .visionpro span,
