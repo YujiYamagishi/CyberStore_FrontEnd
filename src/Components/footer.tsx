@@ -31,10 +31,10 @@ function Footer() {
           {}
           {!isMobile && (
             <div className="social">
-              <a href="#">✕</a>
-              <a href="#">📘</a>
-              <a href="#">in</a>
-              <a href="#">◎</a>
+              <a href="https://x.com/compassuol">✕</a>
+              <a href="https://www.facebook.com/share/177w58QzDs/">📘</a>
+              <a href="https://www.linkedin.com/company/compass-uol/">in</a>
+              <a href="https://www.instagram.com/compass.uol?igsh=NmwycHI5ZGJzZ2xo">◎</a>
             </div>
           )}
         </div>
@@ -68,10 +68,10 @@ function Footer() {
         {}
         {isMobile && (
           <div className="social mobile-social">
-            <a href="#">✕</a>
-            <a href="#">📘</a>
-            <a href="#">in</a>
-            <a href="#">◎</a>
+            <a href="https://x.com/compassuol">✕</a>
+            <a href="https://www.facebook.com/share/177w58QzDs/">📘</a>
+            <a href="https://www.linkedin.com/company/compass-uol/">in</a>
+            <a href="https://www.instagram.com/compass.uol?igsh=NmwycHI5ZGJzZ2xo">◎</a>
           </div>
         )}
       </div>
