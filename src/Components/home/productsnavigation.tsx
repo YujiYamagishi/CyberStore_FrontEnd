@@ -1,8 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-
-import popular from '../../assets/blue buds.png';
-import watch from '../../assets/applewatch.png';
+import popular from '../../assets/popular.png';
 import ipad from '../../assets/ipadpro.png';
 import galaxy from '../../assets/galaxy-samsung.png';
 import macbook from '../../assets/macbook.png';
@@ -12,7 +9,7 @@ const products = [
     id: 1,
     title: 'Popular Products',
     description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
-    images: [popular, watch],
+    images: [popular],
     background: '#fff',
     color: '#000',
   },
