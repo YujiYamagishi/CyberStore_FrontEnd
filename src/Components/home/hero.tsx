@@ -10,6 +10,7 @@ import playstationDesktop from '../../assets/playstation-desktop.png'
 import macbook from '../../assets/macbook.png'
 import macbookDesktop from '../../assets/macbook-desktop.png'
 
+
 export default function Hero() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024)
 
