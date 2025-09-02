@@ -8,7 +8,8 @@ const products = [
   {
     id: 1,
     title: 'Popular Products',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [popular],
     background: '#fff',
     color: '#000',
@@ -16,7 +17,8 @@ const products = [
   {
     id: 2,
     title: 'Ipad Pro',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [ipad],
     background: '#fff',
     color: '#000',
@@ -24,7 +26,8 @@ const products = [
   {
     id: 3,
     title: 'Samsung Galaxy',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [galaxy],
     background: '#f0f0f0',
     color: '#000',
@@ -32,7 +35,8 @@ const products = [
   {
     id: 4,
     title: 'Macbook Pro',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [macbook],
     background: '#424040ff',
     color: '#2C2C2C',
@@ -51,6 +55,7 @@ export default function ProductsNavigation() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
+  // Layout para desktop (grid)
   if (isDesktop) {
     return (
       <section className="product-grid-wrapper">
@@ -58,7 +63,10 @@ export default function ProductsNavigation() {
           <div
             key={product.id}
             className="product-grid-card"
-            style={{ backgroundColor: product.background, color: product.color }}
+            style={{
+              backgroundColor: product.background,
+              color: product.color,
+            }}
           >
             <div className="product-grid-images">
               {product.images.map((img, i) => (
@@ -74,12 +82,16 @@ export default function ProductsNavigation() {
     );
   }
 
+  // Layout para mobile (navegação com dots)
   const product = products[currentIndex];
 
   return (
     <section
       className="product-mobile-container"
-      style={{ backgroundColor: product.background, color: product.color }}
+      style={{
+        backgroundColor: product.background,
+        color: product.color,
+      }}
     >
       <div className="product-nav-images">
         {product.images.map((imgSrc, i) => (
