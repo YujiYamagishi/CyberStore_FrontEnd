@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './ProductsNavigation.css';
+
 
 import popular from '../../assets/blue buds.png';
 import watch from '../../assets/applewatch.png';

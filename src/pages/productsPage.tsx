@@ -4,6 +4,7 @@ import ProductsFilter from "../Components/productsPage/productsFilter";
 import ProductCard from "../Components/card";
 import "../styles/products.css";
 
+
 type Product = {
   id: number;
   title: string;
@@ -11,15 +12,17 @@ type Product = {
   image: string;
 };
 
+
 const priceToNumber = (value: string): number => {
   const clean = value.replace(/[^\d.,-]/g, "").replace(/,/g, "");
   const n = parseFloat(clean);
   return isNaN(n) ? 0 : n;
 };
 
-export default function Products() {
+
+export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filtered, setFiltered] = useState<Product[]>([]);
+  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
   const [sortOption, setSortOption] = useState("high");
   const [currentPage, setCurrentPage] = useState(1);
   const itemsPerPage = 8;
@@ -27,19 +30,22 @@ export default function Products() {
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("search") || "";
 
+  
   useEffect(() => {
     fetch("/products.json")
       .then((res) => res.json())
       .then((data) => {
+        
         const normalized = (data.products || []).map((p: any) => ({
           ...p,
           price: String(p.price),
         }));
         setProducts(normalized);
       })
-      .catch(() => setProducts([]));
+      .catch(() => setProducts([])); 
   }, []);
 
+  
   useEffect(() => {
     let result = query
       ? products.filter((p) =>
@@ -59,27 +65,30 @@ export default function Products() {
       result = [...result].sort((a, b) => a.title.localeCompare(b.title));
     }
 
-    setFiltered(result);
-    setCurrentPage(1);
+    setFilteredProducts(result);
+    setCurrentPage(1); 
   }, [products, query, sortOption]);
 
   const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedProducts = filtered.slice(startIndex, startIndex + itemsPerPage);
-  const totalPages = Math.ceil(filtered.length / itemsPerPage);
+  const paginatedProducts = filteredProducts.slice(
+    startIndex,
+    startIndex + itemsPerPage
+  );
+  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
 
   return (
     <main className="products-page">
       <ProductsFilter onSort={setSortOption} />
 
       <p className="products-count">
-        Products Result: <strong>{filtered.length}</strong>
+        Products Result: <strong>{filteredProducts.length}</strong>
       </p>
 
       <div className="products-grid">
         {paginatedProducts.length > 0 ? (
           paginatedProducts.map((p) => <ProductCard key={p.id} {...p} />)
         ) : (
-          <p>No products found.</p>
+          <p>Nenhum produto encontrado.</p>
         )}
       </div>
 
