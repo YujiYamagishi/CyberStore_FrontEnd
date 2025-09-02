@@ -1,6 +1,22 @@
-import React from 'react';
+import React, { useState, useEffect } from "react";
 
 function Footer() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768); 
+    };
+
+    
+    handleResize();
+
+    
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <footer className="footer">
       <div className="footer-container">
@@ -12,12 +28,15 @@ function Footer() {
             We are a residential interior design firm located in Portland.
             Our boutique-studio offers more than
           </p>
-          <div className="social">
-            <a href="#">✕</a>
-            <a href="#">📘</a>
-            <a href="#">in</a>
-            <a href="#">◎</a>
-          </div>
+          {}
+          {!isMobile && (
+            <div className="social">
+              <a href="#">✕</a>
+              <a href="#">📘</a>
+              <a href="#">in</a>
+              <a href="#">◎</a>
+            </div>
+          )}
         </div>
 
         {}
@@ -46,6 +65,15 @@ function Footer() {
           </ul>
         </div>
 
+        {}
+        {isMobile && (
+          <div className="social mobile-social">
+            <a href="#">✕</a>
+            <a href="#">📘</a>
+            <a href="#">in</a>
+            <a href="#">◎</a>
+          </div>
+        )}
       </div>
     </footer>
   );

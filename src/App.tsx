@@ -8,7 +8,9 @@ import Footer from './Components/footer';
 function App() {
   return (
     <div className="min-h-screen bg-gray-50 flex flex-col">
-      <Navbar />
+      <Navbar onSearch={function (_query: string): void {
+        throw new Error('Function not implemented.');
+      } } />
       <main className="pt-20 flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
