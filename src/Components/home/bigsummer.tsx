@@ -95,26 +95,30 @@ export default function BigSummer() {
         </p>
 
         <button
-          style={{
-            backgroundColor: "transparent",
-            color: "#fff",
-            border: "1px solid #fff",
-            padding: isDesktop ? "8px 20px" : "10px 22px",
-            fontSize: isDesktop ? "14px" : "13px",
-            borderRadius: "6px",
-            cursor: "pointer",
-            transition: "all 0.3s ease",
-          }}
-          onMouseOver={(e) =>
-            (e.currentTarget.style.backgroundColor =
-              "rgba(255, 255, 255, 0.1)")
-          }
-          onMouseOut={(e) =>
-            (e.currentTarget.style.backgroundColor = "transparent")
-          }
-        >
-          Shop Now
-        </button>
+  style={{
+    width: "191px",
+    height: "56px",
+    backgroundColor: "transparent",
+    color: "#fff",
+    border: "1px solid #fff",
+    fontSize: isDesktop ? "14px" : "13px",
+    borderRadius: "6px",
+    cursor: "pointer",
+    transition: "all 0.3s ease",
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: "0 auto",
+  }}
+  onMouseOver={(e) =>
+    (e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)")
+  }
+  onMouseOut={(e) =>
+    (e.currentTarget.style.backgroundColor = "transparent")
+  }
+>
+  Shop Now
+</button>
       </div>
     </section>
   );
