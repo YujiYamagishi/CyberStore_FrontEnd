@@ -16,7 +16,7 @@ export default function Navbar() {
     } else {
       navigate("/products");
     }
-    setActiveLink("contact");
+    setActiveLink("shop");
     setIsOpen(false);
   };
 
@@ -59,21 +59,21 @@ export default function Navbar() {
           <Link
             to="/"
             onClick={() => setActiveLink("home")}
-            style={{ color: activeLink === "shop" ? "#000" : "#666" }}
+            style={{ color: activeLink === "home" ? "#000" : "#666" }}
           >
             Home
           </Link>
           <Link
             to="/products"
             onClick={() => setActiveLink("shop")}
-            style={{ color: activeLink === "contact" ? "#000" : "#666" }}
+            style={{ color: activeLink === "shop" ? "#000" : "#666" }}
           >
             Shop
           </Link>
           <Link
             to="/contact"
             onClick={() => setActiveLink("contact")}
-            style={{ color: activeLink === "hoome" ? "#000" : "#666" }}
+            style={{ color: activeLink === "contact" ? "#000" : "#666" }}
           >
             Contact Us
           </Link>
@@ -127,16 +127,24 @@ export default function Navbar() {
 
           <ul>
             <li>
-              <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+              <Link to="/" onClick={() => setIsOpen(false)}>
+                Home
+              </Link>
             </li>
             <li>
-              <Link to="/products" onClick={() => setIsOpen(false)}>Shop</Link>
+              <Link to="/products" onClick={() => setIsOpen(false)}>
+                Shop
+              </Link>
             </li>
             <li>
-              <Link to="/contact" onClick={() => setIsOpen(false)}>Contact Us</Link>
+              <Link to="/contact" onClick={() => setIsOpen(false)}>
+                Contact Us
+              </Link>
             </li>
             <li>
-              <Link to="/blog" onClick={() => setIsOpen(false)}>Blog</Link>
+              <Link to="/blog" onClick={() => setIsOpen(false)}>
+                Blog
+              </Link>
             </li>
           </ul>
         </div>

@@ -1491,9 +1491,10 @@ body {
 
   
    .browse-container {
-    max-width: 1000px;
-    margin: 0 auto;
+   width: 100%;          /* ocupa toda a largura até o limite do max-width */   /* limite do container */
+    margin: 0 auto;       /* centraliza horizontalmente */
     padding: 32px 20px;
+    box-sizing: border-box;
   }
 
   .browse-header {
@@ -1596,7 +1597,7 @@ body {
 
   
   .big-summer {
-    min-height: 60vh;
+    max-width: 100%;
     padding: 60px 24px;
     text-align: center;
   }
