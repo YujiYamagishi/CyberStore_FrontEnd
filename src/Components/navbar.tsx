@@ -1,13 +1,24 @@
+
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
 import "../styles/index.css";
 
+const navLinks = [
+  { to: "/", label: "Home", key: "home" },
+  { to: "/products", label: "Shop", key: "shop" },
+  { to: "/contact", label: "Contact Us", key: "contact" },
+  { to: "/blog", label: "Blog", key: "blog" },
+];
+
 export default function Navbar() {
+
+  console.log("Componente Navbar renderizou!");
+
   const [isOpen, setIsOpen] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [activeLink, setActiveLink] = useState<string>("");
+  const [activeLink, setActiveLink] = useState<string>("home");
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -25,6 +36,11 @@ export default function Navbar() {
       e.preventDefault();
       handleSearch();
     }
+  };
+
+  const handleLinkClick = (key: string) => {
+    setActiveLink(key);
+    setIsOpen(false);
   };
 
   return (
@@ -56,34 +72,16 @@ export default function Navbar() {
         </div>
 
         <div className="navbar-links hidden md:flex">
-          <Link
-            to="/"
-            onClick={() => setActiveLink("home")}
-            style={{ color: activeLink === "home" ? "#000" : "#666" }}
-          >
-            Home
-          </Link>
-          <Link
-            to="/products"
-            onClick={() => setActiveLink("shop")}
-            style={{ color: activeLink === "shop" ? "#000" : "#666" }}
-          >
-            Shop
-          </Link>
-          <Link
-            to="/contact"
-            onClick={() => setActiveLink("contact")}
-            style={{ color: activeLink === "contact" ? "#000" : "#666" }}
-          >
-            Contact Us
-          </Link>
-          <Link
-            to="/blog"
-            onClick={() => setActiveLink("blog")}
-            style={{ color: activeLink === "blog" ? "#000" : "#666" }}
-          >
-            Blog
-          </Link>
+          {navLinks.map((link) => (
+            <Link
+              key={link.key} 
+              to={link.to}
+              onClick={() => handleLinkClick(link.key)}
+              style={{ color: activeLink === link.key ? "#000" : "#666" }}
+            >
+              {link.label}
+            </Link>
+          ))}
         </div>
 
         <div className="navbar-icons">
@@ -102,50 +100,15 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="navbar-mobile-menu">
-          <div className="navbar-search flex md:hidden w-full mb-4">
-            <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
-              <button
-                type="button"
-                className="searchbar__button"
-                aria-label="Search"
-                onClick={handleSearch}
-              >
-                <Search size={18} />
-              </button>
-              <input
-                type="text"
-                placeholder="Search"
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                onFocus={() => setIsSearchFocused(true)}
-                onBlur={() => setIsSearchFocused(false)}
-                onKeyDown={handleKeyPress}
-                className="searchbar__input"
-              />
-            </div>
-          </div>
-
+         
           <ul>
-            <li>
-              <Link to="/" onClick={() => setIsOpen(false)}>
-                Home
-              </Link>
-            </li>
-            <li>
-              <Link to="/products" onClick={() => setIsOpen(false)}>
-                Shop
-              </Link>
-            </li>
-            <li>
-              <Link to="/contact" onClick={() => setIsOpen(false)}>
-                Contact Us
-              </Link>
-            </li>
-            <li>
-              <Link to="/blog" onClick={() => setIsOpen(false)}>
-                Blog
-              </Link>
-            </li>
+            {navLinks.map((link) => (
+              <li key={link.key}>
+                <Link to={link.to} onClick={() => handleLinkClick(link.key)}>
+                  {link.label}
+                </Link>
+              </li>
+            ))}
           </ul>
         </div>
       )}
