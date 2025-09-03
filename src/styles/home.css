@@ -163,7 +163,7 @@ body {
 
 .iphone-text {
   text-align: center;
-  position: relative; /* garante que fique acima da imagem */
+  position: relative; 
   z-index: 1;
 }
 
@@ -1034,7 +1034,7 @@ body {
 .playstation {
   grid-column: 1 / span 2;
   grid-row: 2;
-  background: #f5f5f5;
+  background: #fff;
   padding: 0;                     
   display: flex;
   flex-direction: row;
@@ -1071,7 +1071,7 @@ body {
 .macbook {
   grid-column: 3 / span 2;
   grid-row: 2 / span 2;
-  background: #f5f5f5;
+  background: #EDEDED;
   display: flex;
   flex-direction: row-reverse;
   justify-content: center;
@@ -1120,7 +1120,7 @@ body {
   margin-top: 1rem;
   width: 191px;
   height: 56px;
-  background: #f5f5f5;
+  background: #EDEDED;
   border: 1px solid #000;
   color: #000;
   font-size: 0.95rem;
