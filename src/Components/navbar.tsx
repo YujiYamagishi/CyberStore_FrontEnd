@@ -64,14 +64,14 @@ export default function Navbar() {
             Home
           </Link>
           <Link
-            to="/"
+            to="/products"
             onClick={() => setActiveLink("shop")}
             style={{ color: activeLink === "contact" ? "#000" : "#666" }}
           >
             Shop
           </Link>
           <Link
-            to="/products"
+            to="/contact"
             onClick={() => setActiveLink("contact")}
             style={{ color: activeLink === "hoome" ? "#000" : "#666" }}
           >
