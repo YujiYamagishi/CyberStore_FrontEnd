@@ -1,18 +1,15 @@
 import React, { useState, useEffect } from "react";
+import { FaXTwitter, FaFacebookF, FaLinkedinIn, FaInstagram } from "react-icons/fa6";
 
 function Footer() {
   const [isMobile, setIsMobile] = useState(false);
 
   useEffect(() => {
-    
     const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768); 
+      setIsMobile(window.innerWidth <= 768);
     };
 
-    
     handleResize();
-
-    
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
   }, []);
@@ -21,25 +18,30 @@ function Footer() {
     <footer className="footer">
       <div className="footer-container">
         
-        {}
         <div className="footer-left">
           <h1>cyber</h1>
           <p>
             We are a residential interior design firm located in Portland.
             Our boutique-studio offers more than
           </p>
-          {}
           {!isMobile && (
             <div className="social">
-              <a href="https://x.com/compassuol">✕</a>
-              <a href="https://www.facebook.com/share/177w58QzDs/">📘</a>
-              <a href="https://www.linkedin.com/company/compass-uol/">in</a>
-              <a href="https://www.instagram.com/compass.uol?igsh=NmwycHI5ZGJzZ2xo">◎</a>
+              <a href="https://x.com/compassuol" target="_blank" rel="noopener noreferrer">
+                <FaXTwitter />
+              </a>
+              <a href="https://www.facebook.com/share/177w58QzDs/" target="_blank" rel="noopener noreferrer">
+                <FaFacebookF />
+              </a>
+              <a href="https://www.linkedin.com/company/compass-uol/" target="_blank" rel="noopener noreferrer">
+                <FaLinkedinIn />
+              </a>
+              <a href="https://www.instagram.com/compass.uol?igsh=NmwycHI5ZGJzZ2xo" target="_blank" rel="noopener noreferrer">
+                <FaInstagram />
+              </a>
             </div>
           )}
         </div>
 
-        {}
         <div className="footer-section">
           <h2>Services</h2>
           <ul>
@@ -52,7 +54,6 @@ function Footer() {
           </ul>
         </div>
 
-        {}
         <div className="footer-section">
           <h2>Assistance to the buyer</h2>
           <ul>
@@ -65,13 +66,20 @@ function Footer() {
           </ul>
         </div>
 
-        {}
         {isMobile && (
           <div className="social mobile-social">
-            <a href="https://x.com/compassuol">✕</a>
-            <a href="https://www.facebook.com/share/177w58QzDs/">📘</a>
-            <a href="https://www.linkedin.com/company/compass-uol/">in</a>
-            <a href="https://www.instagram.com/compass.uol?igsh=NmwycHI5ZGJzZ2xo">◎</a>
+            <a href="https://x.com/compassuol" target="_blank" rel="noopener noreferrer">
+              <FaXTwitter />
+            </a>
+            <a href="https://www.facebook.com/share/177w58QzDs/" target="_blank" rel="noopener noreferrer">
+              <FaFacebookF />
+            </a>
+            <a href="https://www.linkedin.com/company/compass-uol/" target="_blank" rel="noopener noreferrer">
+              <FaLinkedinIn />
+            </a>
+            <a href="https://www.instagram.com/compass.uol?igsh=NmwycHI5ZGJzZ2xo" target="_blank" rel="noopener noreferrer">
+              <FaInstagram />
+            </a>
           </div>
         )}
       </div>
