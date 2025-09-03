@@ -41,9 +41,9 @@ const products = [
     description:
       'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [macbook],
-    background: '#424040ff',
-    color: '#fff', // texto branco
-    buttonWhite: true, // botão branco com texto branco
+    background: '#2C2C2C',
+    color: '#fff', 
+    buttonWhite: true, 
   },
 ];
 
@@ -57,7 +57,7 @@ export default function ProductsNavigation() {
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  // Layout para desktop
+  
   if (isDesktop) {
     return (
       <section className="product-grid-wrapper">
@@ -95,7 +95,7 @@ export default function ProductsNavigation() {
     );
   }
 
-  // Layout para mobile
+ 
   const product = products[currentIndex];
 
   return (

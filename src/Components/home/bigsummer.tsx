@@ -17,10 +17,10 @@ export default function BigSummer() {
         backgroundImage: `url(${isDesktop ? summerDesktop : summerMobile})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        width: "100%",          // ocupa toda a largura
-        minWidth: "100%",       // garante que nunca fique menor
+        width: "100%",          
+        minWidth: "100%",       
         height: isDesktop ? "448px" : "512px",
-        margin: 0,              // remove centralização com borda
+        margin: 0,             
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
