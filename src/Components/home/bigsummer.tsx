@@ -17,8 +17,8 @@ export default function BigSummer() {
         backgroundImage: `url(${isDesktop ? summerDesktop : summerMobile})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        width: "100%", // sempre ocupa toda a largura da tela
-        minWidth: isDesktop ? "1024px" : "375px", // 👈 mobile parte de 375px
+        width: "100%",
+        minWidth: isDesktop ? "1024px" : "375px",
         height: isDesktop ? "448px" : "512px",
         margin: "0 auto",
         display: "flex",
@@ -38,29 +38,54 @@ export default function BigSummer() {
           padding: "0 12px",
         }}
       >
-        <h2
-          style={{
-            fontSize: isDesktop ? "1.5rem" : "1.25rem",
-            fontWeight: 300,
-            marginBottom: "6px",
-          }}
-        >
-          Big Summer
-        </h2>
-        <h1
-          style={{
-            fontSize: isDesktop ? "2.5rem" : "2rem",
-            fontWeight: 700,
-            marginBottom: "12px",
-            lineHeight: 1.1,
-          }}
-        >
-          Sale
-        </h1>
+        {isDesktop ? (
+          <h1
+            style={{
+              fontSize: "2.5rem",
+              fontWeight: 300,
+              marginBottom: "12px",
+              lineHeight: 1.2,
+              color: "#ddd",
+            }}
+          >
+            Big Summer{" "}
+            <span
+              style={{
+                fontWeight: 700,
+                color: "#fff",
+              }}
+            >
+              Sale
+            </span>
+          </h1>
+        ) : (
+          <>
+            <h2
+              style={{
+                fontSize: "1.25rem",
+                fontWeight: 300,
+                marginBottom: "6px",
+              }}
+            >
+              Big Summer
+            </h2>
+            <h1
+              style={{
+                fontSize: "2rem",
+                fontWeight: 700,
+                marginBottom: "12px",
+                lineHeight: 1.1,
+              }}
+            >
+              Sale
+            </h1>
+          </>
+        )}
+
         <p
           style={{
             fontSize: isDesktop ? "0.9rem" : "0.85rem",
-            color: "#e6e6e6",
+            color: "#ccc",
             margin: "0 auto 20px",
             maxWidth: "320px",
             lineHeight: 1.5,
@@ -68,6 +93,7 @@ export default function BigSummer() {
         >
           Commodo fames vitae vitae leo mauris in. Eu consequat.
         </p>
+
         <button
           style={{
             backgroundColor: "transparent",
@@ -90,17 +116,6 @@ export default function BigSummer() {
           Shop Now
         </button>
       </div>
-      <div
-        style={{
-          content: '""',
-          position: "absolute",
-          inset: 0,
-          background:
-            "linear-gradient(180deg, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 60%, rgba(0,0,0,0.7) 100%)",
-          pointerEvents: "none",
-          zIndex: 0,
-        }}
-      />
     </section>
   );
 }
