@@ -99,6 +99,48 @@ export default function Navbar() {
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
+
+      {isOpen && (
+        <div className="navbar-mobile-menu">
+          <div className="navbar-search flex md:hidden w-full mb-4">
+            <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
+              <button
+                type="button"
+                className="searchbar__button"
+                aria-label="Search"
+                onClick={handleSearch}
+              >
+                <Search size={18} />
+              </button>
+              <input
+                type="text"
+                placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
+                onKeyDown={handleKeyPress}
+                className="searchbar__input"
+              />
+            </div>
+          </div>
+
+          <ul>
+            <li>
+              <Link to="/" onClick={() => setIsOpen(false)}>Home</Link>
+            </li>
+            <li>
+              <Link to="/products" onClick={() => setIsOpen(false)}>Shop</Link>
+            </li>
+            <li>
+              <Link to="/contact" onClick={() => setIsOpen(false)}>Contact Us</Link>
+            </li>
+            <li>
+              <Link to="/blog" onClick={() => setIsOpen(false)}>Blog</Link>
+            </li>
+          </ul>
+        </div>
+      )}
     </nav>
   );
 }
