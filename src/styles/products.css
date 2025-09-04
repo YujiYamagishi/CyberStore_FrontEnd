@@ -1,16 +1,20 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400&display=swap');
 
-.filters-container {
-  display: grid;
-  grid-template-columns: repeat(2, 156px);
-  justify-content: center;
-  gap: 16px;
-  margin: 0 auto;
+.products-page {
   padding-top: 75px;
-  padding-bottom: 45px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1.5rem;
+  background: #fff;
   font-family: 'Inter', sans-serif;
-  font-size: 15px;
-  font-weight: 400;
+}
+
+.filters-and-sort-bar {
+  display: flex;
+  gap: 16px;
+  justify-content: center;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .filter-button,
@@ -21,7 +25,7 @@
   border-radius: 8px;
   background: #fff;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
   padding: 0 16px;
   cursor: pointer;
@@ -36,100 +40,195 @@
   border-color: #aaa;
 }
 
-/* Grid dos produtos */
-.products-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-  gap: 24px;
-  padding: 20px;
-}
-
-.products-page {
-  padding: 1.5rem 1rem;
-  background: #fff;
-}
-
-/* Texto quantidade */
 .products-count {
   font-size: 1rem;
   margin-bottom: 1rem;
   color: #333;
-  padding-left: 20px;
 }
 
-/* Grid dos produtos */
+
 .products-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr); /* sempre 2 colunas */
+  grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
-/* Desktop: aumenta o número de colunas */
-@media (min-width: 768px) {
-  .products-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
+.desktop-only {
+  display: none;
 }
 
-/* Paginação */
-.pagination {
+
+.filter-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: white;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+.filters-container {
+  font-family: 'Inter', sans-serif;
+  padding: 1.5rem 1rem;
+  background-color: white;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
+}
+
+.filters-header-mobile {
+  display: flex;
   align-items: center;
-  gap: 8px; /* espaçamento padrão entre botões/indicadores */
-  margin-top: 20px;
-  font-family: Arial, sans-serif;
+  padding-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  margin-bottom: 20px;
 }
 
-/* Botões padrão (números) */
-.page-btn {
-  border: 1px solid #ddd;
-  background: #fff;
-  color: #000;
-  padding: 8px 12px;
-  border-radius: 6px;
-  cursor: pointer;
-  font-size: 14px;
-  transition: 0.2s;
-}
-
-.page-btn:hover:not(:disabled) {
-  background: #f5f5f5;
-}
-
-.page-btn.active {
-  background: #000;
-  color: #fff;
-  border-color: #000;
-}
-
-.page-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-}
-
-/* Estilo especial para as setas */
-.page-btn.prev,
-.page-btn.next {
-  background: transparent;
+.filters-header-mobile .back-button {
+  background: none;
   border: none;
-  font-size: 18px;
-  font-weight: bold;
+  cursor: pointer;
   padding: 0;
-  color: #000;
+  display: flex;
+  align-items: center;
+  margin-right: 15px;
+  color: #111;
 }
 
-/* Espaçamento das setas em relação aos números */
-.page-btn.prev {
-  margin-right: 24px;
+.filters-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin: 0;
 }
 
-.page-btn.next {
-  margin-left: 24px;
+.filter-section {
+  margin-bottom: 20px;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 20px;
 }
 
-.dots {
+.filter-section:last-of-type {
+  border-bottom: none;
+}
+
+.filter-section-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+  padding: 10px 0;
+}
+
+.filter-section-header h4 {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.filter-section-body {
+  padding: 15px 0;
+}
+
+.price-filter {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.price-input {
+  flex: 1;
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  text-align: center;
+  -moz-appearance: textfield;
+}
+
+.price-input::-webkit-outer-spin-button,
+.price-input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+.price-separator {
+  font-weight: bold;
+  color: #555;
+}
+
+.brand-search-box {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
   padding: 8px 12px;
-  color: #777;
-  font-size: 14px;
+  margin-bottom: 10px;
+  background-color: #f8f8f8;
+}
+
+.brand-search-box input {
+  border: none;
+  outline: none;
+  width: 100%;
+  background-color: transparent;
+}
+
+.brand-list {
+  list-style: none;
+  padding: 0;
+  max-height: 200px;
+  overflow-y: auto;
+}
+
+.brand-list li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 0;
+}
+
+.brand-list li label {
+  flex-grow: 1;
+  cursor: pointer;
+}
+
+.apply-button {
+  width: 100%;
+  padding: 15px;
+  background-color: #111;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 16px;
+  margin-top: auto;
+  font-weight: 600;
+}
+
+
+@media (min-width: 769px) {
+  .mobile-only {
+    display: none; 
+  }
+  
+  .desktop-only {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px 0;
+  }
+
+  .desktop-filters-sidebar {
+    width: 250px;
+    flex-shrink: 0;
+  }
+
+  .products-content {
+    flex: 1;
+  }
+
+  .products-grid {
+    grid-template-columns: repeat(3, 1fr);
+  }
 }

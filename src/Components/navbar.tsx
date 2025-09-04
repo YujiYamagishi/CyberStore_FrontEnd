@@ -24,7 +24,6 @@ export default function Navbar() {
       <div className="navbar-container">
         <div className="navbar-logo">cyber</div>
 
-        {/* Search bar para desktop */}
         <div className="navbar-search hidden md:flex relative w-96">
           <input
             type="text"
@@ -39,7 +38,6 @@ export default function Navbar() {
           </button>
         </div>
 
-        {/* Links de navegação para desktop */}
         <div className="navbar-links hidden md:flex">
           <Link to="/">Home</Link>
           <Link to="/products">Shop</Link>
@@ -47,14 +45,12 @@ export default function Navbar() {
           <Link to="/blog">Blog</Link>
         </div>
 
-        {/* Ícones de navegação */}
         <div className="navbar-icons">
           <Heart size={22} />
           <ShoppingCart size={22} />
           <User size={22} />
         </div>
 
-        {/* Botão de menu mobile */}
         <button
           onClick={() => setIsOpen(!isOpen)}
           className="navbar-toggle md:hidden"
@@ -63,7 +59,6 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Menu mobile sem a search bar */}
       {isOpen && (
         <div className="navbar-mobile-menu">
           <ul>

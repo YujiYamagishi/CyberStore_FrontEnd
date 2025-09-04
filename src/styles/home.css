@@ -8,9 +8,6 @@
 
 body {
   background: #ffffff;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
   overflow-x: hidden;
   padding: 0;
   margin: 0;
