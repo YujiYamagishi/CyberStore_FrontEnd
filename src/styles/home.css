@@ -598,6 +598,7 @@ body {
   font-size: 16px;
   font-weight: 500;
   height: 48px;
+ 
 }
 
 .discount-price{
@@ -610,6 +611,7 @@ body {
   display: grid;
   grid-template-columns: repeat(2, 1fr); 
   gap: 1rem; 
+  margin: 30px auto 30px;
 }
 
 .buy-button{
@@ -1351,23 +1353,30 @@ body {
   font-size: 24px;
   width: 270px;
   height: 32px;
+  margin-top: 30px;
+  
 }
 
 .discount-grid {
   grid-template-columns: repeat(4, 1fr); 
-  gap: 0.5rem;
+  gap: 15px;
   max-width: 1120px;
   height: 452px;
   align-items: center;
   margin: 0 auto; 
+  margin: 30px auto 30px;
+  
+  
 }
 
 .discount-img {
   max-height: 100px; 
+  
 }
 
 .discount-card {
   padding: 1rem 0.5rem;
+  
 }
 
 .buy-button {
