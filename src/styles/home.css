@@ -1287,7 +1287,10 @@ body {
   border-radius: 6px;
   cursor: pointer;
   transition: all 0.2s ease;
+  display:grid;
 }
+
+
 
 .buy-button:hover {
   background: #fff;
@@ -1312,12 +1315,14 @@ body {
   align-items: flex-start;
   padding: 20px;
   box-sizing: border-box;
+  height: 100%; 
 }
 
 .product-grid-images {
   display: flex;
   justify-content: center;
   margin-bottom: 0.5rem;
+  min-height: 180px; 
 }
 
 .product-grid-images img {
@@ -1346,6 +1351,7 @@ body {
    border-radius: 6px;
    transition: all 0.3s ease;
    align-self: flex-start;
+   margin-top: auto; 
  }
 
 .product-grid-button:hover {
@@ -1371,8 +1377,6 @@ body {
   align-items: center;
   margin: 0 auto; 
   margin: 30px auto 30px;
-  
-  
 }
 
 .discount-img {
@@ -1382,7 +1386,6 @@ body {
 
 .discount-card {
   padding: 1rem 0.5rem;
-  
 }
 
 .buy-button {
