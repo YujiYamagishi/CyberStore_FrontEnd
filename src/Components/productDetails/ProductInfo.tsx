@@ -20,7 +20,7 @@ export default function ProductInfo({ product }: { product: any }) {
   }, [product]);
 
   const hasColors = product.colors && product.colors.length > 0;
-  const hasStorage = product.storage && product.storage.length > 0;
+  const hasStorage = product.storageOptions && product.storageOptions.length > 0;
 
   const colorRequirementMet = !hasColors || (hasColors && selectedColor !== null);
   const storageRequirementMet = !hasStorage || (hasStorage && selectedStorage !== null);
@@ -29,7 +29,7 @@ export default function ProductInfo({ product }: { product: any }) {
   const thumbnails = product.url_image ? [product.url_image, product.url_image, product.url_image, product.url_image] : [];
   
   const colors = hasColors ? product.colors.map((c: any) => c.hex_code) : [];
-  const storageOptions = hasStorage ? product.storage.map((s: any) => s.size) : [];
+  const storageOptions = hasStorage ? product.storageOptions : [];
 
   const specs = {
     screenSize: product.smartphoneSpec?.screen_size || 'N/A',
