@@ -479,14 +479,14 @@ body {
 .product-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
-  gap: 10px 5px; /* linha: 16px, coluna: 8px */
+  gap: 10px 5px; 
   padding: 0 0px;
   box-sizing: border-box;
 }
 
 
 .product-card {
-  background: #f6f6f6;
+  background: #F6F6F6;
   border-radius: 12px;
   text-align: center;
   padding: 1rem;
@@ -1241,7 +1241,7 @@ body {
 
 
 .product-card {
-  background: #ffffff;
+  background: #F6F6F6;
   padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.08);
