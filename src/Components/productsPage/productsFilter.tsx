@@ -23,11 +23,12 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
     );
   };
 
-  const handleApplyFilters = () => {
-    onFilter({ minPrice, maxPrice, brands: selectedBrands });
-    if (onClose) {
-      onClose();
-    }
+
+  const handleChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
+    const value = e.target.value;
+    setSort(value);
+    onSort(value); 
+
   };
 
   const filteredBrands = brands.filter((brand) =>
@@ -36,91 +37,19 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
 
   return (
     <div className="filters-container">
-      {/* Cabeçalho do filtro com botão de voltar */}
-      <div className="filters-header-mobile">
-        {onClose && (
-          <button onClick={onClose} className="back-button">
-            <ChevronLeft size={24} />
-          </button>
-        )}
-        <h2 className="filters-title">Filters</h2>
-      </div>
 
-      {/* Seção do Filtro de Preço */}
-      <div className="filter-section">
-        <div className="filter-section-header" onClick={() => setIsPriceOpen(!isPriceOpen)}>
-          <h4>Price</h4>
-          {isPriceOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </div>
-        {isPriceOpen && (
-          <div className="filter-section-body price-filter">
-            <input
-              type="number"
-              placeholder="From"
-              value={minPrice || ""}
-              onChange={(e) => setMinPrice(Number(e.target.value))}
-              className="price-input"
-            />
-            {/* Adicionando o separador visual */}
-            <span className="price-separator">-</span> 
-            <input
-              type="number"
-              placeholder="To"
-              value={maxPrice || ""}
-              onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="price-input"
-            />
-          </div>
-        )}
-        {isPriceOpen && ( // Adiciona o range slider aqui
-            <div className="price-range-slider">
-              {/* Você pode integrar uma biblioteca de range slider aqui, como react-slider */}
-              {/* Por enquanto, é um placeholder */}
-              <div className="slider-track">
-                <div className="slider-thumb left"></div>
-                <div className="slider-thumb right"></div>
-              </div>
-            </div>
-        )}
-      </div>
+      {}
+      <button className="filter-button">
+        Filters <FaSlidersH />
+      </button>
 
-      {/* Seção do Filtro de Marca */}
-      <div className="filter-section">
-        <div className="filter-section-header" onClick={() => setIsBrandOpen(!isBrandOpen)}>
-          <h4>Brand</h4>
-          {isBrandOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </div>
-        {isBrandOpen && (
-          <div className="filter-section-body brand-filter">
-            <div className="brand-search-box">
-              <Search size={16} />
-              <input
-                type="text"
-                placeholder="Search"
-                value={brandSearchTerm}
-                onChange={(e) => setBrandSearchTerm(e.target.value)}
-              />
-            </div>
-            <ul className="brand-list">
-              {filteredBrands.map((brand) => (
-                <li key={brand}>
-                  <input
-                    type="checkbox"
-                    id={`brand-${brand}`} // Use um ID único
-                    checked={selectedBrands.includes(brand)}
-                    onChange={() => handleBrandChange(brand)}
-                  />
-                  <label htmlFor={`brand-${brand}`}>{brand}</label>
-                  {/* Contagem de itens, se disponível */}
-                  {/* <span className="brand-count"> (XX) </span> */} 
-                </li>
-              ))}
-            </ul>
-          </div>
-        )}
-      </div>
+      {}
+      <select value={sort} onChange={handleChange} className="sort-select">
+        <option value="high">By price: High to Low</option>
+        <option value="low">By price: Low to High</option>
+        <option value="name">By name (A-Z)</option>
+      </select>
 
-      <button onClick={handleApplyFilters} className="apply-button">Apply</button>
     </div>
   );
 };

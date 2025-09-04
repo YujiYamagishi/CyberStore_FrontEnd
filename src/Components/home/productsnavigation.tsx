@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react';
-
-import popular from '../../assets/blue buds.png';
-import watch from '../../assets/applewatch.png';
+import popular from '../../assets/popular.png';
 import ipad from '../../assets/ipadpro.png';
 import galaxy from '../../assets/galaxy-samsung.png';
 import macbook from '../../assets/macbook.png';
@@ -10,34 +8,42 @@ const products = [
   {
     id: 1,
     title: 'Popular Products',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
-    images: [popular, watch],
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    images: [popular],
     background: '#fff',
     color: '#000',
+    buttonWhite: false,
   },
   {
     id: 2,
     title: 'Ipad Pro',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [ipad],
-    background: '#f0f0f0',
+    background: '#fff',
     color: '#000',
+    buttonWhite: false,
   },
   {
     id: 3,
     title: 'Samsung Galaxy',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [galaxy],
-    background: '#fff',
+    background: '#f0f0f0',
     color: '#000',
+    buttonWhite: false,
   },
   {
     id: 4,
     title: 'Macbook Pro',
-    description: 'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
+    description:
+      'iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.',
     images: [macbook],
-    background: '#424040ff',
-    color: '#ffffffff',
+    background: '#2C2C2C',
+    color: '#fff', 
+    buttonWhite: true, 
   },
 ];
 
@@ -46,22 +52,23 @@ export default function ProductsNavigation() {
   const [currentIndex, setCurrentIndex] = useState(0);
 
   useEffect(() => {
-    const handleResize = () => {
-      setIsDesktop(window.innerWidth >= 1024);
-    };
+    const handleResize = () => setIsDesktop(window.innerWidth >= 1024);
     window.addEventListener('resize', handleResize);
     return () => window.removeEventListener('resize', handleResize);
   }, []);
 
-  if (isDesktop) {
   
+  if (isDesktop) {
     return (
       <section className="product-grid-wrapper">
         {products.map((product) => (
           <div
             key={product.id}
             className="product-grid-card"
-            style={{ backgroundColor: product.background, color: product.color }}
+            style={{
+              backgroundColor: product.background,
+              color: product.color,
+            }}
           >
             <div className="product-grid-images">
               {product.images.map((img, i) => (
@@ -70,7 +77,16 @@ export default function ProductsNavigation() {
             </div>
             <h2>{product.title}</h2>
             <p>{product.description}</p>
-            <button className="product-grid-button">
+            <button
+              className="product-grid-button"
+              style={
+                product.buttonWhite
+                  ? { backgroundColor: product.background, 
+                    color: '#fff',   
+                    border: `1px solid #fff`, }
+                  : {}
+              }
+            >
               Shop Now
             </button>
           </div>
@@ -79,29 +95,43 @@ export default function ProductsNavigation() {
     );
   }
 
-
+ 
   const product = products[currentIndex];
 
   return (
-    <section className="product-mobile-container" style={{ backgroundColor: product.background, color: product.color }}>
+    <section
+      className="product-mobile-container"
+      style={{
+        backgroundColor: product.background,
+        color: product.color,
+      }}
+    >
       <div className="product-nav-images">
         {product.images.map((imgSrc, i) => (
           <img
             key={i}
             src={imgSrc}
             alt={`${product.title} image ${i + 1}`}
-            style={{ maxWidth: '150px', maxHeight: '150px', objectFit: 'contain' }}
+            className="product-image"
           />
         ))}
       </div>
+
       <h2>{product.title}</h2>
       <p>{product.description}</p>
 
-
-      <button className="button-product-nav">
+      <button
+        className="button-product-nav"
+        style={
+          product.buttonWhite
+            ? { backgroundColor: product.background, 
+                color: '#fff',   
+                border: `1px solid #fff`}
+            : {}
+        }
+      >
         Shop Now
       </button>
-
 
       <div className="product-nav-dots">
         {products.map((_, idx) => (

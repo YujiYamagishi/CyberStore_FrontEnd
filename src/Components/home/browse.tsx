@@ -1,26 +1,24 @@
 import React, { useState } from "react";
 import {
   FaMobileAlt,
-  FaCamera,
-  FaHeadphones,
-  FaDesktop,
-  FaGamepad,
-  FaClock,
+  FaLaptop,
   FaTabletAlt,
+  FaHeadphones,
+  FaGamepad,
   FaTv,
-  FaKeyboard,
+  FaVolumeUp,
+  FaClock,
 } from "react-icons/fa";
 
 const categories = [
   { name: "Phones", icon: <FaMobileAlt /> },
-  { name: "Smart Watches", icon: <FaClock /> },
-  { name: "Cameras", icon: <FaCamera /> },
-  { name: "Headphones", icon: <FaHeadphones /> },
-  { name: "Computers", icon: <FaDesktop /> },
-  { name: "Gaming", icon: <FaGamepad /> },
+  { name: "Notebooks", icon: <FaLaptop /> },
   { name: "Tablets", icon: <FaTabletAlt /> },
+  { name: "Headphones", icon: <FaHeadphones /> },
+  { name: "Gaming", icon: <FaGamepad /> },
   { name: "TVs", icon: <FaTv /> },
-  { name: "Keyboards", icon: <FaKeyboard /> },
+  { name: "Audio", icon: <FaVolumeUp /> },
+  { name: "Smart Watches", icon: <FaClock /> },
 ];
 
 export default function Browse() {
