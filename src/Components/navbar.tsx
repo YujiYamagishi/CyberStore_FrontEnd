@@ -23,6 +23,7 @@ export default function Navbar() {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
+
       handleSearch();
     }
   };
@@ -31,6 +32,7 @@ export default function Navbar() {
     <nav className="navbar relative">
       <div className="navbar-container">
         <div className="navbar-logo">cyber</div>
+
 
         <div className="navbar-search hidden md:flex w-96">
           <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
@@ -84,6 +86,7 @@ export default function Navbar() {
           >
             Blog
           </Link>
+
         </div>
 
         <div className="navbar-icons">
@@ -102,6 +105,7 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="navbar-mobile-menu">
+
           <div className="navbar-search flex md:hidden w-full mb-4">
             <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
               <button
@@ -145,6 +149,7 @@ export default function Navbar() {
               <Link to="/blog" onClick={() => setIsOpen(false)}>
                 Blog
               </Link>
+
             </li>
           </ul>
         </div>

@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../card";
 
+
 type Product = {
   id: number;
   title: string;
@@ -53,20 +54,26 @@ export default function DiscountProducts() {
       <h2 className="discount-title">Discounts up to 50%</h2>
 
       <div className="discount-grid">
+
         {loading ? (
           <p>Loading products...</p>
         ) : products.length > 0 ? (
           products.map((product) => (
+
             <ProductCard
               key={product.id}
               id={product.id}
               title={product.title}
+
               price={`$${product.price}`}
+
               image={product.image}
             />
           ))
         ) : (
+
           <p>No products found.</p>
+
         )}
       </div>
     </section>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
+
 import ProductsFilter from "../Components/productsPage/productsFilter";
 import ProductCard from "../Components/card";
 import "../styles/products.css";
+
 
 
 type Product = {
@@ -10,6 +12,7 @@ type Product = {
   title: string;
   price: string;
   image: string;
+
 };
 
 
@@ -119,6 +122,7 @@ export default function ProductsPage() {
           >
             &gt;
           </button>
+
         </div>
       )}
     </main>

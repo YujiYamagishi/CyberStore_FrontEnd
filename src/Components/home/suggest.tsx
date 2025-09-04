@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ProductCard from "../card";
 
+
 type Product = {
   id: number;
   title: string;
@@ -15,12 +16,14 @@ const tabs = [
 ];
 
 export default function Suggest() {
+
   const [activeTab, setActiveTab] = useState(tabs[0].value);
   const [products, setProducts] = useState<Product[]>([]);
   const [loading, setLoading] = useState(true);
 
   const API_URL =
     (import.meta.env.VITE_API_URL as string) || "http://localhost:8000";
+
 
   async function fetchProducts(tag: string) {
     try {
@@ -39,6 +42,7 @@ export default function Suggest() {
         price: String(p.price ?? ""),
         image: p.url_image ?? "",
       }));
+
 
       setProducts(mapped);
     } catch (e) {
@@ -67,6 +71,7 @@ export default function Suggest() {
         ))}
       </div>
 
+
       <div className="product-grid">
         {loading ? (
           <p>Loading products...</p>
@@ -85,5 +90,6 @@ export default function Suggest() {
         )}
       </div>
     </section>
+
   );
 }
