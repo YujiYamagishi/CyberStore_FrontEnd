@@ -9,9 +9,9 @@ type Product = {
 };
 
 const tabs = [
-  { label: "New Arrival", value: "new-arrival" },
+  { label: "New Arrival", value: "new_arrival" },
   { label: "Bestseller", value: "bestseller" },
-  { label: "Featured Product", value: "featured-product" },
+  { label: "Featured Product", value: "featured_product" },
 ];
 
 export default function Suggest() {
@@ -22,17 +22,16 @@ export default function Suggest() {
   const API_URL =
     (import.meta.env.VITE_API_URL as string) || "http://localhost:8000";
 
-  async function fetchProducts(tag: string, allowFallback = true) {
+  async function fetchProducts(tag: string) {
     try {
       setLoading(true);
+
       const url = `${API_URL}/api/products/tag/${encodeURIComponent(tag)}`;
       const res = await fetch(url, { mode: "cors" });
       if (!res.ok) throw new Error(`HTTP ${res.status}`);
+
       const payload = await res.json();
-
       const list = Array.isArray(payload) ? payload : payload?.data || [];
-
-      console.log("API Response:", list);
 
       const mapped: Product[] = list.map((p: any) => ({
         id: p.id,
@@ -41,16 +40,9 @@ export default function Suggest() {
         image: p.url_image ?? "",
       }));
 
-      if (mapped.length === 0 && allowFallback && tag !== "bestseller") {
-        return fetchProducts("bestseller", false);
-      }
-
       setProducts(mapped);
     } catch (e) {
       console.error("Suggest fetch error:", e);
-      if (allowFallback && tag !== "bestseller") {
-        return fetchProducts("bestseller", false);
-      }
       setProducts([]);
     } finally {
       setLoading(false);
