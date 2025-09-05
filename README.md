@@ -1,69 +1,106 @@
-# React + TypeScript + Vite
+# ⚡ Cyber - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<p align="center">
+  <img src="https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB"/>
+  <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E"/>
+  <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
+  <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white"/>
+</p>
 
-Currently, two official plugins are available:
+🚀 **Cyber Frontend** is the main web application of the Cyber ecosystem.  
+It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS**, and fully integrated with the [Cyber Backend](https://github.com/fromanoel/cyber-web-backend.git).  
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+---
 
-## Expanding the ESLint configuration
+## 🌐 Project Ecosystem  
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **[Cyber - Backend](https://github.com/fromanoel/cyber-web-backend)** → API responsible for business logic and persistence  
+- **Cyber - Frontend (this repo)** → React web client consuming the API  
 
-```js
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      ...tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      ...tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      ...tseslint.configs.stylisticTypeChecked,
+## 🚀 Requirements  
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+- Node.js 24  
+- Git  
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## ⚙️ Getting Started  
 
-export default tseslint.config([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-```
+1. **Clone the repository**  
+   ```sh
+   git clone https://github.com/Ericklys/cyber-web-frontend.git
+   ```
+2. Navigate into the project folder
+   ```sh
+   cd cyber-web-frontend
+    ```
+3. Install dependencies
+   ```sh
+   npm install
+   ```
+4. Configure environment variables
+   ```sh
+   cp .env.example .env
+   ```
+ Example:
+```sh
+DATABASE_URL="file:./dev.db"
+  ```
+5. Run the app in development mode
+   ```sh
+   npm run dev
+   ```
+The app will be available at 👉 http://localhost:5173
+
+
+🛠️ Technologies Used
+
+* React + TypeScript
+
+* Vite
+
+* Tailwind CSS
+
+* React Router DOM
+
+* Lucide Icons
+
+* Css
+
+📂 Project Structure
+```sh
+.
+├── public/                  # Static assets (images, svg, etc.)
+│
+├── src/                     
+│   ├── assets/              # Additional resources
+│   ├── components/          # Reusable components (Navbar, Footer, Cards, etc.)
+│   ├── home/                # Home-specific components (Hero, ProductsNav, Suggest...)
+│   ├── productDetails/      # Product detail components
+│   ├── productsPage/        # Product listing, filters, pagination, etc.
+│   ├── hooks/               # Custom hooks (e.g. useMediaQuery)
+│   ├── pages/               # Main pages (Home, Products, ProductDetails)
+│   ├── styles/              # CSS modules for components and pages
+│   ├── App.tsx              # Root component
+│   └── main.tsx             # Application entry point
+│
+├── .env                     # Environment variables
+├── index.html               # Main HTML entry
+├── package.json             # Dependencies and scripts
+└── vite.config.ts           # Vite configuration
+ ```
+👨‍💻 Developers
+
+## 👨‍💻 Developers  
+
+### Frontend team  
+
+| [<img src="https://avatars.githubusercontent.com/u/128267135?v=4" width=125><br><sub>Ericklys</sub>](https://github.com/Ericklys) | [<img src="https://avatars.githubusercontent.com/u/133705031?v=4" width=125><br><sub>Tarcisio Lucas</sub>](https://github.com/T-Lucas43) | [<img src="https://avatars.githubusercontent.com/u/181165633?v=4" width=125><br><sub>Yuji Yamagishi</sub>](https://github.com/YujiYamagishi) | [<img src="https://avatars.githubusercontent.com/u/18268176?v=4" width=125><br><sub>Alvino Pedrosa</sub>](https://github.com/alvinopf) |
+| :---: | :---: | :---: | :---: |
+
+### Backend team  
+
+| [<img src="https://avatars.githubusercontent.com/u/130419872?v=4" width=125><br><sub>Fernanda Romanoel</sub>](https://github.com/fromanoel) | [<img src="https://avatars.githubusercontent.com/u/112771403?v=4" width=125><br><sub>Fernando Emidio</sub>](https://github.com/Fernando7492) | [<img src="https://avatars.githubusercontent.com/u/117694456?v=4" width=125><br><sub>Jefferson Lucas</sub>](https://github.com/JeufoDev) |
+| :---: | :---: | :---: |
