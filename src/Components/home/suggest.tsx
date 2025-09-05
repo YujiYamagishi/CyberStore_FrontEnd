@@ -78,12 +78,12 @@ export default function Suggest() {
         ) : products.length > 0 ? (
           products.slice(0, 8).map((product) => (
             <ProductCard
-              key={product.id}
-              id={product.id}
-              title={product.title}
-              price={product.price}
-              image={product.image}
-            />
+  key={product.id}
+  id={product.id}
+  title={product.title}
+  price={`$${product.price}`}  
+  image={product.image}
+/>
           ))
         ) : (
           <p>No products found.</p>
