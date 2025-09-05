@@ -5,18 +5,22 @@ import { ChevronDown, ChevronUp } from 'lucide-react';
 
 export default function Reviews({ summary, productId }: { summary: any, productId: any }) {
   const [comments, setComments] = useState<any[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [hasMore, setHasMore] = useState(true);
   const [loadingComments, setLoadingComments] = useState(true);
   const [errorComments, setErrorComments] = useState<string | null>(null);
-  const [areAllReviewsVisible, setAreAllReviewsVisible] = useState(false);
 
   useEffect(() => {
-    const fetchComments = async () => {
+    const fetchInitialComments = async () => {
       if (!productId) return;
       setLoadingComments(true);
       setErrorComments(null);
       try {
-        const response = await axios.get(`http://localhost:8000/api/reviews/comments/${productId}`);
+        const response = await axios.get(`http://localhost:8000/api/reviews/comments/${productId}?page=1`);
         setComments(response.data.data);
+        if (response.data.data.length < 3) {
+          setHasMore(false);
+        }
       } catch (err: any) {
         setErrorComments(err.response?.data?.error || 'Could not load comments.');
       } finally {
@@ -24,14 +28,22 @@ export default function Reviews({ summary, productId }: { summary: any, productI
       }
     };
 
-    fetchComments();
+    fetchInitialComments();
   }, [productId]);
 
-  const toggleReviews = () => {
-    setAreAllReviewsVisible(!areAllReviewsVisible);
+  const handleViewMore = async () => {
+    const nextPage = currentPage + 1;
+    try {
+      const response = await axios.get(`http://localhost:8000/api/reviews/comments/${productId}?page=${nextPage}`);
+      setComments(prevComments => [...prevComments, ...response.data.data]);
+      setCurrentPage(nextPage);
+      if (response.data.data.length === 0) {
+        setHasMore(false);
+      }
+    } catch (err) {
+      setErrorComments('Could not load more comments.');
+    }
   };
-
-  const visibleComments = areAllReviewsVisible ? comments : comments.slice(0, 3);
 
   const ratingBarsData = summary ? [
     { label: 'Excellent', count: summary.excellent },
@@ -75,9 +87,9 @@ export default function Reviews({ summary, productId }: { summary: any, productI
       )}
 
       <div className="review-comments">
-        {loadingComments && <p>Loading comments...</p>}
+        {loadingComments && comments.length === 0 && <p>Loading comments...</p>}
         {errorComments && <p>Error: {errorComments}</p>}
-        {!loadingComments && visibleComments.map((comment) => (
+        {comments.map((comment) => (
           <div key={comment.id} className="comment-card">
             <img src={comment.url_image_user} alt={comment.name_user} className="comment-avatar" />
             <div className="comment-content">
@@ -98,11 +110,11 @@ export default function Reviews({ summary, productId }: { summary: any, productI
         ))}
       </div>
       
-      {comments.length > 3 && (
+      {hasMore && (
         <div className="view-more-container">
-          <button className="view-more-button" onClick={toggleReviews}>
-            {areAllReviewsVisible ? 'View Less' : 'View More'}
-            {areAllReviewsVisible ? <ChevronUp size={22} /> : <ChevronDown size={22} />}
+          <button className="view-more-button" onClick={handleViewMore}>
+            View More
+            <ChevronDown size={22} />
           </button>
         </div>
       )}
