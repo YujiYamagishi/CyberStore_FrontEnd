@@ -21,15 +21,24 @@ export default function ProductInfo({ product }: { product: any }) {
 
   const hasColors = product.colors && product.colors.length > 0;
   const hasStorage = product.storageOptions && product.storageOptions.length > 0;
+  const hasSpecs = product.smartphoneSpec !== null && product.smartphoneSpec !== undefined;
 
   const colorRequirementMet = !hasColors || (hasColors && selectedColor !== null);
   const storageRequirementMet = !hasStorage || (hasStorage && selectedStorage !== null);
   const isButtonEnabled = colorRequirementMet && storageRequirementMet;
 
   const thumbnails = product.url_image ? [product.url_image, product.url_image, product.url_image, product.url_image] : [];
+
+  const parseStorage = (storageStr: string) => {
+    const value = parseInt(storageStr.replace(/\D/g, ''));
+    if (storageStr.toUpperCase().includes('TB')) {
+      return value * 1024;
+    }
+    return value;
+  };
   
   const colors = hasColors ? product.colors.map((c: any) => c.hex_code) : [];
-  const storageOptions = hasStorage ? product.storageOptions : [];
+  const storageOptions = hasStorage ? [...product.storageOptions].sort((a, b) => parseStorage(a) - parseStorage(b)) : [];
 
   const specs = {
     screenSize: product.smartphoneSpec?.screen_size || 'N/A',
@@ -96,6 +105,7 @@ export default function ProductInfo({ product }: { product: any }) {
           </div>
         )}
 
+        {hasSpecs && (
         <div className="specs-grid">
           <div className="spec-item">
             <img src={screensizeIcon} alt="Screen size" />
@@ -140,6 +150,7 @@ export default function ProductInfo({ product }: { product: any }) {
             </div>
           </div>
         </div>
+        )}
 
         <p className="product-description">
           {isDescriptionExpanded ? product.description : `${product.description.substring(0, 150)}... `}

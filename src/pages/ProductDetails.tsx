@@ -24,7 +24,7 @@ export default function ProductDetails() {
       setError(null);
       try {
         const productResponse = await axios.get(`http://localhost:8000/api/product/${productId}`);
-        const productData = productResponse.data.data;
+        const productData = productResponse.data.products;
         setProduct(productData);
 
         const reviewsSummaryResponse = await axios.get(`http://localhost:8000/api/reviews/summary/${productId}`);
