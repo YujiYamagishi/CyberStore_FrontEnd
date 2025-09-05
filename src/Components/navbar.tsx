@@ -23,7 +23,6 @@ export default function Navbar() {
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       e.preventDefault();
-
       handleSearch();
     }
   };
@@ -31,8 +30,15 @@ export default function Navbar() {
   return (
     <nav className="navbar relative">
       <div className="navbar-container">
-        <div className="navbar-logo">cyber</div>
-
+        {/* Logo clicável sem underline */}
+        <Link
+          to="/"
+          className="navbar-logo"
+          style={{ textDecoration: "none", color: "inherit" }}
+          onClick={() => setActiveLink("home")}
+        >
+          cyber
+        </Link>
 
         <div className="navbar-search hidden md:flex w-96">
           <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
@@ -61,32 +67,31 @@ export default function Navbar() {
           <Link
             to="/"
             onClick={() => setActiveLink("home")}
-            style={{ color: activeLink === "home" ? "#000" : "#666" }}
+            style={{ color: activeLink === "home" ? "#000" : "#666", textDecoration: "none" }}
           >
             Home
           </Link>
           <Link
             to="/products"
             onClick={() => setActiveLink("shop")}
-            style={{ color: activeLink === "shop" ? "#000" : "#666" }}
+            style={{ color: activeLink === "shop" ? "#000" : "#666", textDecoration: "none" }}
           >
             Shop
           </Link>
           <Link
             to="/contact"
             onClick={() => setActiveLink("contact")}
-            style={{ color: activeLink === "contact" ? "#000" : "#666" }}
+            style={{ color: activeLink === "contact" ? "#000" : "#666", textDecoration: "none" }}
           >
             Contact Us
           </Link>
           <Link
             to="/blog"
             onClick={() => setActiveLink("blog")}
-            style={{ color: activeLink === "blog" ? "#000" : "#666" }}
+            style={{ color: activeLink === "blog" ? "#000" : "#666", textDecoration: "none" }}
           >
             Blog
           </Link>
-
         </div>
 
         <div className="navbar-icons">
@@ -105,7 +110,6 @@ export default function Navbar() {
 
       {isOpen && (
         <div className="navbar-mobile-menu">
-
           <div className="navbar-search flex md:hidden w-full mb-4">
             <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
               <button
@@ -131,25 +135,24 @@ export default function Navbar() {
 
           <ul>
             <li>
-              <Link to="/" onClick={() => setIsOpen(false)}>
+              <Link to="/" onClick={() => setIsOpen(false)} style={{ textDecoration: "none" }}>
                 Home
               </Link>
             </li>
             <li>
-              <Link to="/products" onClick={() => setIsOpen(false)}>
+              <Link to="/products" onClick={() => setIsOpen(false)} style={{ textDecoration: "none" }}>
                 Shop
               </Link>
             </li>
             <li>
-              <Link to="/contact" onClick={() => setIsOpen(false)}>
+              <Link to="/contact" onClick={() => setIsOpen(false)} style={{ textDecoration: "none" }}>
                 Contact Us
               </Link>
             </li>
             <li>
-              <Link to="/blog" onClick={() => setIsOpen(false)}>
+              <Link to="/blog" onClick={() => setIsOpen(false)} style={{ textDecoration: "none" }}>
                 Blog
               </Link>
-
             </li>
           </ul>
         </div>
