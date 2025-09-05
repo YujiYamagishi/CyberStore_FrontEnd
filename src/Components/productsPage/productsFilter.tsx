@@ -1,10 +1,17 @@
-import React, { useState } from "react";
-import { ChevronDown, ChevronUp, Search, X, ChevronLeft } from "lucide-react"; // Importe ChevronLeft
+import React, { useState, useEffect } from "react";
+import { ChevronDown, ChevronUp, Search, ChevronLeft } from "lucide-react";
 import "../../styles/products.css";
 
+// Definindo o tipo para a marca com contagem de produtos
+type BrandData = {
+  name: string;
+  total: number;
+};
+
+// Atualizando as propriedades do componente para aceitar o novo tipo de dado
 type ProductsFilterProps = {
   onFilter: (filters: { minPrice?: number; maxPrice?: number; brands?: string[] }) => void;
-  brands: string[];
+  brands: BrandData[]; // Agora espera um array de objetos com nome e total
   onClose?: () => void;
 };
 
@@ -17,36 +24,49 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isBrandOpen, setIsBrandOpen] = useState(true);
 
+  useEffect(() => {
+    if (!onClose) {
+      onFilter({ minPrice, maxPrice, brands: selectedBrands });
+    }
+  }, [minPrice, maxPrice, selectedBrands, onFilter, onClose]);
+
   const handleBrandChange = (brand: string) => {
     setSelectedBrands((prev) =>
       prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
     );
   };
 
-  const handleApplyFilters = () => {
+  const handleClearFilters = () => {
+    setMinPrice(undefined);
+    setMaxPrice(undefined);
+    setSelectedBrands([]);
+    setBrandSearchTerm("");
+    onFilter({});
+  };
+
+  const handleApplyFiltersMobile = () => {
     onFilter({ minPrice, maxPrice, brands: selectedBrands });
     if (onClose) {
       onClose();
     }
   };
 
+  // Filtra as marcas com base no nome
   const filteredBrands = brands.filter((brand) =>
-    brand.toLowerCase().includes(brandSearchTerm.toLowerCase())
+    brand.name.toLowerCase().includes(brandSearchTerm.toLowerCase())
   );
 
   return (
     <div className="filters-container">
-      {/* Cabeçalho do filtro com botão de voltar */}
-      <div className="filters-header-mobile">
-        {onClose && (
+      {onClose && (
+        <div className="filters-header-mobile">
           <button onClick={onClose} className="back-button">
             <ChevronLeft size={24} />
           </button>
-        )}
-        <h2 className="filters-title">Filters</h2>
-      </div>
+          <h2 className="filters-title">Filters</h2>
+        </div>
+      )}
 
-      {/* Seção do Filtro de Preço */}
       <div className="filter-section">
         <div className="filter-section-header" onClick={() => setIsPriceOpen(!isPriceOpen)}>
           <h4>Price</h4>
@@ -61,8 +81,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
               onChange={(e) => setMinPrice(Number(e.target.value))}
               className="price-input"
             />
-            {/* Adicionando o separador visual */}
-            <span className="price-separator">-</span> 
+            <span className="price-separator">-</span>
             <input
               type="number"
               placeholder="To"
@@ -72,19 +91,8 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
             />
           </div>
         )}
-        {isPriceOpen && ( // Adiciona o range slider aqui
-            <div className="price-range-slider">
-              {/* Você pode integrar uma biblioteca de range slider aqui, como react-slider */}
-              {/* Por enquanto, é um placeholder */}
-              <div className="slider-track">
-                <div className="slider-thumb left"></div>
-                <div className="slider-thumb right"></div>
-              </div>
-            </div>
-        )}
       </div>
 
-      {/* Seção do Filtro de Marca */}
       <div className="filter-section">
         <div className="filter-section-header" onClick={() => setIsBrandOpen(!isBrandOpen)}>
           <h4>Brand</h4>
@@ -99,20 +107,21 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
                 placeholder="Search"
                 value={brandSearchTerm}
                 onChange={(e) => setBrandSearchTerm(e.target.value)}
+                className="search-input"
               />
             </div>
             <ul className="brand-list">
               {filteredBrands.map((brand) => (
-                <li key={brand}>
+                <li key={brand.name}>
                   <input
                     type="checkbox"
-                    id={`brand-${brand}`} // Use um ID único
-                    checked={selectedBrands.includes(brand)}
-                    onChange={() => handleBrandChange(brand)}
+                    id={`brand-${brand.name}`}
+                    checked={selectedBrands.includes(brand.name)}
+                    onChange={() => handleBrandChange(brand.name)}
                   />
-                  <label htmlFor={`brand-${brand}`}>{brand}</label>
-                  {/* Contagem de itens, se disponível */}
-                  {/* <span className="brand-count"> (XX) </span> */} 
+                  <label htmlFor={`brand-${brand.name}`}>
+                    {brand.name} <span>{brand.total}</span>
+                  </label>
                 </li>
               ))}
             </ul>
@@ -120,7 +129,22 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
         )}
       </div>
 
-      <button onClick={handleApplyFilters} className="apply-button">Apply</button>
+      {onClose ? (
+        <div className="filter-actions-mobile">
+          <button onClick={handleClearFilters} className="clear-button">
+            Clear
+          </button>
+          <button onClick={handleApplyFiltersMobile} className="apply-button">
+            Apply
+          </button>
+        </div>
+      ) : (
+        <div className="filter-actions-desktop">
+          <button onClick={handleClearFilters} className="clear-button">
+            Clear Filters
+          </button>
+        </div>
+      )}
     </div>
   );
 };
