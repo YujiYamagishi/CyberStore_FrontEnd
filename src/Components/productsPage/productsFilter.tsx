@@ -2,20 +2,24 @@ import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Search, ChevronLeft } from "lucide-react";
 import "../../styles/products.css";
 
-// Definindo o tipo para a marca com contagem de produtos
 type BrandData = {
   name: string;
   total: number;
 };
 
-// Atualizando as propriedades do componente para aceitar o novo tipo de dado
 type ProductsFilterProps = {
   onFilter: (filters: { minPrice?: number; maxPrice?: number; brands?: string[] }) => void;
-  brands: BrandData[]; // Agora espera um array de objetos com nome e total
+  brands: BrandData[];
   onClose?: () => void;
+  showPriceFilter?: boolean;
 };
 
-const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClose }) => {
+const ProductsFilter: React.FC<ProductsFilterProps> = ({
+  onFilter,
+  brands,
+  onClose,
+  showPriceFilter = true,
+}) => {
   const [minPrice, setMinPrice] = useState<number | undefined>();
   const [maxPrice, setMaxPrice] = useState<number | undefined>();
   const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
@@ -44,14 +48,11 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
     onFilter({});
   };
 
-  const handleApplyFiltersMobile = () => {
+  const handleApplyFilters = () => {
     onFilter({ minPrice, maxPrice, brands: selectedBrands });
-    if (onClose) {
-      onClose();
-    }
+    if (onClose) onClose();
   };
 
-  // Filtra as marcas com base no nome
   const filteredBrands = brands.filter((brand) =>
     brand.name.toLowerCase().includes(brandSearchTerm.toLowerCase())
   );
@@ -67,34 +68,44 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
         </div>
       )}
 
-      <div className="filter-section">
-        <div className="filter-section-header" onClick={() => setIsPriceOpen(!isPriceOpen)}>
-          <h4>Price</h4>
-          {isPriceOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
-        </div>
-        {isPriceOpen && (
-          <div className="filter-section-body price-filter">
-            <input
-              type="number"
-              placeholder="From"
-              value={minPrice || ""}
-              onChange={(e) => setMinPrice(Number(e.target.value))}
-              className="price-input"
-            />
-            <span className="price-separator">-</span>
-            <input
-              type="number"
-              placeholder="To"
-              value={maxPrice || ""}
-              onChange={(e) => setMaxPrice(Number(e.target.value))}
-              className="price-input"
-            />
+      {/* 🔹 Price filter */}
+      {showPriceFilter && (
+        <div className="filter-section">
+          <div
+            className="filter-section-header"
+            onClick={() => setIsPriceOpen(!isPriceOpen)}
+          >
+            <h4>Price</h4>
+            {isPriceOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
           </div>
-        )}
-      </div>
+          {isPriceOpen && (
+            <div className="filter-section-body price-filter">
+              <input
+                type="number"
+                placeholder="From"
+                value={minPrice || ""}
+                onChange={(e) => setMinPrice(Number(e.target.value))}
+                className="price-input"
+              />
+              <span className="price-separator">-</span>
+              <input
+                type="number"
+                placeholder="To"
+                value={maxPrice || ""}
+                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                className="price-input"
+              />
+            </div>
+          )}
+        </div>
+      )}
 
+      {/* 🔹 Brand filter */}
       <div className="filter-section">
-        <div className="filter-section-header" onClick={() => setIsBrandOpen(!isBrandOpen)}>
+        <div
+          className="filter-section-header"
+          onClick={() => setIsBrandOpen(!isBrandOpen)}
+        >
           <h4>Brand</h4>
           {isBrandOpen ? <ChevronUp size={16} /> : <ChevronDown size={16} />}
         </div>
@@ -120,7 +131,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
                     onChange={() => handleBrandChange(brand.name)}
                   />
                   <label htmlFor={`brand-${brand.name}`}>
-                    {brand.name} <span>{brand.total}</span>
+                    {brand.name} <span>({brand.total})</span>
                   </label>
                 </li>
               ))}
@@ -129,19 +140,25 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({ onFilter, brands, onClo
         )}
       </div>
 
+      {/* 🔹 Action buttons */}
       {onClose ? (
+        // MOBILE
         <div className="filter-actions-mobile">
           <button onClick={handleClearFilters} className="clear-button">
             Clear
           </button>
-          <button onClick={handleApplyFiltersMobile} className="apply-button">
+          <button onClick={handleApplyFilters} className="apply-button">
             Apply
           </button>
         </div>
       ) : (
+        // DESKTOP
         <div className="filter-actions-desktop">
           <button onClick={handleClearFilters} className="clear-button">
             Clear Filters
+          </button>
+          <button onClick={handleApplyFilters} className="apply-button">
+            Apply
           </button>
         </div>
       )}

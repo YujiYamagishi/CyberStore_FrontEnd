@@ -10,6 +10,7 @@ import playstationDesktop from '../../assets/playstation-desktop.png'
 import macbook from '../../assets/macbook.png'
 import macbookDesktop from '../../assets/macbook-desktop.png'
 
+
 export default function Hero() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024)
 
@@ -49,19 +50,47 @@ export default function Hero() {
         )}
       </section>
 
-      <section className="playstation">
-        <img src={isDesktop ? playstationDesktop : playstation} alt="Playstation 5" />
+      <section className="airpods">
+      <img src={isDesktop ? airpodsDesktop : airpods} alt="AirPods Max" />
+      
+      <div className="text">
+        <h3>
+          Apple AirPods <span>Max</span>
+        </h3>
+        <p>Computational audio. Listen, it’s powerful</p>
+      </div>
+      </section>
+
+
+     <section className="visionpro">
+    <img src={isDesktop ? visionproDesktop : visionpro} alt="Apple Vision Pro" />
+    
+    <div className="text">
+      <h3>
+        Apple Vision <span>Pro</span>
+      </h3>
+      <p>An immersive way to experience entertainment</p>
+    </div>
+    </section>
+
+     <section className="playstation">
+      <img src={isDesktop ? playstationDesktop : playstation} alt="Playstation 5" />
+
+      <div className="text">
         <h3>
           Playstation <span>5</span>
         </h3>
         <p>
-          Incredibly powerful CPU, GPU, and an SSD with integrated I/O will
+          Incredibly powerful CPUs, GPUs, and an SSD with integrated I/O will
           redefine your PlayStation experience.
         </p>
+      </div>
       </section>
 
+
       <section className="macbook">
-        <img src={isDesktop ? macbookDesktop : macbook} alt="Macbook Air" />
+      <img src={isDesktop ? macbookDesktop : macbook} alt="Macbook Air" />
+      <div className="text">
         <h3>
           Macbook <span>Air</span>
         </h3>
@@ -70,23 +99,13 @@ export default function Hero() {
           a spacious Liquid Retina display.
         </p>
         <button className="btn-mac">Shop Now</button>
+        </div>
+        
       </section>
 
-      <section className="airpods">
-        <img src={isDesktop ? airpodsDesktop : airpods} alt="AirPods Max" />
-        <h3>
-          Apple AirPods <span>Max</span>
-        </h3>
-        <p>Computational audio. Listen, it’s powerful</p>
-      </section>
 
-      <section className="visionpro">
-        <img src={isDesktop ? visionproDesktop : visionpro} alt="Apple Vision Pro" />
-        <h3>
-          Apple Vision <span>Pro</span>
-        </h3>
-        <p>An immersive way to experience entertainment</p>
-      </section>
+      
+
     </div>
   )
 }

@@ -3,6 +3,7 @@ import { useLocation } from "react-router-dom";
 import ProductsFilter from "../components/productsPage/productsFilter";
 import ProductCard from "../components/card";
 import useMediaQuery from "../hooks/useMediaQuery";
+import Breadcrumb from "../components/Breadcrumb";
 import "../styles/products.css";
 
 const API_BASE_URL = "http://localhost:8000";
@@ -39,67 +40,86 @@ export default function ProductsPage() {
 
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("search") || "";
-  const category = new URLSearchParams(location.search).get("category") || "";
+  const categoryParam = new URLSearchParams(location.search).get("category");
+  const categoryToFetch = categoryParam || "Phones";
+
+  const crumbs = [
+    { label: "Home", path: "/" },
+    { label: "Shop", path: "/shop" },
+    { label: categoryToFetch, path: `/products?category=${categoryToFetch}` },
+  ];
 
   useEffect(() => {
-    const fetchProductsAndBrands = async () => {
-      const categoryToFetch = category || "all";
-      const productsUrl = new URL(
-        `${API_BASE_URL}/api/products/category/${categoryToFetch}`
+    const productsUrl = new URL(
+      `${API_BASE_URL}/api/products/category/${categoryToFetch}`
+    );
+
+    productsUrl.searchParams.append("limit", itemsPerPage.toString());
+    productsUrl.searchParams.append("page", currentPage.toString());
+
+    if (sortOption === "high") {
+      productsUrl.searchParams.append("sort", "price");
+      productsUrl.searchParams.append("order", "desc");
+    } else if (sortOption === "low") {
+      productsUrl.searchParams.append("sort", "price");
+      productsUrl.searchParams.append("order", "asc");
+    }
+
+    if (query) productsUrl.searchParams.append("q", query);
+
+    if (currentFilters.minPrice)
+      productsUrl.searchParams.append(
+        "minPrice",
+        currentFilters.minPrice.toString()
       );
-      const brandsUrl = `${API_BASE_URL}/api/products/brands`;
+    if (currentFilters.maxPrice)
+      productsUrl.searchParams.append(
+        "maxPrice",
+        currentFilters.maxPrice.toString()
+      );
+    if (currentFilters.brands && currentFilters.brands.length > 0) {
+      productsUrl.searchParams.append(
+        "brands",
+        currentFilters.brands.join(",")
+      );
+    }
 
-      productsUrl.searchParams.append("limit", itemsPerPage.toString());
-      productsUrl.searchParams.append("page", currentPage.toString());
-
-      if (sortOption === "high") {
-        productsUrl.searchParams.append("sort", "price");
-        productsUrl.searchParams.append("order", "desc");
-      } else if (sortOption === "low") {
-        productsUrl.searchParams.append("sort", "price");
-        productsUrl.searchParams.append("order", "asc");
-      }
-
-      if (query) productsUrl.searchParams.append("q", query);
-
-      if (currentFilters.minPrice)
-        productsUrl.searchParams.append("minPrice", currentFilters.minPrice.toString());
-      if (currentFilters.maxPrice)
-        productsUrl.searchParams.append("maxPrice", currentFilters.maxPrice.toString());
-      if (currentFilters.brands && currentFilters.brands.length > 0) {
-        productsUrl.searchParams.append("brands", currentFilters.brands.join(","));
-      }
-
+    const fetchProducts = async () => {
       try {
-        const [productsResponse, brandsResponse] = await Promise.all([
-          fetch(productsUrl.toString()),
-          fetch(brandsUrl)
-        ]);
+        const productsResponse = await fetch(productsUrl.toString());
 
         if (!productsResponse.ok) {
-          throw new Error("Erro na resposta da API de produtos: " + productsResponse.statusText);
-        }
-        if (!brandsResponse.ok) {
-          throw new Error("Erro na resposta da API de marcas: " + brandsResponse.statusText);
+          throw new Error(
+            "Erro na resposta da API de produtos: " +
+              productsResponse.statusText
+          );
         }
 
         const productsData = await productsResponse.json();
-        const brandsData = await brandsResponse.json();
+        const productsArray: Product[] = productsData.data || [];
 
-        const productsArray = productsData.data || [];
+        const uniqueBrandsMap = new Map<string, number>();
+        productsArray.forEach((product) => {
+          if (uniqueBrandsMap.has(product.brand)) {
+            uniqueBrandsMap.set(
+              product.brand,
+              uniqueBrandsMap.get(product.brand)! + 1
+            );
+          } else {
+            uniqueBrandsMap.set(product.brand, 1);
+          }
+        });
 
-        const brandsArray = brandsData.data || [];
-        const fetchedBrands = Array.isArray(brandsArray) ? brandsArray.map((item: any) => ({
-            name: item.brand,
-            total: item.total
-        })) : [];
+        const fetchedBrands: BrandData[] = Array.from(
+          uniqueBrandsMap,
+          ([name, total]) => ({ name, total })
+        );
 
-        const total = productsData.metadata?.total_items || productsArray.length;
+        const total = productsData.metadata?.total_items || 0;
 
         setProducts(productsArray);
         setAvailableBrands(fetchedBrands);
         setTotalItems(total);
-
       } catch (error) {
         console.error("Erro ao buscar dados:", error);
         setProducts([]);
@@ -108,14 +128,63 @@ export default function ProductsPage() {
       }
     };
 
-    fetchProductsAndBrands();
-  }, [currentPage, query, sortOption, currentFilters, itemsPerPage, category]);
+    fetchProducts();
+  }, [
+    currentPage,
+    query,
+    sortOption,
+    currentFilters,
+    itemsPerPage,
+    categoryToFetch,
+  ]);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const renderPaginationButtons = () => {
     const buttons = [];
-    for (let i = 1; i <= totalPages; i++) {
+    const maxVisible = 5; // quantidade máxima de páginas visíveis
+
+    // Botão anterior
+    buttons.push(
+      <button
+        key="prev"
+        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+        disabled={currentPage === 1}
+        className="pagination-button prev"
+      >
+        &lt;
+      </button>
+    );
+
+    let start = Math.max(1, currentPage - 2);
+    let end = Math.min(totalPages, currentPage + 2);
+
+    if (currentPage <= 3) {
+      end = Math.min(totalPages, maxVisible);
+    } else if (currentPage >= totalPages - 2) {
+      start = Math.max(1, totalPages - (maxVisible - 1));
+    }
+
+    if (start > 1) {
+      buttons.push(
+        <button
+          key={1}
+          onClick={() => setCurrentPage(1)}
+          className="pagination-button"
+        >
+          1
+        </button>
+      );
+      if (start > 2) {
+        buttons.push(
+          <span key="start-ellipsis" className="ellipsis">
+            ...
+          </span>
+        );
+      }
+    }
+
+    for (let i = start; i <= end; i++) {
       buttons.push(
         <button
           key={i}
@@ -126,11 +195,48 @@ export default function ProductsPage() {
         </button>
       );
     }
+
+    if (end < totalPages) {
+      if (end < totalPages - 1) {
+        buttons.push(
+          <span key="end-ellipsis" className="ellipsis">
+            ...
+          </span>
+        );
+      }
+      buttons.push(
+        <button
+          key={totalPages}
+          onClick={() => setCurrentPage(totalPages)}
+          className="pagination-button"
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    // Botão próximo
+    buttons.push(
+      <button
+        key="next"
+        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+        disabled={currentPage === totalPages}
+        className="pagination-button next"
+      >
+        &gt;
+      </button>
+    );
+
     return buttons;
   };
 
   return (
     <main className="products-page">
+      <div className="breadcrumb-container">
+        <Breadcrumb crumbs={crumbs} />
+      </div>
+
+      {/* 🔹 MOBILE */}
       {!isDesktop && (
         <>
           <div className="filters-and-sort-bar">
@@ -154,7 +260,15 @@ export default function ProductsPage() {
           </p>
           <div className="products-grid">
             {products.length > 0 ? (
-              products.map((p) => <ProductCard key={p.id} {...p} />)
+              products.map((p) => (
+                <ProductCard
+                  key={p.id}
+                  id={p.id}
+                  title={p.name}
+                  image={p.url_image}
+                  price={`$${p.price}`}
+                />
+              ))
             ) : (
               <p>Nenhum produto encontrado.</p>
             )}
@@ -162,12 +276,14 @@ export default function ProductsPage() {
         </>
       )}
 
+      {/* 🔹 DESKTOP */}
       {isDesktop && (
         <div className="desktop-only">
           <aside className="desktop-filters-sidebar">
             <ProductsFilter
               brands={availableBrands}
               onFilter={setCurrentFilters}
+              showPriceFilter={false} // 👈 desktop não mostra preço
             />
           </aside>
           <div className="products-content">
@@ -186,7 +302,15 @@ export default function ProductsPage() {
             </div>
             <div className="products-grid">
               {products.length > 0 ? (
-                products.map((p) => <ProductCard key={p.id} {...p} />)
+                products.map((p) => (
+                  <ProductCard
+                    key={p.id}
+                    id={p.id}
+                    title={p.name}
+                    image={p.url_image}
+                    price={`$${p.price}`}
+                  />
+                ))
               ) : (
                 <p>Nenhum produto encontrado.</p>
               )}
@@ -195,6 +319,7 @@ export default function ProductsPage() {
         </div>
       )}
 
+      {/* 🔹 Paginação */}
       {totalPages > 1 && (
         <div className="pagination">{renderPaginationButtons()}</div>
       )}
@@ -205,6 +330,7 @@ export default function ProductsPage() {
             brands={availableBrands}
             onFilter={setCurrentFilters}
             onClose={() => setIsFilterModalOpen(false)}
+            showPriceFilter={true} // 👈 mobile mostra preço
           />
         </div>
       )}
