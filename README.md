@@ -5,10 +5,11 @@
   <img src="https://img.shields.io/badge/Vite-646CFF?style=for-the-badge&logo=vite&logoColor=FFD62E"/>
   <img src="https://img.shields.io/badge/TypeScript-3178C6?style=for-the-badge&logo=typescript&logoColor=white"/>
   <img src="https://img.shields.io/badge/TailwindCSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white"/>
+  <img src="https://img.shields.io/badge/CSS3-1572B6?style=for-the-badge&logo=css3&logoColor=white"/>
 </p>
 
 🚀 **Cyber Frontend** is the main web application of the Cyber ecosystem.  
-It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS**, and fully integrated with the [Cyber Backend](https://github.com/fromanoel/cyber-web-backend.git).  
+It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS + CSS3**, and fully integrated with the [Cyber Backend](https://github.com/fromanoel/cyber-web-backend.git).  
 
 ---
 
@@ -67,7 +68,7 @@ The app will be available at 👉 http://localhost:5173
 
 * Lucide Icons
 
-* Css
+* Css3
 
 📂 Project Structure
 ```sh
