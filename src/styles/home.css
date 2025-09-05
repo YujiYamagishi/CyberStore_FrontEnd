@@ -1753,7 +1753,7 @@ body {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
   gap: 16px;
-  grid-auto-rows: 1fr; /* ← ESSENCIAL */
+  grid-auto-rows: 1fr; 
 }
 
 .product-card {
@@ -1765,7 +1765,7 @@ body {
   transition: transform 0.2s ease;
   display: flex;
   flex-direction: column;
-  height: 100%; /* ← IGUALA ALTURA */
+  height: 100%; 
 }
 
 .product-img {
