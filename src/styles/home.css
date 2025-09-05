@@ -260,7 +260,6 @@ body {
 .navbar-links a:hover {
   color: #000;
   font-weight: 500;
-  display: none;
 }
 
 .navbar-icons {
@@ -1096,6 +1095,8 @@ body {
   border-bottom: 1px solid #f0f0f0;
   font-size: 1rem;
 }
+
+
 
 
 .hero-container {

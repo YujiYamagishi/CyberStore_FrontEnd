@@ -68,6 +68,7 @@ export default function Navbar() {
           </div>
         </div>
 
+
         <div className="navbar-links hidden md:flex">
           <Link to="/" onClick={() => setActiveLink("home")} style={{ color: activeLink === "home" ? "#000" : "#666", textDecoration: "none" }}>Home</Link>
           <Link to="/products" onClick={() => setActiveLink("shop")} style={{ color: activeLink === "shop" ? "#000" : "#666", textDecoration: "none" }}>Shop</Link>
