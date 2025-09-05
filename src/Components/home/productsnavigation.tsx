@@ -15,7 +15,7 @@ const products = [
     background: "#fff",
     color: "#000",
     buttonWhite: false,
-    category: "All", // genérico
+    category: "All", 
   },
   {
     id: 2,

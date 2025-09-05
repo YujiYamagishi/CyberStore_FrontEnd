@@ -6,7 +6,7 @@ type ProductCardProps = {
   id: number;
   title: string;
   price: string;
-  image?: string; // pode vir vazio
+  image?: string; 
 };
 
 export default function ProductCard({ id, title, price, image }: ProductCardProps) {
@@ -16,7 +16,7 @@ export default function ProductCard({ id, title, price, image }: ProductCardProp
     navigate(`/product/${id}`);
   };
 
-  // fallback se não vier imagem da API
+  
   const fallbackImage =
     "https://via.placeholder.com/180x180.png?text=No+Image";
 
