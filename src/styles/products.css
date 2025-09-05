@@ -1,6 +1,4 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-
-/* ================== BASE ================== */
 body, html {
   margin: 0;
   padding: 0;
@@ -13,7 +11,6 @@ body, html {
   box-sizing: border-box;
 }
 
-/* ================== BARRA MOBILE ================== */
 .filters-and-sort-bar {
   display: flex;
   flex-wrap: wrap;
@@ -52,14 +49,12 @@ body, html {
   color: #333;
 }
 
-/* ================== GRID DE PRODUTOS ================== */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 1rem;
 }
 
-/* ================== MOBILE ONLY ================== */
 .desktop-only {
   display: none;
 }
@@ -68,7 +63,6 @@ body, html {
   display: flex;
 }
 
-/* ================== FILTRO MOBILE ================== */
 .filter-modal {
   position: fixed;
   top: 0;
@@ -114,7 +108,6 @@ body, html {
   margin: 0;
 }
 
-/* ================== SEÇÕES DE FILTRO ================== */
 .filter-section {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
@@ -144,18 +137,15 @@ body, html {
   box-sizing: border-box;
 }
 
-/* ================== PRICE FILTER ================== */
-/* Container do price filter */
 .price-filter {
   display: flex;
   flex-direction: column;
-  gap: 12px; /* espaço entre inputs e slider */
+  gap: 12px;
 }
 
-/* Inputs de preço lado a lado */
 .price-inputs {
   display: flex;
-  gap: 8px; /* espaço entre From e To */
+  gap: 8px;
   width: 100%;
 }
 
@@ -169,7 +159,6 @@ body, html {
   box-sizing: border-box;
 }
 
-/* Separador "-" */
 .price-separator {
   align-self: center;
   font-weight: bold;
@@ -177,7 +166,6 @@ body, html {
   margin: 0 4px;
 }
 
-/* Slider ocupa toda a largura abaixo dos inputs */
 .price-slider-container {
   width: 100%;
   margin-top: 4px;
@@ -196,7 +184,6 @@ body, html {
   align-self: center;
 }
 
-/* ================== BRAND FILTER ================== */
 .brand-search-box {
   display: flex;
   align-items: center;
@@ -218,14 +205,13 @@ body, html {
   color: #333;
 }
 
-/* Brand List */
 .brand-list {
   list-style: none;
   padding: 0;
   margin: 0;
   max-height: 350px;
   overflow-y: auto;
-  padding-right: 4px; /* evita scroll lateral */
+  padding-right: 4px;
   box-sizing: border-box;
 }
 
@@ -259,13 +245,11 @@ body, html {
   font-weight: 400;
 }
 
-/* Hover Item */
 .brand-list li:hover {
   background-color: #f9f9f9;
   border-radius: 4px;
 }
 
-/* ================== AÇÕES ================== */
 .filter-actions-mobile,
 .filter-actions-desktop {
   display: flex;
@@ -309,7 +293,6 @@ body, html {
   color: #fff;
 }
 
-/* ================== DESKTOP ================== */
 @media (min-width: 769px) {
   .mobile-only {
     display: none; 
@@ -324,7 +307,6 @@ body, html {
     padding: 0 80px;
   }
 
-  /* Sidebar */
   .desktop-filters-sidebar {
     width: 260px;
     min-height: 400px;
@@ -341,19 +323,16 @@ body, html {
     color: #111;
   }
 
-  /* Esconde filtro de preço no desktop */
   .desktop-filters-sidebar .price-filter,
   .desktop-filters-sidebar .price-range-slider {
     display: none !important;
   }
 
-  /* Conteúdo */
   .products-content {
     flex: 1;
     max-width: 1120px;
   }
 
-  /* Header acima dos cards */
   .products-header {
     display: flex;
     justify-content: space-between;
@@ -379,7 +358,6 @@ body, html {
     text-align: left;
   }
 
-  /* Grid de cards */
   .products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
@@ -387,7 +365,6 @@ body, html {
   }
 }
 
-/* ================== PAGINATION ================== */
 .pagination {
   display: flex;
   justify-content: center;
