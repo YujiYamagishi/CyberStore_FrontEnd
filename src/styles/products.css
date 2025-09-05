@@ -1,26 +1,31 @@
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
 
-.products-page {
-  padding-top: 100px;
-  padding-left: 1rem;
-  padding-right: 1rem;
-  padding-bottom: 1.5rem;
-  background: #fff;
+/* ================== BASE ================== */
+body, html {
+  margin: 0;
+  padding: 0;
   font-family: 'Inter', sans-serif;
+}
+
+.products-page {
+  padding: 100px 1rem 1.5rem 1rem;
+  background: #fff;
+  box-sizing: border-box;
 }
 
 /* ================== BARRA MOBILE ================== */
 .filters-and-sort-bar {
   display: flex;
+  flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
-  padding-top: 20px;
-  padding-bottom: 20px;
+  padding: 20px 0;
 }
 
 .filter-button,
 .sort-select {
-  width: 156px;
+  flex: 1 1 156px;
+  max-width: 156px;
   height: 56px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -30,10 +35,10 @@
   align-items: center;
   padding: 0 16px;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #111;
+  box-sizing: border-box;
 }
 
 .filter-button:hover,
@@ -47,6 +52,7 @@
   color: #333;
 }
 
+/* ================== GRID DE PRODUTOS ================== */
 .products-grid {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
@@ -58,6 +64,11 @@
   display: none;
 }
 
+.mobile-only {
+  display: flex;
+}
+
+/* ================== FILTRO MOBILE ================== */
 .filter-modal {
   position: fixed;
   top: 0;
@@ -67,14 +78,15 @@
   background-color: white;
   z-index: 1000;
   overflow-y: auto;
+  box-sizing: border-box;
 }
 
 .filters-container {
-  font-family: 'Inter', sans-serif;
   padding: 1.5rem 1rem;
-  background-color: white;
   display: flex;
   flex-direction: column;
+  background-color: white;
+  box-sizing: border-box;
 }
 
 .filters-header-mobile {
@@ -102,7 +114,7 @@
   margin: 0;
 }
 
-/* ================== FILTROS ================== */
+/* ================== SEÇÕES DE FILTRO ================== */
 .filter-section {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
@@ -129,13 +141,22 @@
 
 .filter-section-body {
   padding: 15px 0;
+  box-sizing: border-box;
 }
 
-/* Price Filter */
+/* ================== PRICE FILTER ================== */
+/* Container do price filter */
 .price-filter {
   display: flex;
-  align-items: center;
-  gap: 10px;
+  flex-direction: column;
+  gap: 12px; /* espaço entre inputs e slider */
+}
+
+/* Inputs de preço lado a lado */
+.price-inputs {
+  display: flex;
+  gap: 8px; /* espaço entre From e To */
+  width: 100%;
 }
 
 .price-input {
@@ -144,8 +165,24 @@
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: center;
-  -moz-appearance: textfield;
+  font-size: 14px;
+  box-sizing: border-box;
 }
+
+/* Separador "-" */
+.price-separator {
+  align-self: center;
+  font-weight: bold;
+  color: #555;
+  margin: 0 4px;
+}
+
+/* Slider ocupa toda a largura abaixo dos inputs */
+.price-slider-container {
+  width: 100%;
+  margin-top: 4px;
+}
+  
 
 .price-input::-webkit-outer-spin-button,
 .price-input::-webkit-inner-spin-button {
@@ -156,9 +193,10 @@
 .price-separator {
   font-weight: bold;
   color: #555;
+  align-self: center;
 }
 
-/* Brand Filter */
+/* ================== BRAND FILTER ================== */
 .brand-search-box {
   display: flex;
   align-items: center;
@@ -168,6 +206,7 @@
   padding: 8px 12px;
   margin-bottom: 16px;
   background-color: #fff;
+  box-sizing: border-box;
 }
 
 .brand-search-box input {
@@ -179,39 +218,95 @@
   color: #333;
 }
 
+/* Brand List */
 .brand-list {
   list-style: none;
   padding: 0;
   margin: 0;
   max-height: 350px;
   overflow-y: auto;
+  padding-right: 4px; /* evita scroll lateral */
+  box-sizing: border-box;
 }
 
 .brand-list li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 6px 0;
+  gap: 6px;
   font-size: 14px;
   color: #111;
+  margin-bottom: 8px;
+  padding-left: 4px;
 }
 
 .brand-list input[type="checkbox"] {
-  margin-right: 8px;
+  margin: 0;
+  transform: scale(1.1);
+  cursor: pointer;
 }
 
-/* Apply Button */
+.brand-list label {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  cursor: pointer;
+  flex: 1;
+}
+
+.brand-list label span {
+  font-size: 13px;
+  color: #888;
+  font-weight: 400;
+}
+
+/* Hover Item */
+.brand-list li:hover {
+  background-color: #f9f9f9;
+  border-radius: 4px;
+}
+
+/* ================== AÇÕES ================== */
+.filter-actions-mobile,
+.filter-actions-desktop {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 16px;
+}
+
 .apply-button {
   width: 100%;
-  padding: 15px;
+  padding: 12px;
   background-color: #111;
-  color: white;
+  color: #fff;
   border: none;
-  border-radius: 8px;
+  border-radius: 6px;
   cursor: pointer;
-  font-size: 16px;
-  margin-top: auto;
+  font-size: 14px;
   font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.apply-button:hover {
+  background-color: #333;
+}
+
+.clear-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #fff;
+  color: #111;
+  border: 2px solid #111;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.clear-button:hover {
+  background-color: #111;
+  color: #fff;
 }
 
 /* ================== DESKTOP ================== */
@@ -226,8 +321,7 @@
     gap: 40px;
     max-width: 1440px;
     margin: 0 auto;
-    padding-left: 160px;
-    padding-right: 160px;
+    padding: 0 80px;
   }
 
   /* Sidebar */
