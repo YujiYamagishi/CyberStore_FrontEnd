@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import {
   FaMobileAlt,
   FaLaptop,
@@ -9,21 +9,31 @@ import {
   FaVolumeUp,
   FaClock,
 } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
-const categories = [
-  { name: "Phones", icon: <FaMobileAlt /> },
-  { name: "Notebooks", icon: <FaLaptop /> },
-  { name: "Tablets", icon: <FaTabletAlt /> },
-  { name: "Headphones", icon: <FaHeadphones /> },
-  { name: "Gaming", icon: <FaGamepad /> },
-  { name: "TVs", icon: <FaTv /> },
-  { name: "Audio", icon: <FaVolumeUp /> },
-  { name: "Smart Watches", icon: <FaClock /> },
-];
+const iconMap: Record<string, React.ReactNode> = {
+  Phones: <FaMobileAlt />,
+  Notebooks: <FaLaptop />,
+  Tablets: <FaTabletAlt />,
+  Headphones: <FaHeadphones />,
+  Gaming: <FaGamepad />,
+  TVs: <FaTv />,
+  Audio: <FaVolumeUp />,
+  "Smart Watches": <FaClock />,
+};
 
 export default function Browse() {
+  const [categories, setCategories] = useState<string[]>([]);
   const [startIndex, setStartIndex] = useState(0);
   const itemsPerPage = 6;
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch("http://localhost:8000/api/categories")
+      .then((res) => res.json())
+      .then((data) => setCategories(data.categories || []))
+      .catch((err) => console.error("Erro ao carregar categorias:", err));
+  }, []);
 
   const handleScroll = (direction: "left" | "right") => {
     if (direction === "left") {
@@ -39,6 +49,10 @@ export default function Browse() {
 
   const visibleCategories = categories.slice(startIndex, startIndex + itemsPerPage);
 
+  const handleCategoryClick = (category: string) => {
+    navigate(`/products?category=${encodeURIComponent(category)}`);
+  };
+
   return (
     <section className="browse-container">
       <div className="browse-header">
@@ -51,9 +65,13 @@ export default function Browse() {
 
       <div className="category-grid">
         {visibleCategories.map((category) => (
-          <div key={category.name} className="category-card">
-            <div className="icon">{category.icon}</div>
-            <p>{category.name}</p>
+          <div
+            key={category}
+            className="category-card"
+            onClick={() => handleCategoryClick(category)}
+          >
+            <div className="icon">{iconMap[category] || <FaMobileAlt />}</div>
+            <p>{category}</p>
           </div>
         ))}
       </div>
