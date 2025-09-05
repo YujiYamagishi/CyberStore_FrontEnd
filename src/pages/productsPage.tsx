@@ -142,9 +142,9 @@ export default function ProductsPage() {
 
   const renderPaginationButtons = () => {
     const buttons = [];
-    const maxVisible = 5; // quantidade máxima de páginas visíveis
+    const maxVisible = 5;
 
-    // Botão anterior
+   
     buttons.push(
       <button
         key="prev"
@@ -215,7 +215,7 @@ export default function ProductsPage() {
       );
     }
 
-    // Botão próximo
+   
     buttons.push(
       <button
         key="next"
@@ -236,7 +236,7 @@ export default function ProductsPage() {
         <Breadcrumb crumbs={crumbs} />
       </div>
 
-      {/* 🔹 MOBILE */}
+      
       {!isDesktop && (
         <>
           <div className="filters-and-sort-bar">
@@ -276,14 +276,14 @@ export default function ProductsPage() {
         </>
       )}
 
-      {/* 🔹 DESKTOP */}
+    
       {isDesktop && (
         <div className="desktop-only">
           <aside className="desktop-filters-sidebar">
             <ProductsFilter
               brands={availableBrands}
               onFilter={setCurrentFilters}
-              showPriceFilter={false} // 👈 desktop não mostra preço
+              showPriceFilter={false}
             />
           </aside>
           <div className="products-content">
@@ -319,7 +319,7 @@ export default function ProductsPage() {
         </div>
       )}
 
-      {/* 🔹 Paginação */}
+     
       {totalPages > 1 && (
         <div className="pagination">{renderPaginationButtons()}</div>
       )}
@@ -330,7 +330,7 @@ export default function ProductsPage() {
             brands={availableBrands}
             onFilter={setCurrentFilters}
             onClose={() => setIsFilterModalOpen(false)}
-            showPriceFilter={true} // 👈 mobile mostra preço
+            showPriceFilter={true} 
           />
         </div>
       )}
