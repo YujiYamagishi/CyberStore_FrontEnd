@@ -1,14 +1,25 @@
+
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
 import "../styles/index.css";
 
+const navLinks = [
+  { to: "/", label: "Home", key: "home" },
+  { to: "/products", label: "Shop", key: "shop" },
+  { to: "/contact", label: "Contact Us", key: "contact" },
+  { to: "/blog", label: "Blog", key: "blog" },
+];
+
 export default function Navbar() {
+
+  console.log("Componente Navbar renderizou!");
+
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
-  const [activeLink, setActiveLink] = useState<string>("");
+  const [activeLink, setActiveLink] = useState<string>("home");
   const navigate = useNavigate();
   const mobileInputRef = useRef<HTMLInputElement>(null);
 
@@ -32,6 +43,11 @@ export default function Navbar() {
       setIsOpen(false);
       setIsClosing(false);
     }, 300);
+  };
+
+  const handleLinkClick = (key: string) => {
+    setActiveLink(key);
+    setIsOpen(false);
   };
 
   return (
@@ -70,10 +86,12 @@ export default function Navbar() {
 
 
         <div className="navbar-links hidden md:flex">
+
           <Link to="/" onClick={() => setActiveLink("home")} style={{ color: activeLink === "home" ? "#000" : "#666", textDecoration: "none" }}>Home</Link>
           <Link to="/products" onClick={() => setActiveLink("shop")} style={{ color: activeLink === "shop" ? "#000" : "#666", textDecoration: "none" }}>Shop</Link>
           <Link to="/contact" onClick={() => setActiveLink("contact")} style={{ color: activeLink === "contact" ? "#000" : "#666", textDecoration: "none" }}>Contact Us</Link>
           <Link to="/blog" onClick={() => setActiveLink("blog")} style={{ color: activeLink === "blog" ? "#000" : "#666", textDecoration: "none" }}>Blog</Link>
+
         </div>
 
         <div className="navbar-icons">
@@ -88,6 +106,7 @@ export default function Navbar() {
       </div>
 
       {isOpen && (
+
         <div className={`navbar-mobile-menu ${isClosing ? "closing" : ""}`}>
           <form
             className="navbar-search flex md:hidden w-full mb-4"
@@ -118,6 +137,7 @@ export default function Navbar() {
             <li><Link to="/products" onClick={closeMenu} style={{ textDecoration: "none" }}>Shop</Link></li>
             <li><Link to="/contact" onClick={closeMenu} style={{ textDecoration: "none" }}>Contact Us</Link></li>
             <li><Link to="/blog" onClick={closeMenu} style={{ textDecoration: "none" }}>Blog</Link></li>
+
           </ul>
         </div>
       )}
