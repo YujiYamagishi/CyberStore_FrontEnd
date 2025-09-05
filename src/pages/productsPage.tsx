@@ -47,7 +47,6 @@ export default function ProductsPage() {
     setCurrentFilters(filters);
   };
 
-  // Fetch produtos via POST
   useEffect(() => {
     const fetchProducts = async () => {
       try {
@@ -71,7 +70,6 @@ export default function ProductsPage() {
         setProducts(res.data.data || []);
         setTotalItems(res.data.metadata?.total_items || 0);
 
-        // Atualiza marcas disponíveis
         const brandsMap: Record<string, number> = {};
         res.data.data?.forEach((p: Product) => {
           brandsMap[p.brand] = (brandsMap[p.brand] || 0) + 1;
