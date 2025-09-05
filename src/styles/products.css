@@ -9,7 +9,7 @@
   font-family: 'Inter', sans-serif;
 }
 
-/* ================== BARRA MOBILE ================== */
+
 .filters-and-sort-bar {
   display: flex;
   gap: 16px;
@@ -53,7 +53,7 @@
   gap: 1rem;
 }
 
-/* ================== MOBILE ONLY ================== */
+
 .desktop-only {
   display: none;
 }
@@ -102,7 +102,7 @@
   margin: 0;
 }
 
-/* ================== FILTROS ================== */
+
 .filter-section {
   margin-bottom: 20px;
   border-bottom: 1px solid #eee;
@@ -131,7 +131,7 @@
   padding: 15px 0;
 }
 
-/* Price Filter */
+
 .price-filter {
   display: flex;
   align-items: center;
@@ -158,7 +158,7 @@
   color: #555;
 }
 
-/* Brand Filter */
+
 .brand-search-box {
   display: flex;
   align-items: center;
@@ -200,7 +200,7 @@
   margin-right: 8px;
 }
 
-/* Apply Button */
+
 .apply-button {
   width: 100%;
   padding: 15px;
@@ -214,7 +214,7 @@
   font-weight: 600;
 }
 
-/* ================== DESKTOP ================== */
+
 @media (min-width: 769px) {
   .mobile-only {
     display: none; 
@@ -230,7 +230,7 @@
     padding-right: 160px;
   }
 
-  /* Sidebar */
+  
   .desktop-filters-sidebar {
     width: 260px;
     min-height: 400px;
@@ -247,19 +247,19 @@
     color: #111;
   }
 
-  /* Esconde filtro de preço no desktop */
+  
   .desktop-filters-sidebar .price-filter,
   .desktop-filters-sidebar .price-range-slider {
     display: none !important;
   }
 
-  /* Conteúdo */
+
   .products-content {
     flex: 1;
     max-width: 1120px;
   }
 
-  /* Header acima dos cards */
+
   .products-header {
     display: flex;
     justify-content: space-between;
@@ -285,7 +285,7 @@
     text-align: left;
   }
 
-  /* Grid de cards */
+  
   .products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
