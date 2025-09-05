@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import summerMobile from "../../assets/Banner-mobile.png";
 import summerDesktop from "../../assets/Banner-desktop.png";
 
@@ -17,10 +18,10 @@ export default function BigSummer() {
         backgroundImage: `url(${isDesktop ? summerDesktop : summerMobile})`,
         backgroundSize: "cover",
         backgroundPosition: "center",
-        width: "100%",          
-        minWidth: "100%",       
+        width: "100%",
+        minWidth: "100%",
         height: isDesktop ? "448px" : "512px",
-        margin: 0,             
+        margin: 0,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -94,7 +95,8 @@ export default function BigSummer() {
           Commodo fames vitae vitae leo mauris in. Eu consequat.
         </p>
 
-        <button
+        <Link
+          to="/products"
           style={{
             width: "191px",
             height: "56px",
@@ -109,6 +111,7 @@ export default function BigSummer() {
             alignItems: "center",
             justifyContent: "center",
             margin: "0 auto",
+            textDecoration: "none",
           }}
           onMouseOver={(e) =>
             (e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)")
@@ -118,7 +121,7 @@ export default function BigSummer() {
           }
         >
           Shop Now
-        </button>
+        </Link>
       </div>
     </section>
   );
