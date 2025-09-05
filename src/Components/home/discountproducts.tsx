@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../card";
 
-
 type Product = {
   id: number;
   title: string;
@@ -29,10 +28,12 @@ export default function DiscountProducts() {
 
       const list = Array.isArray(payload.data) ? payload.data : [];
 
+      
+ 
       const mapped: Product[] = list.map((p: any) => ({
         id: p.id,
         title: p.name ?? p.title ?? "",
-        price: Number(p.price) || 0,
+        price: (Number(p.price) || 0) * 0.5, 
         image: p.url_image ?? "",
       }));
 
@@ -54,26 +55,21 @@ export default function DiscountProducts() {
       <h2 className="discount-title">Discounts up to 50%</h2>
 
       <div className="discount-grid">
-
         {loading ? (
           <p>Loading products...</p>
         ) : products.length > 0 ? (
-          products.map((product) => (
-
+        
+          products.slice(0, 4).map((product) => (
             <ProductCard
               key={product.id}
               id={product.id}
               title={product.title}
-
-              price={`$${product.price}`}
-
-              image={product.image}
+              
+              price={`$${product.price.toFixed(2)}`} 
             />
           ))
         ) : (
-
           <p>No products found.</p>
-
         )}
       </div>
     </section>
