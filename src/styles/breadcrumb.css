@@ -1,0 +1,38 @@
+.breadcrumb-nav {
+  display: none;
+  padding: 0.5rem 0 2rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 400;
+}
+
+
+.breadcrumb-item {
+  display: inline-flex;
+  align-items: center;
+}
+
+.breadcrumb-link {
+  color: #a4a4a4;
+  text-decoration: none;
+}
+
+.breadcrumb-link:hover {
+  text-decoration: underline;
+}
+
+.breadcrumb-current {
+  color: #000;
+  font-weight: 500;
+}
+
+.breadcrumb-separator {
+  margin: 0 1.5rem;
+  color: #a4a4a4;
+}
+
+@media (min-width: 1440px) {
+  .breadcrumb-nav {
+    display: block;
+  }
+}

@@ -1,124 +1,337 @@
 import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
-import ProductsFilter from "../Components/productsPage/productsFilter";
-import ProductCard from "../Components/card";
+import ProductsFilter from "../components/productsPage/productsFilter";
+import ProductCard from "../components/card";
+import useMediaQuery from "../hooks/useMediaQuery";
+import Breadcrumb from "../components/Breadcrumb";
 import "../styles/products.css";
 
+const API_BASE_URL = "http://localhost:8000";
 
 type Product = {
   id: number;
-  title: string;
-  price: string;
-  image: string;
+  name: string;
+  price: number;
+  url_image: string;
 };
 
-
-const priceToNumber = (value: string): number => {
-  const clean = value.replace(/[^\d.,-]/g, "").replace(/,/g, "");
-  const n = parseFloat(clean);
-  return isNaN(n) ? 0 : n;
+type Filter = {
+  minPrice?: number;
+  maxPrice?: number;
+  brands?: string[];
 };
 
+type BrandData = {
+  name: string;
+  total: number;
+};
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
-  const [filteredProducts, setFilteredProducts] = useState<Product[]>([]);
+  const [availableBrands, setAvailableBrands] = useState<BrandData[]>([]);
+  const [totalItems, setTotalItems] = useState(0);
   const [sortOption, setSortOption] = useState("high");
   const [currentPage, setCurrentPage] = useState(1);
-  const itemsPerPage = 8;
+  const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
+  const [currentFilters, setCurrentFilters] = useState<Filter>({});
+
+  const isDesktop = useMediaQuery("(min-width: 769px)");
+  const itemsPerPage = isDesktop ? 9 : 8;
 
   const location = useLocation();
   const query = new URLSearchParams(location.search).get("search") || "";
+  const categoryParam = new URLSearchParams(location.search).get("category");
+  const categoryToFetch = categoryParam || "Phones";
 
-  
-  useEffect(() => {
-    fetch("/products.json")
-      .then((res) => res.json())
-      .then((data) => {
-        
-        const normalized = (data.products || []).map((p: any) => ({
-          ...p,
-          price: String(p.price),
-        }));
-        setProducts(normalized);
-      })
-      .catch(() => setProducts([])); 
-  }, []);
+  const crumbs = [
+    { label: "Home", path: "/" },
+    { label: "Shop", path: "/shop" },
+    { label: categoryToFetch, path: `/products?category=${categoryToFetch}` },
+  ];
 
-  
   useEffect(() => {
-    let result = query
-      ? products.filter((p) =>
-          p.title.toLowerCase().includes(query.toLowerCase())
-        )
-      : products;
+    const productsUrl = new URL(
+      `${API_BASE_URL}/api/products/category/${categoryToFetch}`
+    );
+
+    productsUrl.searchParams.append("limit", itemsPerPage.toString());
+    productsUrl.searchParams.append("page", currentPage.toString());
 
     if (sortOption === "high") {
-      result = [...result].sort(
-        (a, b) => priceToNumber(b.price) - priceToNumber(a.price)
-      );
+      productsUrl.searchParams.append("sort", "price");
+      productsUrl.searchParams.append("order", "desc");
     } else if (sortOption === "low") {
-      result = [...result].sort(
-        (a, b) => priceToNumber(a.price) - priceToNumber(b.price)
-      );
-    } else if (sortOption === "name") {
-      result = [...result].sort((a, b) => a.title.localeCompare(b.title));
+      productsUrl.searchParams.append("sort", "price");
+      productsUrl.searchParams.append("order", "asc");
     }
 
-    setFilteredProducts(result);
-    setCurrentPage(1); 
-  }, [products, query, sortOption]);
+    if (query) productsUrl.searchParams.append("q", query);
 
-  const startIndex = (currentPage - 1) * itemsPerPage;
-  const paginatedProducts = filteredProducts.slice(
-    startIndex,
-    startIndex + itemsPerPage
-  );
-  const totalPages = Math.ceil(filteredProducts.length / itemsPerPage);
+    if (currentFilters.minPrice)
+      productsUrl.searchParams.append(
+        "minPrice",
+        currentFilters.minPrice.toString()
+      );
+    if (currentFilters.maxPrice)
+      productsUrl.searchParams.append(
+        "maxPrice",
+        currentFilters.maxPrice.toString()
+      );
+    if (currentFilters.brands && currentFilters.brands.length > 0) {
+      productsUrl.searchParams.append(
+        "brands",
+        currentFilters.brands.join(",")
+      );
+    }
+
+    const fetchProducts = async () => {
+      try {
+        const productsResponse = await fetch(productsUrl.toString());
+
+        if (!productsResponse.ok) {
+          throw new Error(
+            "Erro na resposta da API de produtos: " +
+              productsResponse.statusText
+          );
+        }
+
+        const productsData = await productsResponse.json();
+        const productsArray: Product[] = productsData.data || [];
+
+        const uniqueBrandsMap = new Map<string, number>();
+        productsArray.forEach((product) => {
+          if (uniqueBrandsMap.has(product.brand)) {
+            uniqueBrandsMap.set(
+              product.brand,
+              uniqueBrandsMap.get(product.brand)! + 1
+            );
+          } else {
+            uniqueBrandsMap.set(product.brand, 1);
+          }
+        });
+
+        const fetchedBrands: BrandData[] = Array.from(
+          uniqueBrandsMap,
+          ([name, total]) => ({ name, total })
+        );
+
+        const total = productsData.metadata?.total_items || 0;
+
+        setProducts(productsArray);
+        setAvailableBrands(fetchedBrands);
+        setTotalItems(total);
+      } catch (error) {
+        console.error("Erro ao buscar dados:", error);
+        setProducts([]);
+        setAvailableBrands([]);
+        setTotalItems(0);
+      }
+    };
+
+    fetchProducts();
+  }, [
+    currentPage,
+    query,
+    sortOption,
+    currentFilters,
+    itemsPerPage,
+    categoryToFetch,
+  ]);
+
+  const totalPages = Math.ceil(totalItems / itemsPerPage);
+
+  const renderPaginationButtons = () => {
+    const buttons = [];
+    const maxVisible = 5; // quantidade máxima de páginas visíveis
+
+    // Botão anterior
+    buttons.push(
+      <button
+        key="prev"
+        onClick={() => setCurrentPage((p) => Math.max(1, p - 1))}
+        disabled={currentPage === 1}
+        className="pagination-button prev"
+      >
+        &lt;
+      </button>
+    );
+
+    let start = Math.max(1, currentPage - 2);
+    let end = Math.min(totalPages, currentPage + 2);
+
+    if (currentPage <= 3) {
+      end = Math.min(totalPages, maxVisible);
+    } else if (currentPage >= totalPages - 2) {
+      start = Math.max(1, totalPages - (maxVisible - 1));
+    }
+
+    if (start > 1) {
+      buttons.push(
+        <button
+          key={1}
+          onClick={() => setCurrentPage(1)}
+          className="pagination-button"
+        >
+          1
+        </button>
+      );
+      if (start > 2) {
+        buttons.push(
+          <span key="start-ellipsis" className="ellipsis">
+            ...
+          </span>
+        );
+      }
+    }
+
+    for (let i = start; i <= end; i++) {
+      buttons.push(
+        <button
+          key={i}
+          onClick={() => setCurrentPage(i)}
+          className={`pagination-button ${i === currentPage ? "active" : ""}`}
+        >
+          {i}
+        </button>
+      );
+    }
+
+    if (end < totalPages) {
+      if (end < totalPages - 1) {
+        buttons.push(
+          <span key="end-ellipsis" className="ellipsis">
+            ...
+          </span>
+        );
+      }
+      buttons.push(
+        <button
+          key={totalPages}
+          onClick={() => setCurrentPage(totalPages)}
+          className="pagination-button"
+        >
+          {totalPages}
+        </button>
+      );
+    }
+
+    // Botão próximo
+    buttons.push(
+      <button
+        key="next"
+        onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
+        disabled={currentPage === totalPages}
+        className="pagination-button next"
+      >
+        &gt;
+      </button>
+    );
+
+    return buttons;
+  };
 
   return (
     <main className="products-page">
-      <ProductsFilter onSort={setSortOption} />
-
-      <p className="products-count">
-        Products Result: <strong>{filteredProducts.length}</strong>
-      </p>
-
-      <div className="products-grid">
-        {paginatedProducts.length > 0 ? (
-          paginatedProducts.map((p) => <ProductCard key={p.id} {...p} />)
-        ) : (
-          <p>Nenhum produto encontrado.</p>
-        )}
+      <div className="breadcrumb-container">
+        <Breadcrumb crumbs={crumbs} />
       </div>
 
-      {totalPages > 1 && (
-        <div className="pagination">
-          <button
-            className="page-btn prev"
-            disabled={currentPage === 1}
-            onClick={() => setCurrentPage((p) => p - 1)}
-          >
-            &lt;
-          </button>
-
-          {Array.from({ length: totalPages }, (_, i) => i + 1).map((page) => (
+      {/* 🔹 MOBILE */}
+      {!isDesktop && (
+        <>
+          <div className="filters-and-sort-bar">
             <button
-              key={page}
-              className={`page-btn ${currentPage === page ? "active" : ""}`}
-              onClick={() => setCurrentPage(page)}
+              className="filter-button"
+              onClick={() => setIsFilterModalOpen(true)}
             >
-              {page}
+              Filters
             </button>
-          ))}
+            <select
+              value={sortOption}
+              onChange={(e) => setSortOption(e.target.value)}
+              className="sort-select"
+            >
+              <option value="high">By price: High to Low</option>
+              <option value="low">By price: Low to High</option>
+            </select>
+          </div>
+          <p className="products-count">
+            Products Result: <strong>{totalItems}</strong>
+          </p>
+          <div className="products-grid">
+            {products.length > 0 ? (
+              products.map((p) => (
+                <ProductCard
+                  key={p.id}
+                  id={p.id}
+                  title={p.name}
+                  image={p.url_image}
+                  price={`$${p.price}`}
+                />
+              ))
+            ) : (
+              <p>Nenhum produto encontrado.</p>
+            )}
+          </div>
+        </>
+      )}
 
-          <button
-            className="page-btn next"
-            disabled={currentPage === totalPages}
-            onClick={() => setCurrentPage((p) => p + 1)}
-          >
-            &gt;
-          </button>
+      {/* 🔹 DESKTOP */}
+      {isDesktop && (
+        <div className="desktop-only">
+          <aside className="desktop-filters-sidebar">
+            <ProductsFilter
+              brands={availableBrands}
+              onFilter={setCurrentFilters}
+              showPriceFilter={false} // 👈 desktop não mostra preço
+            />
+          </aside>
+          <div className="products-content">
+            <div className="products-header">
+              <p className="products-count">
+                Products Result: <strong>{totalItems}</strong>
+              </p>
+              <select
+                value={sortOption}
+                onChange={(e) => setSortOption(e.target.value)}
+                className="sort-select"
+              >
+                <option value="high">By price: High to Low</option>
+                <option value="low">By price: Low to High</option>
+              </select>
+            </div>
+            <div className="products-grid">
+              {products.length > 0 ? (
+                products.map((p) => (
+                  <ProductCard
+                    key={p.id}
+                    id={p.id}
+                    title={p.name}
+                    image={p.url_image}
+                    price={`$${p.price}`}
+                  />
+                ))
+              ) : (
+                <p>Nenhum produto encontrado.</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 🔹 Paginação */}
+      {totalPages > 1 && (
+        <div className="pagination">{renderPaginationButtons()}</div>
+      )}
+
+      {isFilterModalOpen && (
+        <div className="filter-modal">
+          <ProductsFilter
+            brands={availableBrands}
+            onFilter={setCurrentFilters}
+            onClose={() => setIsFilterModalOpen(false)}
+            showPriceFilter={true} // 👈 mobile mostra preço
+          />
         </div>
       )}
     </main>

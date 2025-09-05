@@ -1,12 +1,12 @@
 import { Heart } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import '../styles/card.css'
+import "../styles/card.css";
 
 type ProductCardProps = {
   id: number;
   title: string;
   price: string;
-  image: string;
+  image?: string; 
 };
 
 export default function ProductCard({ id, title, price, image }: ProductCardProps) {
@@ -16,12 +16,20 @@ export default function ProductCard({ id, title, price, image }: ProductCardProp
     navigate(`/product/${id}`);
   };
 
+  
+  const fallbackImage =
+    "https://via.placeholder.com/180x180.png?text=No+Image";
+
   return (
     <div className="product-card">
-      <div className="related-product-header">
+      <div className="card-header">
         <Heart size={20} className="heart-icon" />
       </div>
-      <img src={image} alt={title} className="product-img" />
+      <img
+        src={image && image.trim() !== "" ? image : fallbackImage}
+        alt={title}
+        className="product-img"
+      />
       <h4 className="product-title">{title}</h4>
       <p className="product-price">{price}</p>
       <button className="buy-button" onClick={handleBuyNow}>
@@ -30,3 +38,4 @@ export default function ProductCard({ id, title, price, image }: ProductCardProp
     </div>
   );
 }
+ 

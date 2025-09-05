@@ -1,5 +1,5 @@
 
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
 import "../styles/index.css";
@@ -16,10 +16,16 @@ export default function Navbar() {
   console.log("Componente Navbar renderizou!");
 
   const [isOpen, setIsOpen] = useState(false);
+  const [isClosing, setIsClosing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [activeLink, setActiveLink] = useState<string>("home");
   const navigate = useNavigate();
+  const mobileInputRef = useRef<HTMLInputElement>(null);
+
+  useEffect(() => {
+    if (isOpen) mobileInputRef.current?.focus();
+  }, [isOpen]);
 
   const handleSearch = () => {
     if (searchTerm.trim() !== "") {
@@ -28,14 +34,15 @@ export default function Navbar() {
       navigate("/products");
     }
     setActiveLink("shop");
-    setIsOpen(false);
+    closeMenu();
   };
 
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      e.preventDefault();
-      handleSearch();
-    }
+  const closeMenu = () => {
+    setIsClosing(true);
+    setTimeout(() => {
+      setIsOpen(false);
+      setIsClosing(false);
+    }, 300);
   };
 
   const handleLinkClick = (key: string) => {
@@ -46,7 +53,14 @@ export default function Navbar() {
   return (
     <nav className="navbar relative">
       <div className="navbar-container">
-        <div className="navbar-logo">cyber</div>
+        <Link
+          to="/"
+          className="navbar-logo"
+          style={{ textDecoration: "none", color: "inherit" }}
+          onClick={() => setActiveLink("home")}
+        >
+          cyber
+        </Link>
 
         <div className="navbar-search hidden md:flex w-96">
           <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
@@ -65,23 +79,19 @@ export default function Navbar() {
               onChange={(e) => setSearchTerm(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
               onBlur={() => setIsSearchFocused(false)}
-              onKeyDown={handleKeyPress}
               className="searchbar__input"
             />
           </div>
         </div>
 
+
         <div className="navbar-links hidden md:flex">
-          {navLinks.map((link) => (
-            <Link
-              key={link.key} 
-              to={link.to}
-              onClick={() => handleLinkClick(link.key)}
-              style={{ color: activeLink === link.key ? "#000" : "#666" }}
-            >
-              {link.label}
-            </Link>
-          ))}
+
+          <Link to="/" onClick={() => setActiveLink("home")} style={{ color: activeLink === "home" ? "#000" : "#666", textDecoration: "none" }}>Home</Link>
+          <Link to="/products" onClick={() => setActiveLink("shop")} style={{ color: activeLink === "shop" ? "#000" : "#666", textDecoration: "none" }}>Shop</Link>
+          <Link to="/contact" onClick={() => setActiveLink("contact")} style={{ color: activeLink === "contact" ? "#000" : "#666", textDecoration: "none" }}>Contact Us</Link>
+          <Link to="/blog" onClick={() => setActiveLink("blog")} style={{ color: activeLink === "blog" ? "#000" : "#666", textDecoration: "none" }}>Blog</Link>
+
         </div>
 
         <div className="navbar-icons">
@@ -90,25 +100,44 @@ export default function Navbar() {
           <User size={22} />
         </div>
 
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          className="navbar-toggle md:hidden"
-        >
+        <button onClick={() => (isOpen ? closeMenu() : setIsOpen(true))} className="navbar-toggle md:hidden">
           {isOpen ? <X size={28} /> : <Menu size={28} />}
         </button>
       </div>
 
       {isOpen && (
-        <div className="navbar-mobile-menu">
-         
+
+        <div className={`navbar-mobile-menu ${isClosing ? "closing" : ""}`}>
+          <form
+            className="navbar-search flex md:hidden w-full mb-4"
+            onSubmit={(e) => {
+              e.preventDefault();
+              handleSearch();
+            }}
+          >
+            <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
+              <button type="submit" className="searchbar__button" aria-label="Search">
+                <Search size={18} />
+              </button>
+              <input
+                ref={mobileInputRef}
+                type="text"
+                placeholder="Search"
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                onFocus={() => setIsSearchFocused(true)}
+                onBlur={() => setIsSearchFocused(false)}
+                className="searchbar__input"
+              />
+            </div>
+          </form>
+
           <ul>
-            {navLinks.map((link) => (
-              <li key={link.key}>
-                <Link to={link.to} onClick={() => handleLinkClick(link.key)}>
-                  {link.label}
-                </Link>
-              </li>
-            ))}
+            <li><Link to="/" onClick={closeMenu} style={{ textDecoration: "none" }}>Home</Link></li>
+            <li><Link to="/products" onClick={closeMenu} style={{ textDecoration: "none" }}>Shop</Link></li>
+            <li><Link to="/contact" onClick={closeMenu} style={{ textDecoration: "none" }}>Contact Us</Link></li>
+            <li><Link to="/blog" onClick={closeMenu} style={{ textDecoration: "none" }}>Blog</Link></li>
+
           </ul>
         </div>
       )}

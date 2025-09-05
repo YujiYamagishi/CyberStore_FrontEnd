@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import summerMobile from "../../assets/Banner-mobile.png";
 import summerDesktop from "../../assets/Banner-desktop.png";
 
@@ -18,9 +19,9 @@ export default function BigSummer() {
         backgroundSize: "cover",
         backgroundPosition: "center",
         width: "100%",
-        minWidth: isDesktop ? "1024px" : "375px",
+        minWidth: "100%",
         height: isDesktop ? "448px" : "512px",
-        margin: "0 auto",
+        margin: 0,
         display: "flex",
         alignItems: "center",
         justifyContent: "center",
@@ -94,31 +95,33 @@ export default function BigSummer() {
           Commodo fames vitae vitae leo mauris in. Eu consequat.
         </p>
 
-        <button
-  style={{
-    width: "191px",
-    height: "56px",
-    backgroundColor: "transparent",
-    color: "#fff",
-    border: "1px solid #fff",
-    fontSize: isDesktop ? "14px" : "13px",
-    borderRadius: "6px",
-    cursor: "pointer",
-    transition: "all 0.3s ease",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "center",
-    margin: "0 auto",
-  }}
-  onMouseOver={(e) =>
-    (e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)")
-  }
-  onMouseOut={(e) =>
-    (e.currentTarget.style.backgroundColor = "transparent")
-  }
->
-  Shop Now
-</button>
+        <Link
+          to="/products"
+          style={{
+            width: "191px",
+            height: "56px",
+            backgroundColor: "transparent",
+            color: "#fff",
+            border: "1px solid #fff",
+            fontSize: isDesktop ? "14px" : "13px",
+            borderRadius: "6px",
+            cursor: "pointer",
+            transition: "all 0.3s ease",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            margin: "0 auto",
+            textDecoration: "none",
+          }}
+          onMouseOver={(e) =>
+            (e.currentTarget.style.backgroundColor = "rgba(255, 255, 255, 0.1)")
+          }
+          onMouseOut={(e) =>
+            (e.currentTarget.style.backgroundColor = "transparent")
+          }
+        >
+          Shop Now
+        </Link>
       </div>
     </section>
   );
