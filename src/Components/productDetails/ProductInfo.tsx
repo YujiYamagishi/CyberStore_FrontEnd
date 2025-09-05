@@ -8,16 +8,28 @@ import batteryIcon from '../../assets/battery.svg';
 import truckIcon from '../../assets/truck.svg';
 import shopIcon from '../../assets/shop.svg';
 import shieldCheckIcon from '../../assets/shieldcheck.svg';
+import Notification from '../Notification';
 
 export default function ProductInfo({ product }: { product: any }) {
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
+  const [notification, setNotification] = useState<string | null>(null);
 
   useEffect(() => {
     setActiveIndex(0);
   }, [product]);
+
+  const handleAddToCart = () => {
+    setNotification('Product added to cart!');
+    setTimeout(() => setNotification(null), 3000);
+  };
+
+  const handleAddToWishlist = () => {
+    setNotification('Product added to wishlist!');
+    setTimeout(() => setNotification(null), 3000);
+  };
 
   const hasColors = product.colors && product.colors.length > 0;
   const hasStorage = product.storageOptions && product.storageOptions.length > 0;
@@ -160,8 +172,8 @@ export default function ProductInfo({ product }: { product: any }) {
         </p>
         
         <div className="action-buttons">
-          <button className="wishlist-button" disabled={!isButtonEnabled}>Add to Wishlist</button>
-          <button className="add-to-cart-button" disabled={!isButtonEnabled}>Add to Cart</button>
+          <button className="wishlist-button" disabled={!isButtonEnabled} onClick={handleAddToWishlist}>Add to Wishlist</button>
+          <button className="add-to-cart-button" disabled={!isButtonEnabled} onClick={handleAddToCart}>Add to Cart</button>
         </div>
 
         <div className="service-info">
@@ -194,6 +206,7 @@ export default function ProductInfo({ product }: { product: any }) {
           </div>
         </div>
       </div>
+      {notification && <Notification message={notification} onClose={() => setNotification(null)} />}
     </div>
   );
 }
