@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import { ChevronDown, ChevronUp, Search, ChevronLeft } from "lucide-react";
 import "../../styles/products.css";
 
-type BrandData = {
-  name: string;
-  total: number;
-};
+type BrandData = { name: string; total: number };
 
 type ProductsFilterProps = {
   onFilter: (filters: { minPrice?: number; maxPrice?: number; brands?: string[] }) => void;
   brands: BrandData[];
+  selectedBrands?: string[];
+  minPrice?: number;
+  maxPrice?: number;
   onClose?: () => void;
   showPriceFilter?: boolean;
 };
@@ -17,39 +17,48 @@ type ProductsFilterProps = {
 const ProductsFilter: React.FC<ProductsFilterProps> = ({
   onFilter,
   brands,
+  selectedBrands = [],
+  minPrice,
+  maxPrice,
   onClose,
   showPriceFilter = true,
 }) => {
-  const [minPrice, setMinPrice] = useState<number | undefined>();
-  const [maxPrice, setMaxPrice] = useState<number | undefined>();
-  const [selectedBrands, setSelectedBrands] = useState<string[]>([]);
+  const [localMinPrice, setLocalMinPrice] = useState<number | undefined>(minPrice);
+  const [localMaxPrice, setLocalMaxPrice] = useState<number | undefined>(maxPrice);
+  const [localSelectedBrands, setLocalSelectedBrands] = useState<string[]>(selectedBrands);
   const [brandSearchTerm, setBrandSearchTerm] = useState("");
 
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isBrandOpen, setIsBrandOpen] = useState(true);
 
   useEffect(() => {
-    if (!onClose) {
-      onFilter({ minPrice, maxPrice, brands: selectedBrands });
-    }
-  }, [minPrice, maxPrice, selectedBrands, onFilter, onClose]);
+    setLocalSelectedBrands(selectedBrands || []);
+    setLocalMinPrice(minPrice);
+    setLocalMaxPrice(maxPrice);
+  }, [selectedBrands, minPrice, maxPrice]);
 
   const handleBrandChange = (brand: string) => {
-    setSelectedBrands((prev) =>
+    setLocalSelectedBrands((prev) =>
       prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
     );
   };
 
   const handleClearFilters = () => {
-    setMinPrice(undefined);
-    setMaxPrice(undefined);
-    setSelectedBrands([]);
+    setLocalMinPrice(undefined);
+    setLocalMaxPrice(undefined);
+    setLocalSelectedBrands([]);
     setBrandSearchTerm("");
     onFilter({});
+    if (onClose) onClose();
   };
 
   const handleApplyFilters = () => {
-    onFilter({ minPrice, maxPrice, brands: selectedBrands });
+    const filtersToSend: any = {};
+    if (localSelectedBrands.length > 0) filtersToSend.brands = localSelectedBrands;
+    if (localMinPrice !== undefined) filtersToSend.minPrice = localMinPrice;
+    if (localMaxPrice !== undefined) filtersToSend.maxPrice = localMaxPrice;
+
+    onFilter(filtersToSend);
     if (onClose) onClose();
   };
 
@@ -68,7 +77,6 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
         </div>
       )}
 
-      {/* 🔹 Price filter */}
       {showPriceFilter && (
         <div className="filter-section">
           <div
@@ -83,16 +91,16 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
               <input
                 type="number"
                 placeholder="From"
-                value={minPrice || ""}
-                onChange={(e) => setMinPrice(Number(e.target.value))}
+                value={localMinPrice ?? ""}
+                onChange={(e) => setLocalMinPrice(Number(e.target.value))}
                 className="price-input"
               />
               <span className="price-separator">-</span>
               <input
                 type="number"
                 placeholder="To"
-                value={maxPrice || ""}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                value={localMaxPrice ?? ""}
+                onChange={(e) => setLocalMaxPrice(Number(e.target.value))}
                 className="price-input"
               />
             </div>
@@ -100,7 +108,6 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
         </div>
       )}
 
-      {/* 🔹 Brand filter */}
       <div className="filter-section">
         <div
           className="filter-section-header"
@@ -127,7 +134,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
                   <input
                     type="checkbox"
                     id={`brand-${brand.name}`}
-                    checked={selectedBrands.includes(brand.name)}
+                    checked={localSelectedBrands.includes(brand.name)}
                     onChange={() => handleBrandChange(brand.name)}
                   />
                   <label htmlFor={`brand-${brand.name}`}>
@@ -140,28 +147,14 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
         )}
       </div>
 
-      {/* 🔹 Action buttons */}
-      {onClose ? (
-        // MOBILE
-        <div className="filter-actions-mobile">
-          <button onClick={handleClearFilters} className="clear-button">
-            Clear
-          </button>
-          <button onClick={handleApplyFilters} className="apply-button">
-            Apply
-          </button>
-        </div>
-      ) : (
-        // DESKTOP
-        <div className="filter-actions-desktop">
-          <button onClick={handleClearFilters} className="clear-button">
-            Clear Filters
-          </button>
-          <button onClick={handleApplyFilters} className="apply-button">
-            Apply
-          </button>
-        </div>
-      )}
+      <div className={onClose ? "filter-actions-mobile" : "filter-actions-desktop"}>
+        <button onClick={handleClearFilters} className="clear-button">
+          {onClose ? "Clear" : "Clear Filters"}
+        </button>
+        <button onClick={handleApplyFilters} className="apply-button">
+          Apply
+        </button>
+      </div>
     </div>
   );
 };

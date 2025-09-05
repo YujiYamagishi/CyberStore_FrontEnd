@@ -5,6 +5,7 @@ import ProductCard from "../components/card";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/products.css";
+import axios from "axios";
 
 const API_BASE_URL = "http://localhost:8000";
 
@@ -13,18 +14,11 @@ type Product = {
   name: string;
   price: number;
   url_image: string;
+  brand: string;
 };
 
-type Filter = {
-  minPrice?: number;
-  maxPrice?: number;
-  brands?: string[];
-};
-
-type BrandData = {
-  name: string;
-  total: number;
-};
+type Filter = { minPrice?: number; maxPrice?: number; brands?: string[] };
+type BrandData = { name: string; total: number };
 
 export default function ProductsPage() {
   const [products, setProducts] = useState<Product[]>([]);
@@ -39,7 +33,6 @@ export default function ProductsPage() {
   const itemsPerPage = isDesktop ? 9 : 8;
 
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get("search") || "";
   const categoryParam = new URLSearchParams(location.search).get("category");
   const categoryToFetch = categoryParam || "Phones";
 
@@ -49,94 +42,48 @@ export default function ProductsPage() {
     { label: categoryToFetch, path: `/products?category=${categoryToFetch}` },
   ];
 
+  const applyFilters = (filters: Filter) => {
+    setCurrentPage(1);
+    setCurrentFilters(filters);
+  };
+
   useEffect(() => {
-    const productsUrl = new URL(
-      `${API_BASE_URL}/api/products/category/${categoryToFetch}`
-    );
-
-    productsUrl.searchParams.append("limit", itemsPerPage.toString());
-    productsUrl.searchParams.append("page", currentPage.toString());
-
-    if (sortOption === "high") {
-      productsUrl.searchParams.append("sort", "price");
-      productsUrl.searchParams.append("order", "desc");
-    } else if (sortOption === "low") {
-      productsUrl.searchParams.append("sort", "price");
-      productsUrl.searchParams.append("order", "asc");
-    }
-
-    if (query) productsUrl.searchParams.append("q", query);
-
-    if (currentFilters.minPrice)
-      productsUrl.searchParams.append(
-        "minPrice",
-        currentFilters.minPrice.toString()
-      );
-    if (currentFilters.maxPrice)
-      productsUrl.searchParams.append(
-        "maxPrice",
-        currentFilters.maxPrice.toString()
-      );
-    if (currentFilters.brands && currentFilters.brands.length > 0) {
-      productsUrl.searchParams.append(
-        "brands",
-        currentFilters.brands.join(",")
-      );
-    }
-
     const fetchProducts = async () => {
       try {
-        const productsResponse = await fetch(productsUrl.toString());
+        const payload = {
+          page: currentPage,
+          limit: itemsPerPage,
+          sort: "price",
+          order: sortOption === "high" ? "desc" : "asc",
+          ...currentFilters,
+        };
 
-        if (!productsResponse.ok) {
-          throw new Error(
-            "Erro na resposta da API de produtos: " +
-              productsResponse.statusText
-          );
-        }
+        console.log("[ProductsPage] POST payload:", payload);
 
-        const productsData = await productsResponse.json();
-        const productsArray: Product[] = productsData.data || [];
-
-        const uniqueBrandsMap = new Map<string, number>();
-        productsArray.forEach((product) => {
-          if (uniqueBrandsMap.has(product.brand)) {
-            uniqueBrandsMap.set(
-              product.brand,
-              uniqueBrandsMap.get(product.brand)! + 1
-            );
-          } else {
-            uniqueBrandsMap.set(product.brand, 1);
-          }
-        });
-
-        const fetchedBrands: BrandData[] = Array.from(
-          uniqueBrandsMap,
-          ([name, total]) => ({ name, total })
+        const res = await axios.post(
+          `${API_BASE_URL}/api/products/category/${categoryToFetch}`,
+          payload
         );
 
-        const total = productsData.metadata?.total_items || 0;
+        console.log("[ProductsPage] JSON response:", res.data);
 
-        setProducts(productsArray);
-        setAvailableBrands(fetchedBrands);
-        setTotalItems(total);
-      } catch (error) {
-        console.error("Erro ao buscar dados:", error);
-        setProducts([]);
-        setAvailableBrands([]);
-        setTotalItems(0);
+        setProducts(res.data.data || []);
+        setTotalItems(res.data.metadata?.total_items || 0);
+
+        const brandsMap: Record<string, number> = {};
+        res.data.data?.forEach((p: Product) => {
+          brandsMap[p.brand] = (brandsMap[p.brand] || 0) + 1;
+        });
+        setAvailableBrands(
+          Object.entries(brandsMap).map(([name, total]) => ({ name, total }))
+        );
+      } catch (err) {
+        console.error(err);
       }
     };
 
     fetchProducts();
-  }, [
-    currentPage,
-    query,
-    sortOption,
-    currentFilters,
-    itemsPerPage,
-    categoryToFetch,
-  ]);
+  }, [currentPage, sortOption, itemsPerPage, categoryToFetch, currentFilters]);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
@@ -158,30 +105,16 @@ export default function ProductsPage() {
 
     let start = Math.max(1, currentPage - 2);
     let end = Math.min(totalPages, currentPage + 2);
-
-    if (currentPage <= 3) {
-      end = Math.min(totalPages, maxVisible);
-    } else if (currentPage >= totalPages - 2) {
-      start = Math.max(1, totalPages - (maxVisible - 1));
-    }
+    if (currentPage <= 3) end = Math.min(totalPages, maxVisible);
+    if (currentPage >= totalPages - 2) start = Math.max(1, totalPages - (maxVisible - 1));
 
     if (start > 1) {
       buttons.push(
-        <button
-          key={1}
-          onClick={() => setCurrentPage(1)}
-          className="pagination-button"
-        >
+        <button key={1} onClick={() => setCurrentPage(1)} className="pagination-button">
           1
         </button>
       );
-      if (start > 2) {
-        buttons.push(
-          <span key="start-ellipsis" className="ellipsis">
-            ...
-          </span>
-        );
-      }
+      if (start > 2) buttons.push(<span key="start-ellipsis" className="ellipsis">...</span>);
     }
 
     for (let i = start; i <= end; i++) {
@@ -197,19 +130,9 @@ export default function ProductsPage() {
     }
 
     if (end < totalPages) {
-      if (end < totalPages - 1) {
-        buttons.push(
-          <span key="end-ellipsis" className="ellipsis">
-            ...
-          </span>
-        );
-      }
+      if (end < totalPages - 1) buttons.push(<span key="end-ellipsis" className="ellipsis">...</span>);
       buttons.push(
-        <button
-          key={totalPages}
-          onClick={() => setCurrentPage(totalPages)}
-          className="pagination-button"
-        >
+        <button key={totalPages} onClick={() => setCurrentPage(totalPages)} className="pagination-button">
           {totalPages}
         </button>
       );
@@ -240,38 +163,15 @@ export default function ProductsPage() {
       {!isDesktop && (
         <>
           <div className="filters-and-sort-bar">
-            <button
-              className="filter-button"
-              onClick={() => setIsFilterModalOpen(true)}
-            >
-              Filters
-            </button>
-            <select
-              value={sortOption}
-              onChange={(e) => setSortOption(e.target.value)}
-              className="sort-select"
-            >
+            <button className="filter-button" onClick={() => setIsFilterModalOpen(true)}>Filters</button>
+            <select value={sortOption} onChange={(e) => setSortOption(e.target.value)} className="sort-select">
               <option value="high">By price: High to Low</option>
               <option value="low">By price: Low to High</option>
             </select>
           </div>
-          <p className="products-count">
-            Products Result: <strong>{totalItems}</strong>
-          </p>
+          <p className="products-count">Products Result: <strong>{totalItems}</strong></p>
           <div className="products-grid">
-            {products.length > 0 ? (
-              products.map((p) => (
-                <ProductCard
-                  key={p.id}
-                  id={p.id}
-                  title={p.name}
-                  image={p.url_image}
-                  price={`$${p.price}`}
-                />
-              ))
-            ) : (
-              <p>Nenhum produto encontrado.</p>
-            )}
+            {products.length > 0 ? products.map((p) => <ProductCard key={p.id} id={p.id} title={p.name} image={p.url_image} price={`$${p.price}`} />) : <p>Nenhum produto encontrado.</p>}
           </div>
         </>
       )}
@@ -288,32 +188,14 @@ export default function ProductsPage() {
           </aside>
           <div className="products-content">
             <div className="products-header">
-              <p className="products-count">
-                Products Result: <strong>{totalItems}</strong>
-              </p>
-              <select
-                value={sortOption}
-                onChange={(e) => setSortOption(e.target.value)}
-                className="sort-select"
-              >
+              <p className="products-count">Products Result: <strong>{totalItems}</strong></p>
+              <select value={sortOption} onChange={(e) => setSortOption(e.target.value)} className="sort-select">
                 <option value="high">By price: High to Low</option>
                 <option value="low">By price: Low to High</option>
               </select>
             </div>
             <div className="products-grid">
-              {products.length > 0 ? (
-                products.map((p) => (
-                  <ProductCard
-                    key={p.id}
-                    id={p.id}
-                    title={p.name}
-                    image={p.url_image}
-                    price={`$${p.price}`}
-                  />
-                ))
-              ) : (
-                <p>Nenhum produto encontrado.</p>
-              )}
+              {products.length > 0 ? products.map((p) => <ProductCard key={p.id} id={p.id} title={p.name} image={p.url_image} price={`$${p.price}`} />) : <p>Nenhum produto encontrado.</p>}
             </div>
           </div>
         </div>
@@ -328,7 +210,10 @@ export default function ProductsPage() {
         <div className="filter-modal">
           <ProductsFilter
             brands={availableBrands}
-            onFilter={setCurrentFilters}
+            selectedBrands={currentFilters.brands || []}
+            minPrice={currentFilters.minPrice}
+            maxPrice={currentFilters.maxPrice}
+            onFilter={applyFilters}
             onClose={() => setIsFilterModalOpen(false)}
             showPriceFilter={true} 
           />
