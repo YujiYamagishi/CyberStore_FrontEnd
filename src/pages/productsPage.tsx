@@ -13,6 +13,7 @@ type Product = {
   name: string;
   price: number;
   url_image: string;
+  brand: string;
 };
 
 type Filter = {
@@ -39,8 +40,11 @@ export default function ProductsPage() {
   const itemsPerPage = isDesktop ? 9 : 8;
 
   const location = useLocation();
-  const query = new URLSearchParams(location.search).get("search") || "";
-  const categoryParam = new URLSearchParams(location.search).get("category");
+
+  // ✅ aceita tanto ?search= quanto ?q=
+  const params = new URLSearchParams(location.search);
+  const query = params.get("search") || params.get("q") || "";
+  const categoryParam = params.get("category");
   const categoryToFetch = categoryParam || "Phones";
 
   const crumbs = [
@@ -49,65 +53,99 @@ export default function ProductsPage() {
     { label: categoryToFetch, path: `/products?category=${categoryToFetch}` },
   ];
 
+  // Reset page quando query ou filtros mudarem
   useEffect(() => {
-    const productsUrl = new URL(
-      `${API_BASE_URL}/api/products/category/${categoryToFetch}`
-    );
+    setCurrentPage(1);
+  }, [query, currentFilters, categoryToFetch]);
 
-    productsUrl.searchParams.append("limit", itemsPerPage.toString());
-    productsUrl.searchParams.append("page", currentPage.toString());
-
-    if (sortOption === "high") {
-      productsUrl.searchParams.append("sort", "price");
-      productsUrl.searchParams.append("order", "desc");
-    } else if (sortOption === "low") {
-      productsUrl.searchParams.append("sort", "price");
-      productsUrl.searchParams.append("order", "asc");
-    }
-
-    if (query) productsUrl.searchParams.append("q", query);
-
-    if (currentFilters.minPrice)
-      productsUrl.searchParams.append(
-        "minPrice",
-        currentFilters.minPrice.toString()
-      );
-    if (currentFilters.maxPrice)
-      productsUrl.searchParams.append(
-        "maxPrice",
-        currentFilters.maxPrice.toString()
-      );
-    if (currentFilters.brands && currentFilters.brands.length > 0) {
-      productsUrl.searchParams.append(
-        "brands",
-        currentFilters.brands.join(",")
-      );
-    }
-
+  useEffect(() => {
     const fetchProducts = async () => {
       try {
-        const productsResponse = await fetch(productsUrl.toString());
+        // 🔹 produtos paginados
+        const productsUrl = new URL(
+          `${API_BASE_URL}/api/products/category/${categoryToFetch}`
+        );
+        productsUrl.searchParams.append("limit", itemsPerPage.toString());
+        productsUrl.searchParams.append("page", currentPage.toString());
 
-        if (!productsResponse.ok) {
-          throw new Error(
-            "Erro na resposta da API de produtos: " +
-              productsResponse.statusText
+        if (sortOption === "high") {
+          productsUrl.searchParams.append("sort", "price");
+          productsUrl.searchParams.append("order", "desc");
+        } else if (sortOption === "low") {
+          productsUrl.searchParams.append("sort", "price");
+          productsUrl.searchParams.append("order", "asc");
+        }
+
+        // 🔹 filtros por preço
+        if (currentFilters.minPrice !== undefined)
+          productsUrl.searchParams.append(
+            "minPrice",
+            currentFilters.minPrice.toString()
+          );
+        if (currentFilters.maxPrice !== undefined)
+          productsUrl.searchParams.append(
+            "maxPrice",
+            currentFilters.maxPrice.toString()
+          );
+
+        // 🔹 busca de marcas
+        if (currentFilters.brands && currentFilters.brands.length > 0) {
+          productsUrl.searchParams.append(
+            "brands",
+            currentFilters.brands.join(",")
           );
         }
 
+        // 🔹 busca da nav
+        if (query) {
+          // verifica se a query é uma marca disponível
+          const matchingBrand = availableBrands.find(
+            (b) => b.name.toLowerCase() === query.toLowerCase()
+          );
+          if (matchingBrand) {
+            productsUrl.searchParams.append("brands", matchingBrand.name);
+          } else {
+            productsUrl.searchParams.append("search", query);
+          }
+        }
+
+        const productsResponse = await fetch(productsUrl.toString());
+        if (!productsResponse.ok) throw new Error("Erro na resposta da API");
         const productsData = await productsResponse.json();
         const productsArray: Product[] = productsData.data || [];
 
+        setProducts(productsArray);
+        setTotalItems(productsData.metadata?.total_items || 0);
+
+        // 🔹 busca todos produtos sem paginação para calcular marcas
+        const allProductsUrl = new URL(
+          `${API_BASE_URL}/api/products/category/${categoryToFetch}`
+        );
+        allProductsUrl.searchParams.append("limit", "9999");
+
+        if (currentFilters.minPrice !== undefined)
+          allProductsUrl.searchParams.append(
+            "minPrice",
+            currentFilters.minPrice.toString()
+          );
+        if (currentFilters.maxPrice !== undefined)
+          allProductsUrl.searchParams.append(
+            "maxPrice",
+            currentFilters.maxPrice.toString()
+          );
+
+        if (query) allProductsUrl.searchParams.append("search", query);
+
+        const allProductsResponse = await fetch(allProductsUrl.toString());
+        const allProductsData = await allProductsResponse.json();
+        const allProductsArray: Product[] = allProductsData.data || [];
+
         const uniqueBrandsMap = new Map<string, number>();
-        productsArray.forEach((product) => {
-          if (uniqueBrandsMap.has(product.brand)) {
-            uniqueBrandsMap.set(
-              product.brand,
-              uniqueBrandsMap.get(product.brand)! + 1
-            );
-          } else {
-            uniqueBrandsMap.set(product.brand, 1);
-          }
+        allProductsArray.forEach((product) => {
+          uniqueBrandsMap.set(
+            product.brand,
+            (uniqueBrandsMap.get(product.brand) || 0) + 1
+          );
         });
 
         const fetchedBrands: BrandData[] = Array.from(
@@ -115,13 +153,8 @@ export default function ProductsPage() {
           ([name, total]) => ({ name, total })
         );
 
-        const total = productsData.metadata?.total_items || 0;
-
-        setProducts(productsArray);
         setAvailableBrands(fetchedBrands);
-        setTotalItems(total);
       } catch (error) {
-        console.error("Erro ao buscar dados:", error);
         setProducts([]);
         setAvailableBrands([]);
         setTotalItems(0);
@@ -131,20 +164,20 @@ export default function ProductsPage() {
     fetchProducts();
   }, [
     currentPage,
-    query,
     sortOption,
     currentFilters,
     itemsPerPage,
+    query,
     categoryToFetch,
+    availableBrands,
   ]);
 
   const totalPages = Math.ceil(totalItems / itemsPerPage);
 
   const renderPaginationButtons = () => {
     const buttons = [];
-    const maxVisible = 5; // quantidade máxima de páginas visíveis
+    const maxVisible = 5;
 
-    // Botão anterior
     buttons.push(
       <button
         key="prev"
@@ -156,13 +189,12 @@ export default function ProductsPage() {
       </button>
     );
 
-    let start = Math.max(1, currentPage - 2);
-    let end = Math.min(totalPages, currentPage + 2);
+    let start = Math.max(1, currentPage - Math.floor(maxVisible / 2));
+    let end = start + maxVisible - 1;
 
-    if (currentPage <= 3) {
-      end = Math.min(totalPages, maxVisible);
-    } else if (currentPage >= totalPages - 2) {
-      start = Math.max(1, totalPages - (maxVisible - 1));
+    if (end > totalPages) {
+      end = totalPages;
+      start = Math.max(1, end - maxVisible + 1);
     }
 
     if (start > 1) {
@@ -175,13 +207,7 @@ export default function ProductsPage() {
           1
         </button>
       );
-      if (start > 2) {
-        buttons.push(
-          <span key="start-ellipsis" className="ellipsis">
-            ...
-          </span>
-        );
-      }
+      if (start > 2) buttons.push(<span key="start-ellipsis" className="ellipsis">...</span>);
     }
 
     for (let i = start; i <= end; i++) {
@@ -197,13 +223,7 @@ export default function ProductsPage() {
     }
 
     if (end < totalPages) {
-      if (end < totalPages - 1) {
-        buttons.push(
-          <span key="end-ellipsis" className="ellipsis">
-            ...
-          </span>
-        );
-      }
+      if (end < totalPages - 1) buttons.push(<span key="end-ellipsis" className="ellipsis">...</span>);
       buttons.push(
         <button
           key={totalPages}
@@ -215,7 +235,6 @@ export default function ProductsPage() {
       );
     }
 
-    // Botão próximo
     buttons.push(
       <button
         key="next"
@@ -236,7 +255,6 @@ export default function ProductsPage() {
         <Breadcrumb crumbs={crumbs} />
       </div>
 
-      {/* 🔹 MOBILE */}
       {!isDesktop && (
         <>
           <div className="filters-and-sort-bar">
@@ -270,20 +288,19 @@ export default function ProductsPage() {
                 />
               ))
             ) : (
-              <p>Nenhum produto encontrado.</p>
+              <p>No products found.</p>
             )}
           </div>
         </>
       )}
 
-      {/* 🔹 DESKTOP */}
       {isDesktop && (
         <div className="desktop-only">
           <aside className="desktop-filters-sidebar">
             <ProductsFilter
               brands={availableBrands}
               onFilter={setCurrentFilters}
-              showPriceFilter={false} // 👈 desktop não mostra preço
+              showPriceFilter={false}
             />
           </aside>
           <div className="products-content">
@@ -312,14 +329,13 @@ export default function ProductsPage() {
                   />
                 ))
               ) : (
-                <p>Nenhum produto encontrado.</p>
+                <p>No products found.</p>
               )}
             </div>
           </div>
         </div>
       )}
 
-      {/* 🔹 Paginação */}
       {totalPages > 1 && (
         <div className="pagination">{renderPaginationButtons()}</div>
       )}
@@ -328,9 +344,9 @@ export default function ProductsPage() {
         <div className="filter-modal">
           <ProductsFilter
             brands={availableBrands}
-            onFilter={setCurrentFilters}
+            onFilter={(filters) => setCurrentFilters(filters)}
             onClose={() => setIsFilterModalOpen(false)}
-            showPriceFilter={true} // 👈 mobile mostra preço
+            showPriceFilter={true}
           />
         </div>
       )}

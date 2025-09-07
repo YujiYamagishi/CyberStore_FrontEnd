@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
 .products-page {
   padding-top: 100px;
@@ -6,7 +6,7 @@
   padding-right: 1rem;
   padding-bottom: 1.5rem;
   background: #fff;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
 }
 
 /* ================== BARRA MOBILE ================== */
@@ -30,7 +30,7 @@
   align-items: center;
   padding: 0 16px;
   cursor: pointer;
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #111;
@@ -70,7 +70,7 @@
 }
 
 .filters-container {
-  font-family: 'Inter', sans-serif;
+  font-family: "Inter", sans-serif;
   padding: 1.5rem 1rem;
   background-color: white;
   display: flex;
@@ -158,7 +158,7 @@
   color: #555;
 }
 
-/* Brand Filter */
+/* ================== BRAND FILTER ================== */
 .brand-search-box {
   display: flex;
   align-items: center;
@@ -183,24 +183,60 @@
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: auto;
 }
 
 .brand-list li {
   display: flex;
   align-items: center;
-  justify-content: space-between;
-  padding: 6px 0;
+  gap: 8px;
   font-size: 14px;
+  font-weight: 400;
   color: #111;
+  margin-bottom: 6px;
+  cursor: pointer;
 }
 
 .brand-list input[type="checkbox"] {
-  margin-right: 8px;
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #111;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
+  cursor: pointer;
 }
 
-/* Apply Button */
+.brand-list input[type="checkbox"]:checked {
+  background-color: #111;
+}
+
+.brand-list input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
+}
+
+.brand-list label {
+  flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.brand-list label span {
+  color: #555;
+  font-size: 13px;
+}
+
 .apply-button {
   width: 100%;
   padding: 15px;
@@ -214,19 +250,61 @@
   font-weight: 600;
 }
 
+.apply-button:hover {
+  background-color: #fff;
+  color: #111;
+  border: 2px solid #111;
+}
+
+.clear-button {
+  width: 100%;
+  padding: 12px;
+  background-color: #fff;
+  color: #111;
+  border: 2px solid #111;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 600;
+  transition: all 0.3s ease;
+  margin-bottom: 10px;
+}
+
+.clear-button:hover {
+  background-color: #111;
+  color: #fff;
+}
+
+/* ================== BREADCRUMB ================== */
+.breadcrumb-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: 60px;
+  padding-left: 120px;
+  padding-right: 120px;
+  margin-bottom: 20px;
+}
+
+/* Esconde breadcrumb no mobile */
+@media (max-width: 768px) {
+  .breadcrumb-container {
+    display: none;
+  }
+}
+
 /* ================== DESKTOP ================== */
 @media (min-width: 769px) {
   .mobile-only {
-    display: none; 
+    display: none;
   }
-  
+
   .desktop-only {
     display: flex;
     flex-direction: row;
     gap: 40px;
     max-width: 1440px;
     margin: 0 auto;
-    padding-left: 160px;
+    padding-left: 80px;
     padding-right: 160px;
   }
 
@@ -291,4 +369,46 @@
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
+}
+
+/* ================== PAGINAÇÃO ================== */
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.pagination-button {
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #fff;
+  color: #111;
+  transition: all 0.2s ease;
+}
+
+.pagination-button:not(:first-child):not(:last-child) {
+  margin: 0 2.5px;
+}
+
+.pagination-button.active {
+  background-color: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.pagination-button:hover {
+  background-color: #111;
+  color: #fff;
 }

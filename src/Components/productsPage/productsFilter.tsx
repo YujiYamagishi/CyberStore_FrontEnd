@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { ChevronDown, ChevronUp, Search, ChevronLeft } from "lucide-react";
 import "../../styles/products.css";
 
@@ -28,12 +28,6 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
   const [isPriceOpen, setIsPriceOpen] = useState(true);
   const [isBrandOpen, setIsBrandOpen] = useState(true);
 
-  useEffect(() => {
-    if (!onClose) {
-      onFilter({ minPrice, maxPrice, brands: selectedBrands });
-    }
-  }, [minPrice, maxPrice, selectedBrands, onFilter, onClose]);
-
   const handleBrandChange = (brand: string) => {
     setSelectedBrands((prev) =>
       prev.includes(brand) ? prev.filter((b) => b !== brand) : [...prev, brand]
@@ -49,8 +43,11 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
   };
 
   const handleApplyFilters = () => {
-    onFilter({ minPrice, maxPrice, brands: selectedBrands });
-    if (onClose) onClose();
+    const newFilters = { minPrice, maxPrice, brands: selectedBrands };
+    onFilter(newFilters);
+    if (onClose) {
+      setTimeout(() => onClose(), 0); // garante que os filtros sobem antes de fechar
+    }
   };
 
   const filteredBrands = brands.filter((brand) =>
@@ -68,7 +65,6 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
         </div>
       )}
 
-      {/* 🔹 Price filter */}
       {showPriceFilter && (
         <div className="filter-section">
           <div
@@ -83,16 +79,20 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
               <input
                 type="number"
                 placeholder="From"
-                value={minPrice || ""}
-                onChange={(e) => setMinPrice(Number(e.target.value))}
+                value={minPrice ?? ""}
+                onChange={(e) =>
+                  setMinPrice(e.target.value ? Number(e.target.value) : undefined)
+                }
                 className="price-input"
               />
               <span className="price-separator">-</span>
               <input
                 type="number"
                 placeholder="To"
-                value={maxPrice || ""}
-                onChange={(e) => setMaxPrice(Number(e.target.value))}
+                value={maxPrice ?? ""}
+                onChange={(e) =>
+                  setMaxPrice(e.target.value ? Number(e.target.value) : undefined)
+                }
                 className="price-input"
               />
             </div>
@@ -100,7 +100,6 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
         </div>
       )}
 
-      {/* 🔹 Brand filter */}
       <div className="filter-section">
         <div
           className="filter-section-header"
@@ -140,28 +139,14 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
         )}
       </div>
 
-      {/* 🔹 Action buttons */}
-      {onClose ? (
-        // MOBILE
-        <div className="filter-actions-mobile">
-          <button onClick={handleClearFilters} className="clear-button">
-            Clear
-          </button>
-          <button onClick={handleApplyFilters} className="apply-button">
-            Apply
-          </button>
-        </div>
-      ) : (
-        // DESKTOP
-        <div className="filter-actions-desktop">
-          <button onClick={handleClearFilters} className="clear-button">
-            Clear Filters
-          </button>
-          <button onClick={handleApplyFilters} className="apply-button">
-            Apply
-          </button>
-        </div>
-      )}
+      <div className={onClose ? "filter-actions-mobile" : "filter-actions-desktop"}>
+        <button onClick={handleClearFilters} className="filter-button clear-button">
+          Clear
+        </button>
+        <button onClick={handleApplyFilters} className="filter-button apply-button">
+          Apply
+        </button>
+      </div>
     </div>
   );
 };
