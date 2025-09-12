@@ -46,7 +46,7 @@ const ProductsFilter: React.FC<ProductsFilterProps> = ({
     const newFilters = { minPrice, maxPrice, brands: selectedBrands };
     onFilter(newFilters);
     if (onClose) {
-      setTimeout(() => onClose(), 0); // garante que os filtros sobem antes de fechar
+      setTimeout(() => onClose(), 0);
     }
   };
 

@@ -41,7 +41,6 @@ export default function ProductsPage() {
 
   const location = useLocation();
 
-  // ✅ aceita tanto ?search= quanto ?q=
   const params = new URLSearchParams(location.search);
   const query = params.get("search") || params.get("q") || "";
   const categoryParam = params.get("category");
@@ -53,7 +52,6 @@ export default function ProductsPage() {
     { label: categoryToFetch, path: `/products?category=${categoryToFetch}` },
   ];
 
-  // Reset page quando query ou filtros mudarem
   useEffect(() => {
     setCurrentPage(1);
   }, [query, currentFilters, categoryToFetch]);
@@ -61,7 +59,6 @@ export default function ProductsPage() {
   useEffect(() => {
     const fetchProducts = async () => {
       try {
-        // 🔹 produtos paginados
         const productsUrl = new URL(
           `${API_BASE_URL}/api/products/category/${categoryToFetch}`
         );
@@ -76,7 +73,6 @@ export default function ProductsPage() {
           productsUrl.searchParams.append("order", "asc");
         }
 
-        // 🔹 filtros por preço
         if (currentFilters.minPrice !== undefined)
           productsUrl.searchParams.append(
             "minPrice",
@@ -88,7 +84,6 @@ export default function ProductsPage() {
             currentFilters.maxPrice.toString()
           );
 
-        // 🔹 busca de marcas
         if (currentFilters.brands && currentFilters.brands.length > 0) {
           productsUrl.searchParams.append(
             "brands",
@@ -96,9 +91,7 @@ export default function ProductsPage() {
           );
         }
 
-        // 🔹 busca da nav
         if (query) {
-          // verifica se a query é uma marca disponível
           const matchingBrand = availableBrands.find(
             (b) => b.name.toLowerCase() === query.toLowerCase()
           );
@@ -116,8 +109,6 @@ export default function ProductsPage() {
 
         setProducts(productsArray);
         setTotalItems(productsData.metadata?.total_items || 0);
-
-        // 🔹 busca todos produtos sem paginação para calcular marcas
         const allProductsUrl = new URL(
           `${API_BASE_URL}/api/products/category/${categoryToFetch}`
         );

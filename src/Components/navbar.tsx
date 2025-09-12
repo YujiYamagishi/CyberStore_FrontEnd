@@ -27,7 +27,6 @@ export default function Navbar() {
 
   const handleSearch = () => {
     if (searchTerm.trim() !== "") {
-      // 🔹 usa q como parâmetro (ProductsPage já entende ?q= ou ?search=)
       navigate(`/products?q=${encodeURIComponent(searchTerm.trim())}`);
     } else {
       navigate("/products");
@@ -52,7 +51,6 @@ export default function Navbar() {
   return (
     <nav className="navbar relative">
       <div className="navbar-container">
-        {/* Logo */}
         <Link
           to="/"
           className="navbar-logo"
@@ -62,7 +60,6 @@ export default function Navbar() {
           cyber
         </Link>
 
-        {/* Search (desktop) */}
         <form
           className="navbar-search hidden md:flex w-96"
           onSubmit={(e) => {
@@ -90,7 +87,6 @@ export default function Navbar() {
           </div>
         </form>
 
-        {/* Links (desktop) */}
         <div className="navbar-links hidden md:flex">
           {navLinks.map((link) => (
             <Link
@@ -107,14 +103,12 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Ícones */}
         <div className="navbar-icons">
           <Heart size={22} />
           <ShoppingCart size={22} />
           <User size={22} />
         </div>
 
-        {/* Toggle menu mobile */}
         <button
           onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
           className="navbar-toggle md:hidden"
@@ -123,10 +117,8 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Menu mobile */}
       {isOpen && (
         <div className={`navbar-mobile-menu ${isClosing ? "closing" : ""}`}>
-          {/* Search (mobile) */}
           <form
             className="navbar-search flex md:hidden w-full mb-4"
             onSubmit={(e) => {
@@ -155,7 +147,6 @@ export default function Navbar() {
             </div>
           </form>
 
-          {/* Links (mobile) */}
           <ul>
             {navLinks.map((link) => (
               <li key={link.key}>
