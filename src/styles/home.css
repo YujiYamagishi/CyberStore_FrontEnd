@@ -1030,6 +1030,7 @@ body {
   color: #000;
   font-weight: 600;
 }
+
 .navbar-icons {
   display: flex;
   align-items: center;
@@ -1255,8 +1256,8 @@ body {
 .macbook h3{
   font-size: 64px;
   font-weight: 200;
-  
 }
+
 .macbook span{
   font-size: 64px;
   display: block;
@@ -1320,6 +1321,7 @@ body {
   width: 100px; 
   text-align: left; 
   padding: 0px; 
+  margin-top: 16px;
 
 }
 
@@ -1348,6 +1350,12 @@ body {
 .visionpro p {
   text-align: left;
 }
+
+
+.browse-header h2{
+  margin-left: 160px;
+}
+
 
 .category-grid {
   display: flex;
@@ -1560,10 +1568,22 @@ body {
 }
 
 
+
+
+
+
+
+
+
+
+
+
 .footer {
   background-color: #000;
   color: #fff;
   padding: 90px 20px;
+  height: 506px;
+  position: relative;
 }
 
 .footer-container {
@@ -1580,7 +1600,13 @@ body {
 .footer-left h1 {
   font-size: 20px;
   font-weight: bold;
-  margin: 0 0 16px;
+  margin: 20px 0 16px;
+  text-align: left;
+}
+
+.footer-section h2{
+  font-size: 16px;
+  text-align: left;
 }
 
 .footer-left p {
@@ -1588,39 +1614,18 @@ body {
   line-height: 1.6;
   margin: 0 0 20px;
   color: #ccc;
-}
-
-.social {
-  display: flex;
-  gap: 16px;
-  font-size: 18px;
-}
-
-.social a {
-  color: #fff;
-  text-decoration: none;
-  transition: opacity 0.3s;
-}
-
-.social a:hover {
-  opacity: 0.7;
-}
-
-
-.footer-section h2 {
-  font-size: 16px;
-  margin-bottom: 16px;
-  font-weight: bold;
+  text-align:left ;
 }
 
 .footer-section ul {
   list-style: none;
-  padding: 0;
   margin: 0;
+  text-align: left;
 }
 
 .footer-section li {
-  margin-bottom: 12px;
+  
+  padding: 5px;
   font-size: 14px;
   color: #ccc;
   cursor: pointer;
@@ -1631,6 +1636,27 @@ body {
   color: #fff;
 }
 
+
+.social {
+  position: absolute;
+  display: flex;
+  gap: 16px;
+  font-size: 18px;
+  left: 100px;
+  bottom: 140px; /* desce os ícones */
+}
+
+
+.social a {
+  color: #fff;
+  text-decoration: none;
+  transition: opacity 0.3s;
+}
+
+.social a:hover {
+  opacity: 0.7;
+}
+}
 
 
 
@@ -1819,6 +1845,8 @@ body {
     font-size: 1rem;
     padding: 0 20px;
   }
+  
+  
 }
 
 @media (max-width: 480px) {
@@ -1826,5 +1854,4 @@ body {
   .big-summer__title { font-size: 2.9rem; }     
   .big-summer__text { font-size: 0.95rem; }
   .big-summer { min-height: 55vh; padding: 40px 12px;}
-}
 }
