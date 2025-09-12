@@ -23,7 +23,7 @@ const products = [
     description:
       "iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.",
     images: [ipad],
-    background: "#fff",
+    background: "#F9F9F9",
     color: "#000",
     buttonWhite: false,
     category: "Tablets",
@@ -34,7 +34,7 @@ const products = [
     description:
       "iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.",
     images: [galaxy],
-    background: "#f0f0f0",
+    background: "#EAEAEA",
     color: "#000",
     buttonWhite: false,
     category: "Phones",
