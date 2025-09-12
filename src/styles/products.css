@@ -1,23 +1,25 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap');
-body, html {
-  margin: 0;
-  padding: 0;
-  font-family: 'Inter', sans-serif;
-}
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&display=swap");
 
+.products-page {
+  padding-top: 100px;
+  padding-left: 1rem;
+  padding-right: 1rem;
+  padding-bottom: 1.5rem;
+  background: #fff;
+  font-family: "Inter", sans-serif;
+}
 
 .filters-and-sort-bar {
   display: flex;
-  flex-wrap: wrap;
   gap: 16px;
   justify-content: center;
-  padding: 20px 0;
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 
 .filter-button,
 .sort-select {
-  flex: 1 1 156px;
-  max-width: 156px;
+  width: 156px;
   height: 56px;
   border: 1px solid #ddd;
   border-radius: 8px;
@@ -27,10 +29,10 @@ body, html {
   align-items: center;
   padding: 0 16px;
   cursor: pointer;
+  font-family: "Inter", sans-serif;
   font-size: 15px;
   font-weight: 400;
   color: #111;
-  box-sizing: border-box;
 }
 
 .filter-button:hover,
@@ -54,10 +56,6 @@ body, html {
   display: none;
 }
 
-.mobile-only {
-  display: flex;
-}
-
 .filter-modal {
   position: fixed;
   top: 0;
@@ -67,15 +65,14 @@ body, html {
   background-color: white;
   z-index: 1000;
   overflow-y: auto;
-  box-sizing: border-box;
 }
 
 .filters-container {
+  font-family: "Inter", sans-serif;
   padding: 1.5rem 1rem;
+  background-color: white;
   display: flex;
   flex-direction: column;
-  background-color: white;
-  box-sizing: border-box;
 }
 
 .filters-header-mobile {
@@ -129,19 +126,12 @@ body, html {
 
 .filter-section-body {
   padding: 15px 0;
-  box-sizing: border-box;
 }
 
 .price-filter {
   display: flex;
-  flex-direction: column;
-  gap: 12px;
-}
-
-.price-inputs {
-  display: flex;
-  gap: 8px;
-  width: 100%;
+  align-items: center;
+  gap: 10px;
 }
 
 .price-input {
@@ -150,22 +140,8 @@ body, html {
   border: 1px solid #ccc;
   border-radius: 8px;
   text-align: center;
-  font-size: 14px;
-  box-sizing: border-box;
+  -moz-appearance: textfield;
 }
-
-.price-separator {
-  align-self: center;
-  font-weight: bold;
-  color: #555;
-  margin: 0 4px;
-}
-
-.price-slider-container {
-  width: 100%;
-  margin-top: 4px;
-}
-  
 
 .price-input::-webkit-outer-spin-button,
 .price-input::-webkit-inner-spin-button {
@@ -176,7 +152,6 @@ body, html {
 .price-separator {
   font-weight: bold;
   color: #555;
-  align-self: center;
 }
 
 .brand-search-box {
@@ -188,7 +163,6 @@ body, html {
   padding: 8px 12px;
   margin-bottom: 16px;
   background-color: #fff;
-  box-sizing: border-box;
 }
 
 .brand-search-box input {
@@ -204,70 +178,77 @@ body, html {
   list-style: none;
   padding: 0;
   margin: 0;
-  max-height: 350px;
+  max-height: 300px;
   overflow-y: auto;
-  padding-right: 4px;
-  box-sizing: border-box;
 }
 
 .brand-list li {
   display: flex;
   align-items: center;
-  gap: 6px;
+  gap: 8px;
   font-size: 14px;
+  font-weight: 400;
   color: #111;
-  margin-bottom: 8px;
-  padding-left: 4px;
+  margin-bottom: 6px;
+  cursor: pointer;
 }
 
 .brand-list input[type="checkbox"] {
-  margin: 0;
-  transform: scale(1.1);
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #111;
+  border-radius: 4px;
+  display: inline-block;
+  position: relative;
   cursor: pointer;
+}
+
+.brand-list input[type="checkbox"]:checked {
+  background-color: #111;
+}
+
+.brand-list input[type="checkbox"]:checked::after {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 1px;
+  width: 4px;
+  height: 8px;
+  border: solid #fff;
+  border-width: 0 2px 2px 0;
+  transform: rotate(45deg);
 }
 
 .brand-list label {
-  display: flex;
-  align-items: center;
-  gap: 4px;
-  cursor: pointer;
   flex: 1;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .brand-list label span {
+  color: #555;
   font-size: 13px;
-  color: #888;
-  font-weight: 400;
-}
-
-.brand-list li:hover {
-  background-color: #f9f9f9;
-  border-radius: 4px;
-}
-
-.filter-actions-mobile,
-.filter-actions-desktop {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  margin-top: 16px;
 }
 
 .apply-button {
   width: 100%;
-  padding: 12px;
+  padding: 15px;
   background-color: #111;
-  color: #fff;
+  color: white;
   border: none;
-  border-radius: 6px;
+  border-radius: 8px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 16px;
+  margin-top: auto;
   font-weight: 600;
-  transition: all 0.3s ease;
 }
 
 .apply-button:hover {
-  background-color: #333;
+  background-color: #fff;
+  color: #111;
+  border: 2px solid #111;
 }
 
 .clear-button {
@@ -281,6 +262,7 @@ body, html {
   font-size: 14px;
   font-weight: 600;
   transition: all 0.3s ease;
+  margin-bottom: 10px;
 }
 
 .clear-button:hover {
@@ -288,21 +270,36 @@ body, html {
   color: #fff;
 }
 
+.breadcrumb-container {
+  max-width: 1440px;
+  margin: 0 auto;
+  padding-top: 60px;
+  padding-left: 120px;
+  padding-right: 120px;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 768px) {
+  .breadcrumb-container {
+    display: none;
+  }
+}
+
 @media (min-width: 769px) {
   .mobile-only {
-    display: none; 
+    display: none;
   }
-  
+
   .desktop-only {
     display: flex;
     flex-direction: row;
     gap: 40px;
     max-width: 1440px;
     margin: 0 auto;
-    padding: 0 80px;
+    padding-left: 80px;
+    padding-right: 160px;
   }
 
-  
   .desktop-filters-sidebar {
     width: 260px;
     min-height: 400px;
@@ -319,7 +316,6 @@ body, html {
     color: #111;
   }
 
-  
   .desktop-filters-sidebar .price-filter,
   .desktop-filters-sidebar .price-range-slider {
     display: none !important;
@@ -355,10 +351,50 @@ body, html {
     text-align: left;
   }
 
-  
   .products-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 24px;
   }
+}
+
+.pagination {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 24px;
+  margin-bottom: 40px;
+  width: 100%;
+}
+
+.pagination-button {
+  min-width: 32px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  background-color: #fff;
+  color: #111;
+  transition: all 0.2s ease;
+}
+
+.pagination-button:not(:first-child):not(:last-child) {
+  margin: 0 2.5px;
+}
+
+.pagination-button.active {
+  background-color: #111;
+  color: #fff;
+  border-color: #111;
+}
+
+.pagination-button:hover {
+  background-color: #111;
+  color: #fff;
 }

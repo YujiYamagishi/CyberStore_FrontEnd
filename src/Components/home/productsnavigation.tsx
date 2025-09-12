@@ -15,7 +15,7 @@ const products = [
     background: "#fff",
     color: "#000",
     buttonWhite: false,
-    category: "All", 
+    category: "All",
   },
   {
     id: 2,
@@ -54,7 +54,6 @@ const products = [
 
 export default function ProductsNavigation() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
-  const [currentIndex, setCurrentIndex] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -97,7 +96,7 @@ export default function ProductsNavigation() {
                   ? {
                       backgroundColor: product.background,
                       color: "#fff",
-                      border: `1px solid #fff`,
+                      border: `1px solid #ffffffff`,
                     }
                   : {}
               }
@@ -111,53 +110,48 @@ export default function ProductsNavigation() {
     );
   }
 
-  const product = products[currentIndex];
-
   return (
-    <section
-      className="product-mobile-container"
-      style={{
-        backgroundColor: product.background,
-        color: product.color,
-      }}
-    >
-      <div className="product-nav-images">
-        {product.images.map((imgSrc, i) => (
-          <img
-            key={i}
-            src={imgSrc}
-            alt={`${product.title} image ${i + 1}`}
-            className="product-image"
-          />
-        ))}
-      </div>
+    <section className="product-mobile-scroll-container">
+      <div className="product-scroll-wrapper">
+        {products.map((product) => (
+          <div
+            key={product.id}
+            className="product-mobile-container"
+            style={{
+              backgroundColor: product.background,
+              color: product.color,
+            }}
+          >
+            <div className="product-nav-images">
+              {product.images.map((imgSrc, i) => (
+                <img
+                  key={i}
+                  src={imgSrc}
+                  alt={`${product.title} image ${i + 1}`}
+                  className="product-image"
+                />
+              ))}
+            </div>
 
-      <h2>{product.title}</h2>
-      <p>{product.description}</p>
+            <h2>{product.title}</h2>
+            <p>{product.description}</p>
 
-      <button
-        className="button-product-nav"
-        style={
-          product.buttonWhite
-            ? {
-                backgroundColor: product.background,
-                color: "#fff",
-                border: `1px solid #fff`,
+            <button
+              className="button-product-nav"
+              style={
+                product.buttonWhite
+                  ? {
+                      backgroundColor: product.background,
+                      color: "#fff",
+                      border: `1px solid #fff`,
+                    }
+                  : {}
               }
-            : {}
-        }
-        onClick={() => handleShopNow(product.category)}
-      >
-        Shop Now
-      </button>
-
-      <div className="product-nav-dots">
-        {products.map((_, idx) => (
-          <span
-            key={idx}
-            className={`dot ${idx === currentIndex ? "active" : ""}`}
-            onClick={() => setCurrentIndex(idx)}
-          ></span>
+              onClick={() => handleShopNow(product.category)}
+            >
+              Shop Now
+            </button>
+          </div>
         ))}
       </div>
     </section>
