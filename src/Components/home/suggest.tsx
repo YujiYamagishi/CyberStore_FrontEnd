@@ -36,7 +36,7 @@ export default function Suggest() {
       const payload = await res.json();
       const list = Array.isArray(payload) ? payload : payload?.data || [];
       const shuffledList = [...list].sort(() => Math.random() - 0.5);
-      const mapped: Product[] = shuffledList.map((p: any) => ({
+      const mapped: Product[] = shuffledList .map((p: any) => ({
         id: p.id,
         title: p.name ?? p.title ?? "",
         price: String(p.price ?? ""),
