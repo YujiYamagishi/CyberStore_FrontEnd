@@ -77,7 +77,7 @@ export default function Navbar() {
             </button>
             <input
               type="text"
-              placeholder="Search by brand or product..."
+              placeholder="Search..."
               value={searchTerm}
               onChange={(e) => setSearchTerm(e.target.value)}
               onFocus={() => setIsSearchFocused(true)}
