@@ -9,7 +9,7 @@ export default function RelatedProducts({ products }: { products: any[] }) {
             key={product.id}
             id={product.id}
             title={product.name}
-            price={product.price}
+            price={`$${product.price}`}
             image={product.url_image}
           />
         ))}
