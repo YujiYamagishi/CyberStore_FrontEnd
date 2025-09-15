@@ -1304,7 +1304,7 @@ body {
   flex-direction: row; 
   justify-content: flex-start; 
   align-items: flex-start; 
-  max-width: 360px; 
+  max-width: 100%; 
 } 
 
 .airpods img { 
@@ -1643,7 +1643,7 @@ body {
   gap: 16px;
   font-size: 18px;
   left: 100px;
-  bottom: 140px; /* desce os ícones */
+  bottom: 140px;
 }
 
 
