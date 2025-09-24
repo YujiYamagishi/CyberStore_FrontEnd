@@ -16,14 +16,13 @@ const CartList: React.FC<CartListProps> = ({ cartItems, onQuantityChange, onRemo
       {cartItems.map(item => (
         <CartItem
           key={item.id}
-          id={item.id} // Passa o ID para o CartItem
+          id={item.id}
           name={item.name}
           specs={item.specs}
           code={item.code}
           price={item.price}
           quantity={item.quantity}
           imageUrl={item.imageUrl}
-          // Passa as funções (que esperam o ID do item)
           onQuantityChange={onQuantityChange} 
           onRemove={onRemove}
         />

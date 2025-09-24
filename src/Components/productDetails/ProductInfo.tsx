@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
-// Importamos o hook e a tipagem do nosso Context do carrinho
-import { useCart, Product } from '../../context/CartContext'; 
+import { useNavigate } from 'react-router-dom'; // para redirecionar
+import { useCart } from '../../context/CartContext'; // importa o contexto
+
 import screensizeIcon from '../../assets/screensize.svg';
 import cpuIcon from '../../assets/cpu.svg';
 import coreIcon from '../../assets/core.svg';
@@ -10,46 +11,41 @@ import batteryIcon from '../../assets/battery.svg';
 import truckIcon from '../../assets/truck.svg';
 import shopIcon from '../../assets/shop.svg';
 import shieldCheckIcon from '../../assets/shieldcheck.svg';
+
 import Notification from '../Notification';
 
 export default function ProductInfo({ product }: { product: any }) {
-  // Usamos o hook useCart para obter a função addToCart
-  const { addToCart } = useCart();
-  
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
-  const [quantity, setQuantity] = useState(1); // Novo estado para a quantidade
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [notification, setNotification] = useState<string | null>(null);
+
+  const { addToCart } = useCart(); // ✅ usa o contexto
+  const navigate = useNavigate(); // ✅ para redirecionar após adicionar
 
   useEffect(() => {
     setActiveIndex(0);
   }, [product]);
 
   const handleAddToCart = () => {
-    // 1. Coleta os detalhes do produto e suas seleções
-    const specs = [
-      selectedColor ? `Color: ${selectedColor}` : null,
-      selectedStorage ? `Storage: ${selectedStorage}` : null
-    ].filter(Boolean).join(', ');
+    if (!isButtonEnabled) return;
 
-    // 2. Cria o objeto do produto conforme a interface do CartContext
-    const productData: Omit<Product, 'quantity'> = {
-      // ID Único para cada variação de produto
-      id: `${product.id}-${selectedColor || 'none'}-${selectedStorage || 'none'}`, 
+    const itemToAdd = {
+      id: product.id,
       name: product.name,
-      specs: specs || 'N/A',
-      code: product.code || 'N/A', 
       price: product.discounted_price || product.price,
-      imageUrl: product.url_image || '',
+      discounted_price: product.discounted_price,
+      quantity: 1,
+      image: product.url_image,
+      color: selectedColor || undefined,
+      storage: selectedStorage || undefined,
     };
-    
-    // 3. Chama a função global do Context para adicionar ao carrinho
-    addToCart(productData, quantity);
 
-    setNotification(`${product.name} adicionado ao carrinho!`);
-    setTimeout(() => setNotification(null), 3000);
+    addToCart(itemToAdd);
+    setNotification('Product added to cart!');
+    setTimeout(() => setNotification(null), 2000);
+
   };
 
   const handleAddToWishlist = () => {
@@ -63,8 +59,7 @@ export default function ProductInfo({ product }: { product: any }) {
 
   const colorRequirementMet = !hasColors || (hasColors && selectedColor !== null);
   const storageRequirementMet = !hasStorage || (hasStorage && selectedStorage !== null);
-  // O botão só é habilitado se a quantidade for maior que zero
-  const isButtonEnabled = colorRequirementMet && storageRequirementMet && quantity > 0;
+  const isButtonEnabled = colorRequirementMet && storageRequirementMet;
 
   const thumbnails = product.url_image ? [product.url_image, product.url_image, product.url_image, product.url_image] : [];
 
@@ -75,9 +70,11 @@ export default function ProductInfo({ product }: { product: any }) {
     }
     return value;
   };
-  
+
   const colors = hasColors ? product.colors.map((c: any) => c.hex_code) : [];
-  const storageOptions = hasStorage ? [...product.storageOptions].sort((a, b) => parseStorage(a) - parseStorage(b)) : [];
+  const storageOptions = hasStorage
+    ? [...product.storageOptions].sort((a, b) => parseStorage(a) - parseStorage(b))
+    : [];
 
   const specs = {
     screenSize: product.smartphoneSpec?.screen_size || 'N/A',
@@ -94,8 +91,8 @@ export default function ProductInfo({ product }: { product: any }) {
         <img src={thumbnails[activeIndex]} alt={product.name} className="gallery-main-image" />
         <div className="gallery-thumbnails">
           {thumbnails.map((thumb: string, index: number) => (
-            <div 
-              key={index} 
+            <div
+              key={index}
               className={`gallery-thumbnail ${activeIndex === index ? 'active' : ''}`}
               onClick={() => setActiveIndex(index)}
             >
@@ -144,63 +141,51 @@ export default function ProductInfo({ product }: { product: any }) {
           </div>
         )}
 
-        {/* Adicionado: Seletor de quantidade */}
-        <div className="selection-container">
-          <p className="selection-title">Quantity:</p>
-          <div className="quantity-controls">
-            <button 
-              onClick={() => setQuantity(q => Math.max(1, q - 1))} 
-              disabled={quantity <= 1}>-</button>
-            <span>{quantity}</span>
-            <button onClick={() => setQuantity(q => q + 1)}>+</button>
-          </div>
-        </div>
-
         {hasSpecs && (
-        <div className="specs-grid">
-          <div className="spec-item">
-            <img src={screensizeIcon} alt="Screen size" />
-            <div className="spec-item-text">
-              <span>Screen size</span>
-              <strong>{specs.screenSize}</strong>
+          <div className="specs-grid">
+            <div className="spec-item">
+              <img src={screensizeIcon} alt="Screen size" />
+              <div className="spec-item-text">
+                <span>Screen size</span>
+                <strong>{specs.screenSize}</strong>
+              </div>
+            </div>
+            <div className="spec-item">
+              <img src={cpuIcon} alt="CPU" />
+              <div className="spec-item-text">
+                <span>CPU</span>
+                <strong>{specs.cpu}</strong>
+              </div>
+            </div>
+            <div className="spec-item">
+              <img src={coreIcon} alt="Number of Cores" />
+              <div className="spec-item-text">
+                <span>Number of Cores</span>
+                <strong>{specs.cores}</strong>
+              </div>
+            </div>
+            <div className="spec-item">
+              <img src={cameraIcon} alt="Main camera" />
+              <div className="spec-item-text">
+                <span>Main camera</span>
+                <strong>{specs.mainCamera}</strong>
+              </div>
+            </div>
+            <div className="spec-item">
+              <img src={fcameraIcon} alt="Front-camera" />
+              <div className="spec-item-text">
+                <span>Front-camera</span>
+                <strong>{specs.frontCamera}</strong>
+              </div>
+            </div>
+            <div className="spec-item">
+              <img src={batteryIcon} alt="Battery capacity" />
+              <div className="spec-item-text">
+                <span>Battery capacity</span>
+                <strong>{specs.battery}</strong>
+              </div>
             </div>
           </div>
-          <div className="spec-item">
-            <img src={cpuIcon} alt="CPU" />
-            <div className="spec-item-text">
-              <span>CPU</span>
-              <strong>{specs.cpu}</strong>
-            </div>
-          </div>
-          <div className="spec-item">
-            <img src={coreIcon} alt="Number of Cores" />
-            <div className="spec-item-text">
-              <span>Number of Cores</span>
-              <strong>{specs.cores}</strong>
-            </div>
-          </div>
-          <div className="spec-item">
-            <img src={cameraIcon} alt="Main camera" />
-            <div className="spec-item-text">
-              <span>Main camera</span>
-              <strong>{specs.mainCamera}</strong>
-            </div>
-          </div>
-          <div className="spec-item">
-            <img src={fcameraIcon} alt="Front-camera" />
-            <div className="spec-item-text">
-              <span>Front-camera</span>
-              <strong>{specs.frontCamera}</strong>
-            </div>
-          </div>
-          <div className="spec-item">
-            <img src={batteryIcon} alt="Battery capacity" />
-            <div className="spec-item-text">
-              <span>Battery capacity</span>
-              <strong>{specs.battery}</strong>
-            </div>
-          </div>
-        </div>
         )}
 
         <p className="product-description">
@@ -209,10 +194,14 @@ export default function ProductInfo({ product }: { product: any }) {
             {isDescriptionExpanded ? 'less' : 'more...'}
           </button>
         </p>
-        
+
         <div className="action-buttons">
-          <button className="wishlist-button" disabled={!isButtonEnabled} onClick={handleAddToWishlist}>Add to Wishlist</button>
-          <button className="add-to-cart-button" disabled={!isButtonEnabled} onClick={handleAddToCart}>Add to Cart</button>
+          <button className="wishlist-button" disabled={!isButtonEnabled} onClick={handleAddToWishlist}>
+            Add to Wishlist
+          </button>
+          <button className="add-to-cart-button" disabled={!isButtonEnabled} onClick={handleAddToCart}>
+            Add to Cart
+          </button>
         </div>
 
         <div className="service-info">
@@ -245,6 +234,7 @@ export default function ProductInfo({ product }: { product: any }) {
           </div>
         </div>
       </div>
+
       {notification && <Notification message={notification} onClose={() => setNotification(null)} />}
     </div>
   );

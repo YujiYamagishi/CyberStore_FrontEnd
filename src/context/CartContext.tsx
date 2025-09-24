@@ -1,85 +1,74 @@
-import React, { createContext, useState, useContext, ReactNode } from 'react';
+// CartContext.tsx
 
-// Reutilizamos a tipagem Product que você já tem
-export interface Product {
+import { createContext, useContext, useState, ReactNode } from 'react';
+
+type CartItem = {
   id: string;
   name: string;
-  specs: string;
-  code: string;
   price: number;
-  imageUrl: string;
-  quantity: number; // A quantidade é importante para o carrinho
-}
+  discounted_price?: number;
+  quantity: number;
+  image: string;
+  color?: string;
+  storage?: string;
+};
 
-// O que o nosso contexto vai expor
-interface CartContextType {
-  cartItems: Product[];
-  addToCart: (product: Omit<Product, 'quantity'>, quantity: number) => void;
-  // Funções de gerenciamento que você já tem
-  updateQuantity: (id: string, delta: number) => void;
-  removeItem: (id: string) => void;
-}
+type CartContextType = {
+  cart: CartItem[];
+  addToCart: (item: CartItem) => void;
+  removeFromCart: (id: string) => void;
+  updateQuantity: (id: string, delta: number) => void; // ✅ Adicionado ao tipo
+};
 
-// Criação do contexto com valores iniciais
 const CartContext = createContext<CartContextType | undefined>(undefined);
 
-interface CartProviderProps {
-  children: ReactNode;
-}
+export const CartProvider = ({ children }: { children: ReactNode }) => {
+  const [cart, setCart] = useState<CartItem[]>([]);
 
-export const CartProvider: React.FC<CartProviderProps> = ({ children }) => {
-  const [cartItems, setCartItems] = useState<Product[]>([]);
-
-  // ----------------------------------------------------
-  // LÓGICA DE ADICIONAR AO CARRINHO
-  // ----------------------------------------------------
-  const addToCart = (productToAdd: Omit<Product, 'quantity'>, quantity: number) => {
-    setCartItems(prevItems => {
-      const existingItem = prevItems.find(item => item.id === productToAdd.id);
-
+  const addToCart = (item: CartItem) => {
+    setCart((prevCart) => {
+      const existingItem = prevCart.find(
+        (i) =>
+          i.id === item.id &&
+          i.color === item.color &&
+          i.storage === item.storage
+      );
       if (existingItem) {
-        // Se o item já existe, apenas aumenta a quantidade
-        return prevItems.map(item =>
-          item.id === productToAdd.id
-            ? { ...item, quantity: item.quantity + quantity }
-            : item
+        return prevCart.map((i) =>
+          i.id === item.id && i.color === item.color && i.storage === item.storage
+            ? { ...i, quantity: i.quantity + item.quantity }
+            : i
         );
       } else {
-        // Se o item é novo, adiciona-o com a quantidade inicial
-        return [...prevItems, { ...productToAdd, quantity }];
+        return [...prevCart, item];
       }
     });
   };
 
-  // ----------------------------------------------------
-  // LÓGICA DE ATUALIZAR QUANTIDADE (para uso posterior)
-  // ----------------------------------------------------
+  const removeFromCart = (id: string) => {
+    setCart((prevCart) => prevCart.filter((item) => item.id !== id));
+  };
+
   const updateQuantity = (id: string, delta: number) => {
-    setCartItems(prevItems =>
-      prevItems.map(item =>
-        item.id === id ? { ...item, quantity: Math.max(1, item.quantity + delta) } : item
+    setCart((prevCart) =>
+      prevCart.map((item) =>
+        item.id === id
+          ? { ...item, quantity: Math.max(1, item.quantity + delta) }
+          : item
       )
     );
   };
-    
-  // ----------------------------------------------------
-  // LÓGICA DE REMOVER ITEM (para uso posterior)
-  // ----------------------------------------------------
-  const removeItem = (id: string) => {
-    setCartItems(prevItems => prevItems.filter(item => item.id !== id));
-  };
 
   return (
-    <CartContext.Provider value={{ cartItems, addToCart, updateQuantity, removeItem }}>
+    <CartContext.Provider value={{ cart, addToCart, removeFromCart, updateQuantity }}>
       {children}
     </CartContext.Provider>
   );
 };
 
-// Hook customizado para facilitar o uso
-export const useCart = () => {
+export const useCart = (): CartContextType => {
   const context = useContext(CartContext);
-  if (context === undefined) {
+  if (!context) {
     throw new Error('useCart must be used within a CartProvider');
   }
   return context;
