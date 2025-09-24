@@ -1,6 +1,6 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { Menu, X, Heart,ShoppingCart, User, Search } from "lucide-react";
+import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
 import "../styles/index.css";
 
 const navLinks = [
@@ -11,23 +11,25 @@ const navLinks = [
 ];
 
 export default function Navbar() {
-  console.log("Componente Navbar renderizou!");
-
   const [isOpen, setIsOpen] = useState(false);
   const [isClosing, setIsClosing] = useState(false);
   const [searchTerm, setSearchTerm] = useState("");
   const [isSearchFocused, setIsSearchFocused] = useState(false);
   const [activeLink, setActiveLink] = useState<string>("home");
+
   const navigate = useNavigate();
   const mobileInputRef = useRef<HTMLInputElement>(null);
 
   useEffect(() => {
-    if (isOpen) mobileInputRef.current?.focus();
+    if (isOpen) {
+      mobileInputRef.current?.focus();
+    }
   }, [isOpen]);
 
   const handleSearch = () => {
-    if (searchTerm.trim() !== "") {
-      navigate(`/products?q=${encodeURIComponent(searchTerm.trim())}`);
+    const trimmed = searchTerm.trim();
+    if (trimmed !== "") {
+      navigate(`/products?q=${encodeURIComponent(trimmed)}`);
     } else {
       navigate("/products");
     }
@@ -51,6 +53,7 @@ export default function Navbar() {
   return (
     <nav className="navbar relative">
       <div className="navbar-container">
+        {/* Logo */}
         <Link
           to="/"
           className="navbar-logo"
@@ -60,6 +63,7 @@ export default function Navbar() {
           cyber
         </Link>
 
+        {/* Search bar - desktop */}
         <form
           className="navbar-search hidden md:flex w-96"
           onSubmit={(e) => {
@@ -68,11 +72,7 @@ export default function Navbar() {
           }}
         >
           <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
-            <button
-              type="submit"
-              className="searchbar__button"
-              aria-label="Search"
-            >
+            <button type="submit" className="searchbar__button" aria-label="Search">
               <Search size={18} />
             </button>
             <input
@@ -87,6 +87,7 @@ export default function Navbar() {
           </div>
         </form>
 
+        {/* Navigation links - desktop */}
         <div className="navbar-links hidden md:flex">
           {navLinks.map((link) => (
             <Link
@@ -103,33 +104,22 @@ export default function Navbar() {
           ))}
         </div>
 
+        {/* Icons - always visible */}
         <div className="navbar-icons flex gap-3">
-          <Link
-            to="/favorites"
-            aria-label="Favorites"
-            className="p-2 rounded-full hover:bg-gray-200 transition"
-          >
+          <Link to="/favorites" aria-label="Favorites" className="p-2 rounded-full hover:bg-gray-200 transition">
             <Heart size={22} />
           </Link>
 
-          <Link
-            to="/shoppingcart"
-            aria-label="Cart"
-            className="p-2 rounded-full hover:bg-gray-200 transition"
-          >
+          <Link to="/shoppingcart" aria-label="Cart" className="p-2 rounded-full hover:bg-gray-200 transition">
             <ShoppingCart size={22} />
           </Link>
 
-          <Link
-            to="/account"
-            aria-label="Account"
-            className="p-2 rounded-full hover:bg-gray-200 transition"
-          >
+          <Link to="/account" aria-label="Account" className="p-2 rounded-full hover:bg-gray-200 transition">
             <User size={22} />
           </Link>
         </div>
 
-
+        {/* Mobile menu toggle */}
         <button
           onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
           className="navbar-toggle md:hidden"
@@ -138,8 +128,10 @@ export default function Navbar() {
         </button>
       </div>
 
+      {/* Mobile menu */}
       {isOpen && (
         <div className={`navbar-mobile-menu ${isClosing ? "closing" : ""}`}>
+          {/* Search - mobile */}
           <form
             className="navbar-search flex md:hidden w-full mb-4"
             onSubmit={(e) => {
@@ -148,11 +140,7 @@ export default function Navbar() {
             }}
           >
             <div className={`searchbar ${isSearchFocused ? "is-focused" : ""}`}>
-              <button
-                type="submit"
-                className="searchbar__button"
-                aria-label="Search"
-              >
+              <button type="submit" className="searchbar__button" aria-label="Search">
                 <Search size={18} />
               </button>
               <input
@@ -168,19 +156,50 @@ export default function Navbar() {
             </div>
           </form>
 
-          <ul>
+          {/* Links - mobile */}
+          <ul className="flex flex-col gap-4 px-4">
             {navLinks.map((link) => (
               <li key={link.key}>
                 <Link
                   to={link.to}
-                  onClick={closeMenu}
-                  style={{ textDecoration: "none" }}
+                  onClick={() => handleLinkClick(link.key)}
+                  style={{ textDecoration: "none", color: "#333" }}
                 >
                   {link.label}
                 </Link>
               </li>
             ))}
           </ul>
+
+          {/* Icons - mobile */}
+          <div className="mobile-icons flex gap-6 mt-6 md:hidden justify-center">
+            <Link
+              to="/favorites"
+              aria-label="Favorites"
+              onClick={closeMenu}
+              className="p-2 rounded-full hover:bg-gray-200 transition"
+            >
+              <Heart size={22} />
+            </Link>
+
+            <Link
+              to="/shoppingcart"
+              aria-label="Cart"
+              onClick={closeMenu}
+              className="p-2 rounded-full hover:bg-gray-200 transition"
+            >
+              <ShoppingCart size={22} />
+            </Link>
+
+            <Link
+              to="/account"
+              aria-label="Account"
+              onClick={closeMenu}
+              className="p-2 rounded-full hover:bg-gray-200 transition"
+            >
+              <User size={22} />
+            </Link>
+          </div>
         </div>
       )}
     </nav>

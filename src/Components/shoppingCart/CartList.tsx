@@ -22,7 +22,7 @@ const CartList: React.FC<CartListProps> = ({ cartItems, onQuantityChange, onRemo
           code={item.code}
           price={item.price}
           quantity={item.quantity}
-          imageUrl={item.imageUrl}
+          image={item.image}
           onQuantityChange={onQuantityChange} 
           onRemove={onRemove}
         />

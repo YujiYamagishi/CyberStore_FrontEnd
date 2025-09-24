@@ -51,6 +51,10 @@ body {
     font-size: 14px;
 }
 
+.item-image {
+    /* No desktop já tem o comportamento padrão */
+}
+
 .item-image img {
     width: 80px;
     height: 80px;
@@ -231,57 +235,113 @@ body {
 .checkout-btn:hover {
     background-color: #333;
 }
-
 /* --- Responsividade (para telas menores que 900px) --- */
 @media (max-width: 900px) {
-    .shopping-cart-layout {
-        flex-direction: column;
-    }
+  .shopping-cart-layout {
+    flex-direction: column;
+  }
 
-    /* CORREÇÃO DA ORDEM MOBILE: Shopping Cart fica em cima */
-    .cart-items-column {
-        order: -1; 
-    }
+  /* ordem no mobile */
+  .cart-items-column {
+    order: -1;
+  }
 
-    /* CORREÇÃO DA ORDEM MOBILE: Order Summary fica abaixo */
-    .order-summary-column {
-        order: 1; 
-    }
+  .order-summary-column {
+    order: 1;
+  }
 
-    /* Outros ajustes de item para mobile */
-     .cart-item {
-        flex-wrap: wrap; 
-        align-items: flex-start; /* Alinha o conteúdo ao topo */
-        padding-bottom: 30px; /* Adiciona mais espaço abaixo para separar os itens */
-    }
+  .cart-list {
+    display: block;
+    width: 100%;
+  }
 
-    .item-image {
-        margin-bottom: 10px;
-    }
+  .cart-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+    background: #fff;
+    
+  }
 
-     .item-details {
-        flex: 1 1 100%; /* Permite crescer, não encolher, e usa 100% da largura */
-        margin-top: 5px; /* Pequeno espaçamento após a imagem */
-    }
+  .item-image {
+    width: 80px;
+    height: 80px;
+    flex-shrink: 0;
+    margin-right: 20px;
+  }
 
-    /* Coloca os controles de quantidade e preço na mesma linha, abaixo dos detalhes */
-    .item-quantity-controls {
-        order: 1; /* Move para a parte inferior do grupo flexível */
-        margin-top: 15px; 
-        margin-left: 0;
-    }
+  .item-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 8px;
+    display: block;
+  }
+
+  .item-details {
+    flex-grow: 1;
+    min-width: 0;
+  }
+
+   .item-name {
+    font-weight: 500;
+    margin-bottom: 38px;
+    color: #000;
+    white-space: nowrap;   /* não deixa quebrar */
+          /* esconde excesso */
+    text-overflow: ellipsis; /* adiciona "..." se passar do limite */
+  }
 
 
-    .item-price-total {
-        margin-left: auto;
-        margin-right: 0;
-    }
+  .item-specs {
+    color: #555;
+  }
 
-     .item-remove-btn {
-        display: none; /* Remove o 'x' extra se ele estiver interferindo, pois o preço está junto */
-        /* Se você quiser manter o 'x' na mesma linha que o preço:
-           order: 3;
-           margin-top: 15px;
-        */
-    }
+  .item-code {
+    color: #888;
+    font-size: 12px;
+  }
+
+  /* === CONTROLES DE QUANTIDADE === */
+  .item-quantity-controls {
+    display: flex;
+    align-items: center;
+    margin-top: 50px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    min-width: 90px;   /* garante espaço pros 3 elementos */
+  }
+
+  .item-quantity-controls button {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+    flex-shrink: 0;
+  }
+
+  .item-quantity-controls span {
+    padding: 0 10px;
+    font-weight: 500;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .item-price-total {
+    width: auto;
+    margin-top: 50px;
+    text-align: right;
+  }
+
+  .item-remove-btn {
+    display: block;
+    margin-top: 50px;
+  }
 }

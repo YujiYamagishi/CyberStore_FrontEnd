@@ -22,7 +22,7 @@ export default function ProductInfo({ product }: { product: any }) {
   const [notification, setNotification] = useState<string | null>(null);
 
   const { addToCart } = useCart(); // ✅ usa o contexto
-  const navigate = useNavigate(); // ✅ para redirecionar após adicionar
+  
 
   useEffect(() => {
     setActiveIndex(0);

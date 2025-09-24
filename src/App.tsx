@@ -4,11 +4,10 @@ import Home from './pages/home';
 import ProductDetails from './pages/ProductDetails';
 import ProductsPage from './pages/productsPage';
 import ShoppingCart from "./pages/ShoppingCart";
+import Address from './pages/AddressPage'
 import Navbar from './Components/navbar';
 import Footer from './Components/footer';
 import { CartProvider } from './context/CartContext'; 
-
-
 
 function App() {
   const { pathname } = useLocation();
@@ -27,6 +26,7 @@ function App() {
             <Route path="/products" element={<ProductsPage />} />
             <Route path="/product/:productId" element={<ProductDetails />} />
             <Route path="/shoppingcart" element={<ShoppingCart />} />
+            <Route path="/address" element={<Address />} /> 
           </Routes>
         </main>
         <Footer />

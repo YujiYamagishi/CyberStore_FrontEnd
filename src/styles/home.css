@@ -892,7 +892,6 @@ body {
   border-color: #fff; 
 }
 
-
 .footer {
   background: #000;
   color: #ddd;
@@ -955,7 +954,6 @@ body {
 .footer .social a:hover {
  color: #fff;
 }
-
 
 
 @media (min-width: 1024px) {

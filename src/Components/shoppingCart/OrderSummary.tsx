@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 
 // Tipagem das propriedades (para simular o resumo)
 interface OrderSummaryProps {
@@ -9,9 +10,14 @@ interface OrderSummaryProps {
 
 const OrderSummary: React.FC<OrderSummaryProps> = ({ subtotal, tax, shipping }) => {
   const total = subtotal + tax + shipping;
+  const navigate = useNavigate(); // hook do react-router-dom
 
   const formatCurrency = (amount: number): string => {
     return `$${amount.toLocaleString('en-US', { minimumFractionDigits: 0 })}`;
+  };
+
+  const handleCheckout = () => {
+    navigate('/address'); // rota da sua página address.tsx
   };
 
   return (
@@ -55,7 +61,8 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ subtotal, tax, shipping }) 
         <span>{formatCurrency(total)}</span>
       </div>
 
-      <button className="checkout-btn">Checkout</button>
+      {/* Botão checkout funcional */}
+      <button className="checkout-btn" onClick={handleCheckout}>Checkout</button>
     </div>
   );
 };
