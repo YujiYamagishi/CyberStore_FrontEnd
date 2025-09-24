@@ -1,4 +1,6 @@
 import { useState, useEffect } from 'react';
+// Importamos o hook e a tipagem do nosso Context do carrinho
+import { useCart, Product } from '../../context/CartContext'; 
 import screensizeIcon from '../../assets/screensize.svg';
 import cpuIcon from '../../assets/cpu.svg';
 import coreIcon from '../../assets/core.svg';
@@ -11,8 +13,12 @@ import shieldCheckIcon from '../../assets/shieldcheck.svg';
 import Notification from '../Notification';
 
 export default function ProductInfo({ product }: { product: any }) {
+  // Usamos o hook useCart para obter a função addToCart
+  const { addToCart } = useCart();
+  
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
+  const [quantity, setQuantity] = useState(1); // Novo estado para a quantidade
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [notification, setNotification] = useState<string | null>(null);
@@ -22,7 +28,27 @@ export default function ProductInfo({ product }: { product: any }) {
   }, [product]);
 
   const handleAddToCart = () => {
-    setNotification('Product added to cart!');
+    // 1. Coleta os detalhes do produto e suas seleções
+    const specs = [
+      selectedColor ? `Color: ${selectedColor}` : null,
+      selectedStorage ? `Storage: ${selectedStorage}` : null
+    ].filter(Boolean).join(', ');
+
+    // 2. Cria o objeto do produto conforme a interface do CartContext
+    const productData: Omit<Product, 'quantity'> = {
+      // ID Único para cada variação de produto
+      id: `${product.id}-${selectedColor || 'none'}-${selectedStorage || 'none'}`, 
+      name: product.name,
+      specs: specs || 'N/A',
+      code: product.code || 'N/A', 
+      price: product.discounted_price || product.price,
+      imageUrl: product.url_image || '',
+    };
+    
+    // 3. Chama a função global do Context para adicionar ao carrinho
+    addToCart(productData, quantity);
+
+    setNotification(`${product.name} adicionado ao carrinho!`);
     setTimeout(() => setNotification(null), 3000);
   };
 
@@ -37,7 +63,8 @@ export default function ProductInfo({ product }: { product: any }) {
 
   const colorRequirementMet = !hasColors || (hasColors && selectedColor !== null);
   const storageRequirementMet = !hasStorage || (hasStorage && selectedStorage !== null);
-  const isButtonEnabled = colorRequirementMet && storageRequirementMet;
+  // O botão só é habilitado se a quantidade for maior que zero
+  const isButtonEnabled = colorRequirementMet && storageRequirementMet && quantity > 0;
 
   const thumbnails = product.url_image ? [product.url_image, product.url_image, product.url_image, product.url_image] : [];
 
@@ -116,6 +143,18 @@ export default function ProductInfo({ product }: { product: any }) {
             </div>
           </div>
         )}
+
+        {/* Adicionado: Seletor de quantidade */}
+        <div className="selection-container">
+          <p className="selection-title">Quantity:</p>
+          <div className="quantity-controls">
+            <button 
+              onClick={() => setQuantity(q => Math.max(1, q - 1))} 
+              disabled={quantity <= 1}>-</button>
+            <span>{quantity}</span>
+            <button onClick={() => setQuantity(q => q + 1)}>+</button>
+          </div>
+        </div>
 
         {hasSpecs && (
         <div className="specs-grid">

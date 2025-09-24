@@ -1,0 +1,287 @@
+/* --- Variáveis e Configurações Globais --- */
+/* Estime a altura da sua Navbar (ex: 90px) e defina aqui. 
+   Ajuste este valor se sua Navbar for mais alta ou mais baixa. */
+:root {
+    --navbar-height: 90px; 
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    background-color: #ffffff;
+}
+
+/* --- Layout Principal da Página --- */
+.shopping-cart-page-wrapper {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    
+    /* CORREÇÃO: Adiciona espaço no topo para compensar a Navbar fixa */
+    padding: 40px 20px; 
+    padding-top: calc(40px + var(--navbar-height)); 
+}
+
+.shopping-cart-layout {
+    display: flex;
+    max-width: 1200px;
+    width: 100%;
+    gap: 40px; 
+}
+
+.cart-items-column {
+    flex: 2; 
+}
+
+.cart-items-column h1 {
+    font-size: 24px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.order-summary-column {
+    flex: 1; 
+}
+
+/* --- Estilo dos Itens do Carrinho (CartItem) --- */
+.cart-item {
+    display: flex;
+    align-items: center;
+    padding: 20px 0;
+    border-bottom: 1px solid #e0e0e0;
+    font-size: 14px;
+}
+
+.item-image img {
+    width: 80px;
+    height: 80px;
+    object-fit: cover;
+    border-radius: 8px; 
+    margin-right: 20px;
+}
+
+.item-details {
+    flex-grow: 1; 
+}
+
+.item-name {
+    font-weight: 500;
+    margin-bottom: 4px;
+    color: #000;
+}
+
+.item-specs {
+    color: #555;
+    margin-bottom: 2px;
+}
+
+.item-code {
+    color: #888;
+    font-size: 12px;
+}
+
+.item-quantity-controls {
+    display: flex;
+    align-items: center;
+    margin: 0 30px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.item-quantity-controls button {
+    background: none;
+    border: none;
+    padding: 8px 12px;
+    cursor: pointer;
+    font-weight: bold;
+    color: #333;
+}
+
+.item-quantity-controls span {
+    padding: 0 10px;
+    font-weight: 500;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+    height: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.item-price-total {
+    font-weight: 600;
+    margin-right: 20px;
+    width: 80px; 
+    text-align: right;
+}
+
+.item-remove-btn {
+    background: none;
+    border: none;
+    font-size: 20px;
+    color: #aaa;
+    cursor: pointer;
+    padding: 0;
+    line-height: 1;
+}
+
+.item-remove-btn:hover {
+    color: #e30000;
+}
+
+
+/* --- Estilo do Order Summary --- */
+.order-summary-container {
+    padding: 30px;
+    border: 1px solid #eee;
+    background-color: #fcfcfc; 
+}
+
+.order-summary-container h2 {
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+.summary-input-group {
+    margin-bottom: 20px;
+}
+
+.summary-input-group label {
+    display: block;
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 8px;
+}
+
+.summary-input-group input {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-sizing: border-box;
+}
+
+.input-with-button {
+    display: flex;
+    gap: 10px;
+}
+
+.input-with-button input {
+    flex-grow: 1;
+}
+
+.apply-btn {
+    background-color: white;
+    color: #333;
+    border: 1px solid #ccc;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: background-color 0.1s;
+}
+
+.apply-btn:hover {
+    background-color: #f5f5f5;
+}
+
+/* Detalhes do preço */
+.summary-details {
+    padding: 20px 0;
+    border-top: 1px solid #eee;
+    border-bottom: 1px solid #eee;
+    margin-bottom: 20px;
+}
+
+.summary-line {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    font-size: 15px;
+}
+
+.summary-line span:last-child {
+    font-weight: 500;
+}
+
+/* Total */
+.summary-total {
+    display: flex;
+    justify-content: space-between;
+    font-size: 18px;
+    font-weight: 600;
+    margin-bottom: 30px;
+}
+
+/* Botão Checkout */
+.checkout-btn {
+    width: 100%;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    padding: 15px;
+    font-size: 16px;
+    font-weight: 500;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.checkout-btn:hover {
+    background-color: #333;
+}
+
+/* --- Responsividade (para telas menores que 900px) --- */
+@media (max-width: 900px) {
+    .shopping-cart-layout {
+        flex-direction: column;
+    }
+
+    /* CORREÇÃO DA ORDEM MOBILE: Shopping Cart fica em cima */
+    .cart-items-column {
+        order: -1; 
+    }
+
+    /* CORREÇÃO DA ORDEM MOBILE: Order Summary fica abaixo */
+    .order-summary-column {
+        order: 1; 
+    }
+
+    /* Outros ajustes de item para mobile */
+     .cart-item {
+        flex-wrap: wrap; 
+        align-items: flex-start; /* Alinha o conteúdo ao topo */
+        padding-bottom: 30px; /* Adiciona mais espaço abaixo para separar os itens */
+    }
+
+    .item-image {
+        margin-bottom: 10px;
+    }
+
+     .item-details {
+        flex: 1 1 100%; /* Permite crescer, não encolher, e usa 100% da largura */
+        margin-top: 5px; /* Pequeno espaçamento após a imagem */
+    }
+
+    /* Coloca os controles de quantidade e preço na mesma linha, abaixo dos detalhes */
+    .item-quantity-controls {
+        order: 1; /* Move para a parte inferior do grupo flexível */
+        margin-top: 15px; 
+        margin-left: 0;
+    }
+
+
+    .item-price-total {
+        margin-left: auto;
+        margin-right: 0;
+    }
+
+     .item-remove-btn {
+        display: none; /* Remove o 'x' extra se ele estiver interferindo, pois o preço está junto */
+        /* Se você quiser manter o 'x' na mesma linha que o preço:
+           order: 3;
+           margin-top: 15px;
+        */
+    }
+}
