@@ -1,0 +1,281 @@
+/* Container principal da p\u00E1gina de pagamento */
+.payment-page-container {
+    display: flex;
+    justify-content: center;
+    padding: 2rem 0;
+}
+
+/* Centraliza o conte\u00FAdo principal e define a largura m\u00E1xima */
+.payment-content-wrapper {
+    display: flex;
+    gap: 3rem;
+    max-width: 1200px;
+    width: 100%;
+}
+
+/* Se\u00E7\u00E3o de Resumo (coluna da esquerda) */
+.summarySection {
+    flex: 1.5; /* Mant\u00E9m o flexbox para controle de largura */
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    /* Removido: width: 512px; */
+}
+
+.summarySection .section-title,
+.paymentSection .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+}
+
+.summaryItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.summaryItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.summaryItem img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+    border-radius: 4px;
+}
+
+.summaryItem .summaryItemName {
+    flex: 1;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.summaryItem .summaryItemPrice {
+    font-size: 1rem;
+    font-weight: 600;
+    margin-left: auto;
+}
+
+.summaryDetails {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    margin-top: 1.5rem;
+}
+
+.detailRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.95rem;
+    color: #555;
+}
+
+.detailRow .detailValue {
+    font-weight: 600;
+    color: #333;
+    text-align: right;
+}
+
+.summaryTotals {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e0e0e0;
+    margin-top: 1.5rem;
+}
+
+.total-final {
+    font-size: 1.25rem;
+    font-weight: 700;
+    display: flex;
+    justify-content: space-between;
+}
+
+/* Se\u00E7\u00E3o de Pagamento (coluna da direita) */
+.paymentSection {
+    flex: 1;
+    padding: 2rem;
+    background-color: white;
+    border-radius: 8px;
+}
+
+.paymentMethodsTabs {
+    display: flex;
+    gap: 0.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.paymentMethodsTabs button {
+    padding: 0.6rem 1.2rem;
+    background: none;
+    border: 1px solid #e0e0e0;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: all 0.2s ease-in-out;
+}
+
+.paymentMethodsTabs button.active {
+    background: black;
+    color: white;
+    border-color: black;
+}
+
+/* Formul\u00E1rio do cart\u00E3o de cr\u00E9dito */
+.creditCardForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.creditCardDisplay {
+    background: black;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    height: 180px;
+    justify-content: space-between;
+}
+
+.creditCardDisplay .cardNumber {
+    font-size: 1.1rem;
+    letter-spacing: 1px;
+    font-weight: 600;
+}
+
+.creditCardDisplay .cardholderName {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    color: #bbb;
+}
+
+.creditCardForm input {
+    padding: 0.8rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 4px;
+    font-size: 0.9rem;
+}
+
+.expiryCvv {
+    display: flex;
+    gap: 1rem;
+}
+
+.expiryCvv input {
+    flex: 1;
+}
+
+.sameBilling {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.9rem;
+    color: #555;
+}
+
+.sameBilling input[type="checkbox"] {
+    accent-color: black;
+}
+
+.creditCardDisplay .cardNumber,
+.creditCardDisplay .cardholderName {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Opcional: Formata\u00E7\u00E3o do texto do cart\u00E3o */
+.creditCardDisplay .cardNumber {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+}
+
+.creditCardDisplay .cardNumber-animated,
+.creditCardDisplay .cardholderName-animated,
+.creditCardDisplay .exp-value-animated,
+.creditCardDisplay .cvv-value-animated {
+    transition: all 0.3s ease-in-out;
+}
+
+/* Formata\u00E7\u00E3o do texto do cart\u00E3o */
+.creditCardDisplay .cardNumber-animated {
+    font-family: 'Courier New', Courier, monospace;
+    letter-spacing: 2px;
+}
+.creditCardDisplay .card-details-row {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-top: auto; /* Empurra para o final */
+}
+
+.creditCardDisplay .card-exp-cvv {
+    display: flex;
+    gap: 0.5rem;
+    font-size: 0.8rem;
+    color: #bbb;
+}
+
+.creditCardDisplay .exp-value-animated,
+.creditCardDisplay .cvv-value-animated {
+    font-size: 1rem;
+    color: white;
+}
+
+/* Estilos para os bot\u00F5es de navega\u00E7\u00E3o no rodap\u00E9 */
+.footer-back-next {
+    display: flex;
+    justify-content: flex-end;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.backButton {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid black;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+    background-color: #f0f0f0;
+}
+
+.payButton {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.payButton:hover {
+    background-color: #333;
+}
+
+@media (max-width: 768px) {
+    .payment-content-wrapper {
+        flex-direction: column;
+        gap: 2rem;
+    }
+    .footer-back-next {
+        justify-content: center;
+    }
+    .backButton, .payButton {
+        padding: 0.8rem 2.5rem;
+    }
+}

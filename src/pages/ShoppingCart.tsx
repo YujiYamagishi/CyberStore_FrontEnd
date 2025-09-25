@@ -15,6 +15,8 @@ export interface Product {
   image: string;
   color?: string;
   storage?: string;
+  specs: string; 
+  code: string;
 }
 
 const ShoppingCart: React.FC = () => {

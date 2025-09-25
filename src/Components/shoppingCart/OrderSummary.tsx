@@ -41,7 +41,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ subtotal, tax, shipping }) 
 
       {/* Detalhes do preço */}
       <div className="summary-details">
-        <div className="summary-line">
+        <div className="summary-line1">
           <span>Subtotal</span>
           <span>{formatCurrency(subtotal)}</span>
         </div>

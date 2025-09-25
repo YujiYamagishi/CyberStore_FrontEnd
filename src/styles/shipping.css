@@ -1,0 +1,110 @@
+/*
+ * Centraliza o conteúdo principal da página
+ * e adiciona um espaçamento nas laterais.
+ */
+.main-container {
+    /* Alterado de 1120px para 90% para ser mais responsivo e ocupar mais tela.
+       Você também pode usar um valor fixo maior, como 1440px. */
+    max-width: 90%;
+    margin: 0 auto;      /* Centraliza o contêiner */
+    padding: 0 20px;     /* Adiciona espaçamento nas laterais */
+}
+
+/*
+ * Estilos para os cartões de envio
+ * (Shipping Cards)
+ */
+.shippingMethods {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+.shippingCard {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: white;
+    padding: 1.25rem 2rem;
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: border-color 0.3s ease;
+}
+
+.shippingCard:hover {
+    border-color: #999;
+}
+
+.shippingCard.selected {
+    border-color: black;
+}
+
+.shippingCard input[type="radio"] {
+    margin-right: 1.5rem;
+    accent-color: black;
+}
+
+.shippingCard > div {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+}
+
+.methodTitle {
+    font-weight: 600;
+}
+
+.methodType, .methodDescription {
+    color: #888;
+    font-size: 0.9rem;
+    margin-left: 0.5rem;
+}
+
+.methodDate {
+    font-weight: 500;
+    color: #555;
+    font-size: 0.9rem;
+}
+
+/*
+ * Estilos para os botões "Back" e "Next"
+ */
+.button-container {
+    display: flex;
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 1rem;
+    padding-top: 1rem;
+    /* As linhas max-width e margin foram removidas daqui,
+       pois o .main-container já faz esse controle. */
+}
+
+.back-button, .next-button {
+    padding: 12px 24px;
+    border-radius: 6px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease-in-out;
+}
+
+.back-button {
+    background-color: white;
+    color: black;
+    border: 1px solid #ccc;
+}
+
+.back-button:hover {
+    background-color: #f0f0f0;
+}
+
+.next-button {
+    background-color: black;
+    color: white;
+    border: none;
+}
+
+.next-button:hover {
+    background-color: #333;
+}

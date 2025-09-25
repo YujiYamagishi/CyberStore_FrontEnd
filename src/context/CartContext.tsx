@@ -11,13 +11,15 @@ type CartItem = {
   image: string;
   color?: string;
   storage?: string;
+  specs: string; 
+  code: string;
 };
 
 type CartContextType = {
   cart: CartItem[];
   addToCart: (item: CartItem) => void;
   removeFromCart: (id: string) => void;
-  updateQuantity: (id: string, delta: number) => void; // ✅ Adicionado ao tipo
+  updateQuantity: (id: string, delta: number) => void; 
 };
 
 const CartContext = createContext<CartContextType | undefined>(undefined);

@@ -1,0 +1,104 @@
+/* ======================================= */
+/* Estilos para a página de edição de endereço */
+/* ======================================= */
+main {
+    padding-top: 50px; /* Este valor precisa ser a altura exata da sua navbar */
+}
+/* Container principal da página de edição */
+.edit-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+/* Cabeçalho que contém o botão de voltar e o título */
+.header {
+    display: flex;
+    align-items: center;
+    position: relative; /* Ponto de referência para o posicionamento do título */
+    margin-bottom: 25px;
+    height: 40px; /* Garante que o container do header tenha uma altura definida */
+}
+
+/* Título centralizado, independentemente do botão */
+.header h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+    position: absolute; /* Posição absoluta para centralizar */
+    left: 50%; /* Inicia no meio da tela */
+    transform: translateX(-50%); /* Ajusta 50% para a esquerda para uma centralização perfeita */
+}
+
+/* Botão de voltar */
+.back-button {
+    background: none;
+    border: none;
+    color: #555;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: color 0.2s ease-in-out;
+    padding: 0; /* Remove padding padrão do botão */
+    z-index: 10; /* Garante que o botão fique por cima do título */
+}
+
+.back-button:hover {
+    color: #000;
+}
+
+/* Formulário de edição */
+.edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px; /* Adiciona espaçamento entre os campos */
+}
+
+.edit-form label {
+    font-weight: 600;
+    color: #444;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.edit-form input[type="text"],
+.edit-form select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.edit-form input[type="text"]:focus,
+.edit-form select:focus {
+    outline: none;
+    border-color: #575858;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+/* Botão de salvar */
+.save-button {
+    margin-top: 10px; /* Espaço para separar do último campo */
+    padding: 12px 25px;
+    background-color: #000000;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.save-button:hover {
+    background-color: #636364;
+}
