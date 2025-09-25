@@ -6,7 +6,6 @@ import AddressForm from './AddressForm';
 import { useAddress } from "../../context/AdressContext";
 
 const Address: React.FC = () => {
-  // Use o contexto para obter o estado e as funções
   const { addresses, addAddress, deleteAddress } = useAddress();
   const [selectedId, setSelectedId] = useState<number>(1);
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
@@ -21,12 +20,12 @@ const Address: React.FC = () => {
   };
 
   const handleAddSubmit = (newAddress: Omit<AddressItem, 'id'>) => {
-    addAddress(newAddress); // Use a função do contexto para adicionar
+    addAddress(newAddress);
     setShowAddForm(false);
   };
   
   const handleDelete = (id: number) => {
-    deleteAddress(id); // Use a função do contexto para deletar
+    deleteAddress(id);
     if (selectedId === id) {
       setSelectedId(0);
     }
@@ -37,8 +36,7 @@ const Address: React.FC = () => {
   };
 
   return (
-    // ... o restante do seu componente é o mesmo, exceto pelo uso do 'addresses' do contexto
-    <div>
+    <div className="pageContainer">
       <h2>Select Address</h2>
       <div className="addressList">
         {addresses.map((addr) => (

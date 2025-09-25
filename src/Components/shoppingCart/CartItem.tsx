@@ -7,7 +7,7 @@ interface CartItemProps {
   code: string;
   price: number;
   quantity: number;
-  image: string; // Corrigido: aqui é 'image', não 'imageUrl'
+  image: string;
   onQuantityChange: (id: string, delta: number) => void;
   onRemove: (id: string) => void;
 }
@@ -19,7 +19,7 @@ const CartItem: React.FC<CartItemProps> = ({
   code,
   price,
   quantity,
-  image, // Recebe a imagem aqui
+  image,
   onQuantityChange,
   onRemove,
 }) => {
@@ -27,12 +27,12 @@ const CartItem: React.FC<CartItemProps> = ({
     style: 'currency', 
     currency: 'USD', 
     minimumFractionDigits: 0
-  }).replace('$', ''); 
+  }).replace('$', '');
 
   return (
     <div className="cart-item">
       <div className="item-image">
-        <img src={image} alt={name} /> {/* Usa 'image' para o src */}
+        <img src={image} alt={name} />
       </div>
       <div className="item-details">
         <p className="item-name">{name}</p>

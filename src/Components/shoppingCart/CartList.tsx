@@ -1,11 +1,9 @@
 import React from 'react';
 import CartItem from './CartItem';
-// Tipagem Product importada da página principal
-import type { Product } from '../../pages/ShoppingCart';  
+import type { CartItem as CartItemType } from '../context/CartContext';
 
-// Tipagem CORRIGIDA para corresponder ao que a página principal passa
 interface CartListProps {
-  cartItems: Product[];
+  cartItems: CartItemType[];
   onQuantityChange: (id: string, delta: number) => void;
   onRemove: (id: string) => void;
 }
@@ -15,15 +13,15 @@ const CartList: React.FC<CartListProps> = ({ cartItems, onQuantityChange, onRemo
     <div className="cart-list">
       {cartItems.map(item => (
         <CartItem
-          key={item.id}
+          key={`${item.id}-${item.color ?? ''}-${item.storage ?? ''}`} // garantir chave única
           id={item.id}
           name={item.name}
           specs={item.specs}
           code={item.code}
-          price={item.price}
+          price={item.discounted_price ?? item.price}
           quantity={item.quantity}
           image={item.image}
-          onQuantityChange={onQuantityChange} 
+          onQuantityChange={onQuantityChange}
           onRemove={onRemove}
         />
       ))}

@@ -1,24 +1,31 @@
-// CheckoutFooter.tsx
+// src/components/CheckoutFinish.tsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import '../styles/address.css'; // Reutilize o mesmo arquivo de estilos
+import '../styles/address.css';
 
-interface CheckoutFooterProps {
+interface CheckoutFinishProps {
   onBack: () => void;
-  onNext: () => void;
+  purchaseSuccess?: boolean; // opcional, pode definir sucesso ou erro
 }
 
-const CheckoutFooter: React.FC<CheckoutFooterProps> = ({ onBack, onNext }) => {
+const CheckoutFinish: React.FC<CheckoutFinishProps> = ({ onBack, purchaseSuccess = true }) => {
+  const navigate = useNavigate();
+
+  const handlePayClick = () => {
+    // Navega para finish passando o estado com sucesso ou erro
+    navigate('/finish', { state: { success: purchaseSuccess } });
+  };
+
   return (
     <footer className="footer-back-next">
       <button onClick={onBack} className="backButton">
         Back
       </button>
-      <button onClick={onNext} className="payButton">
+      <button onClick={handlePayClick} className="payButton">
         Pay
       </button>
     </footer>
   );
 };
 
-export default CheckoutFooter;
+export default CheckoutFinish;

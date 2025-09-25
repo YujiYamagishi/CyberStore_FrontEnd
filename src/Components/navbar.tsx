@@ -1,6 +1,13 @@
 import { useState, useRef, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { Menu, X, Heart, ShoppingCart, User, Search } from "lucide-react";
+import {
+  UserButton,
+  SignInButton,
+  SignedIn,
+  SignedOut,
+} from "@clerk/clerk-react";
+
 import "../styles/index.css";
 
 const navLinks = [
@@ -106,17 +113,33 @@ export default function Navbar() {
 
         {/* Icons - always visible */}
         <div className="navbar-icons flex gap-3">
-          <Link to="/favorites" aria-label="Favorites" className="p-2 rounded-full hover:bg-gray-200 transition">
+          <Link
+            to="/favorites"
+            aria-label="Favorites"
+            className="p-2 rounded-full hover:bg-gray-200 transition"
+          >
             <Heart size={22} />
           </Link>
 
-          <Link to="/shoppingcart" aria-label="Cart" className="p-2 rounded-full hover:bg-gray-200 transition">
+          <Link
+            to="/shoppingcart"
+            aria-label="Cart"
+            className="p-2 rounded-full hover:bg-gray-200 transition"
+          >
             <ShoppingCart size={22} />
           </Link>
 
-          <Link to="/account" aria-label="Account" className="p-2 rounded-full hover:bg-gray-200 transition">
-            <User size={22} />
-          </Link>
+          {/* Clerk Account Button */}
+          <SignedIn>
+            <UserButton afterSignOutUrl="/" />
+          </SignedIn>
+          <SignedOut>
+            <SignInButton mode="modal">
+              <div className="p-2 rounded-full hover:bg-gray-200 transition cursor-pointer">
+                <User size={22} />
+              </div>
+            </SignInButton>
+          </SignedOut>
         </div>
 
         {/* Mobile menu toggle */}
@@ -191,14 +214,22 @@ export default function Navbar() {
               <ShoppingCart size={22} />
             </Link>
 
-            <Link
-              to="/account"
-              aria-label="Account"
-              onClick={closeMenu}
-              className="p-2 rounded-full hover:bg-gray-200 transition"
-            >
-              <User size={22} />
-            </Link>
+            {/* Clerk Account Button - mobile */}
+            <SignedIn>
+              <div onClick={closeMenu}>
+                <UserButton afterSignOutUrl="/" />
+              </div>
+            </SignedIn>
+            <SignedOut>
+              <SignInButton mode="modal">
+                <div
+                  onClick={closeMenu}
+                  className="p-2 rounded-full hover:bg-gray-200 transition cursor-pointer"
+                >
+                  <User size={22} />
+                </div>
+              </SignInButton>
+            </SignedOut>
           </div>
         </div>
       )}
