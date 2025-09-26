@@ -1,15 +1,16 @@
 import React from 'react';
 
 interface CartItemProps {
-  id: string;
+  id: number; // <-- Ajustei para number, porque no seu CartContext o `id` é number
   name: string;
   specs: string;
   code: string;
   price: number;
   quantity: number;
   image: string;
-  onQuantityChange: (id: string, delta: number) => void;
-  onRemove: (id: string) => void;
+  
+  onQuantityChange: (id: number, newQuantity: number) => void;
+  onRemove: (id: number) => void;
 }
 
 const CartItem: React.FC<CartItemProps> = ({
@@ -40,11 +41,14 @@ const CartItem: React.FC<CartItemProps> = ({
         <p className="item-code">#{code}</p>
       </div>
       <div className="item-quantity-controls">
-        <button onClick={() => onQuantityChange(id, -1)} disabled={quantity <= 1}>
+        <button 
+          onClick={() => onQuantityChange(id, quantity - 1)} 
+          disabled={quantity <= 1}
+        >
           –
         </button>
         <span>{quantity}</span>
-        <button onClick={() => onQuantityChange(id, 1)}>+</button>
+        <button onClick={() => onQuantityChange(id, quantity + 1)}>+</button>
       </div>
       <div className="item-price-total">
         ${totalItemPrice}

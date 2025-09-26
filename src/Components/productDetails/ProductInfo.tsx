@@ -1,8 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '@clerk/clerk-react';
-
-// Seus imports de ícones e componentes
 import screensizeIcon from '../../assets/screensize.svg';
 import cpuIcon from '../../assets/cpu.svg';
 import coreIcon from '../../assets/core.svg';
@@ -15,9 +13,7 @@ import shieldCheckIcon from '../../assets/shieldcheck.svg';
 import Notification from '../Notification';
 
 export default function ProductInfo({ product }: { product: any }) {
-  if (!product) {
-    return <div>Carregando informações do produto...</div>;
-  }
+  if (!product) return <div>Loading product information...</div>;
 
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
@@ -27,44 +23,8 @@ export default function ProductInfo({ product }: { product: any }) {
 
   const { addToCart, isLoading } = useCart();
   const { isSignedIn } = useAuth();
-  
-  useEffect(() => {
-    setActiveIndex(0);
-  }, [product]);
 
-  const handleAddToCart = async () => {
-    if (isButtonDisabled) return;
-
-    if (!isSignedIn) {
-      setNotification('Por favor, faça login para adicionar itens ao carrinho.');
-      setTimeout(() => setNotification(null), 3000);
-      return;
-    }
-
-    try {
-      const itemToAdd = {
-        id: product.id,
-        name: product.name,
-        price: product.discounted_price || product.price,
-        image: product.url_image,
-      };
-
-      await addToCart(itemToAdd, 1);
-      
-      setNotification('Product added to cart!');
-      setTimeout(() => setNotification(null), 2000);
-
-    } catch (error) {
-      console.error("Erro ao adicionar ao carrinho:", error);
-      setNotification('Erro ao adicionar produto. Tente novamente.');
-      setTimeout(() => setNotification(null), 3000);
-    }
-  };
-
-  const handleAddToWishlist = () => {
-    setNotification('Product added to wishlist!');
-    setTimeout(() => setNotification(null), 3000);
-  };
+  useEffect(() => setActiveIndex(0), [product]);
 
   const hasColors = product.colors && product.colors.length > 0;
   const hasStorage = product.storageOptions && product.storageOptions.length > 0;
@@ -72,25 +32,18 @@ export default function ProductInfo({ product }: { product: any }) {
 
   const colorRequirementMet = !hasColors || (hasColors && selectedColor !== null);
   const storageRequirementMet = !hasStorage || (hasStorage && selectedStorage !== null);
-  const isButtonEnabled = colorRequirementMet && storageRequirementMet;
-  
-  const isButtonDisabled = !isButtonEnabled || isLoading || !isSignedIn;
 
   const thumbnails = product.url_image ? [product.url_image, product.url_image, product.url_image, product.url_image] : [];
 
   const parseStorage = (storageStr: string) => {
     if (!storageStr) return 0;
     const value = parseInt(storageStr.replace(/\D/g, ''));
-    if (storageStr.toUpperCase().includes('TB')) {
-      return value * 1024;
-    }
+    if (storageStr.toUpperCase().includes('TB')) return value * 1024;
     return value;
   };
 
   const colors = hasColors ? product.colors.map((c: any) => c.hex_code) : [];
-  
-  // ✅ CORREÇÃO APLICADA AQUI
-  // A lógica foi ajustada para ordenar uma lista de strings, e não de objetos.
+
   const storageOptions = hasStorage
     ? [...product.storageOptions].sort((a: string, b: string) => parseStorage(a) - parseStorage(b))
     : [];
@@ -102,6 +55,61 @@ export default function ProductInfo({ product }: { product: any }) {
     mainCamera: product.smartphoneSpec?.main_camera || 'N/A',
     frontCamera: product.smartphoneSpec?.front_camera || 'N/A',
     battery: product.smartphoneSpec?.battery || 'N/A'
+  };
+
+  const handleAddToCart = async () => {
+    if (isLoading) return;
+
+    if (!colorRequirementMet || !storageRequirementMet) {
+      setNotification('Please select color and storage before adding to cart.');
+      setTimeout(() => setNotification(null), 3000);
+      return;
+    }
+
+    const itemToAdd = {
+      id: product.id,
+      name: product.name,
+      price: product.discounted_price || product.price,
+      image: product.url_image,
+      selectedColor,
+      selectedStorage,
+      quantity: 1,
+      specs: product.smartphoneSpec?.screen_size || '',
+      code: product.id.toString(),
+    };
+
+    if (!isSignedIn) {
+      // usuário não logado: salvar no localStorage
+      const cart = JSON.parse(localStorage.getItem('cart') || '[]');
+      cart.push(itemToAdd);
+      localStorage.setItem('cart', JSON.stringify(cart));
+      window.dispatchEvent(new Event('cartUpdated'));
+      setNotification('Product added to cart!');
+      setTimeout(() => setNotification(null), 2000);
+      return;
+    }
+
+    // usuário logado: usar contexto
+    try {
+      await addToCart(itemToAdd, 1);
+      setNotification('Product added to cart!');
+      setTimeout(() => setNotification(null), 2000);
+    } catch (error) {
+      console.error("Error adding to cart:", error);
+      setNotification('Error adding product. Please try again.');
+      setTimeout(() => setNotification(null), 3000);
+    }
+  };
+
+  const handleAddToWishlist = () => {
+    if (!colorRequirementMet || !storageRequirementMet) {
+      setNotification('Please select color and storage before adding to wishlist.');
+      setTimeout(() => setNotification(null), 3000);
+      return;
+    }
+
+    setNotification('Product added to wishlist!');
+    setTimeout(() => setNotification(null), 3000);
   };
 
   return (
@@ -179,18 +187,18 @@ export default function ProductInfo({ product }: { product: any }) {
         </p>
 
         <div className="action-buttons">
-          <button className="wishlist-button" disabled={isButtonDisabled} onClick={handleAddToWishlist}>
+          <button className="wishlist-button" onClick={handleAddToWishlist}>
             Add to Wishlist
           </button>
-          <button className="add-to-cart-button" disabled={isButtonDisabled} onClick={handleAddToCart}>
-            {isLoading ? 'Carregando...' : 'Add to Cart'}
+          <button className="add-to-cart-button" onClick={handleAddToCart}>
+            {isLoading ? 'Loading...' : 'Add to Cart'}
           </button>
         </div>
 
         <div className="service-info">
-            <div className="service-item"><div><img src={truckIcon} alt="Free Delivery" /></div><div><strong>Free Delivery</strong><span>1-2 day</span></div></div>
-            <div className="service-item"><div><img src={shopIcon} alt="In Stock" /></div><div><strong>In Stock</strong><span>Today</span></div></div>
-            <div className="service-item"><div><img src={shieldCheckIcon} alt="Guaranteed" /></div><div><strong>Guaranteed</strong><span>1 year</span></div></div>
+          <div className="service-item"><div><img src={truckIcon} alt="Free Delivery" /></div><div><strong>Free Delivery</strong><span>1-2 day</span></div></div>
+          <div className="service-item"><div><img src={shopIcon} alt="In Stock" /></div><div><strong>In Stock</strong><span>Today</span></div></div>
+          <div className="service-item"><div><img src={shieldCheckIcon} alt="Guaranteed" /></div><div><strong>Guaranteed</strong><span>1 year</span></div></div>
         </div>
       </div>
 

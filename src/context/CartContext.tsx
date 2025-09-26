@@ -1,3 +1,5 @@
+// src/context/CartContext.tsx
+
 import { createContext, useContext, useState, ReactNode, useEffect } from 'react';
 import { useAuth } from '@clerk/clerk-react';
 
@@ -8,6 +10,8 @@ type CartItem = {
   price: number;
   quantity: number;
   image: string;
+  specs: string; // ✅ novo
+  code: string;
 };
 
 type CartState = {
@@ -28,20 +32,14 @@ const CartContext = createContext<CartContextType | undefined>(undefined);
 export const CartProvider = ({ children }: { children: ReactNode }) => {
   const [cart, setCart] = useState<CartState>({ id: null, items: [] });
   const [isLoading, setIsLoading] = useState(true);
-  const { userId, getToken } = useAuth();
-
-  // Função de log para vermos TODAS as mudanças de estado
-  const setAndLogCart = (newState: CartState, fromFunction: string) => {
-    console.log(`[${fromFunction}] ATUALIZANDO ESTADO DO CARRINHO PARA:`, JSON.stringify(newState, null, 2));
-    setCart(newState);
-  };
+  const { userId, getToken } = useAuth(); // Pega a função getToken do Clerk
 
   useEffect(() => {
     if (userId) {
       fetchCart(userId);
     } else {
       setIsLoading(false);
-      setAndLogCart({ id: null, items: [] }, "useEffect - Logout/Usuário Deslogado");
+      setCart({ id: null, items: [] });
     }
   }, [userId]);
 
@@ -52,27 +50,33 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       price: parseFloat(item.product.price),
       quantity: item.quantity,
       image: item.product.url_image,
+      specs: item.product.specs ?? '',  // ✅ agora pega specs
+      code: item.product.code ?? '',
     }));
   };
 
   const fetchCart = async (currentUserId: string) => {
-    console.log(`[fetchCart] Buscando carrinho para o usuário: ${currentUserId}`);
     setIsLoading(true);
     try {
-      const token = await getToken();
+      const token = await getToken(); // ✅ Pega o token de autenticação
+
+      // ✅ ADICIONE ESTE LOG PARA VER O TOKEN
+      console.log("Token que está sendo enviado para o backend:", token);
+      
       const response = await fetch(`http://localhost:8000/shopping-cart/${currentUserId}`, {
-        headers: { 'Authorization': `Bearer ${token}` }
+        headers: {
+          'Authorization': `Bearer ${token}` // ✅ Envia o token para o backend
+        }
       });
 
       if (response.ok) {
         const data = await response.json();
-        console.log('[fetchCart] Dados recebidos do backend:', data);
-        setAndLogCart({ id: data.id, items: formatItemsFromAPI(data.items) }, "fetchCart - SUCESSO");
+        setCart({ id: data.id, items: formatItemsFromAPI(data.items) });
       } else {
-        setAndLogCart({ id: null, items: [] }, "fetchCart - FALHA ou SEM CARRINHO");
+        setCart({ id: null, items: [] });
       }
     } catch (error) {
-      console.error("[fetchCart] Erro:", error);
+      console.error("Falha ao buscar o carrinho:", error);
     } finally {
       setIsLoading(false);
     }
@@ -80,25 +84,25 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const updateCartOnServer = async (productsPayload: { product_id: number; quantity: number }[]) => {
     if (!cart.id) throw new Error("ID do carrinho não encontrado para atualização.");
-    console.log('[updateCartOnServer] Enviando para o backend:', productsPayload);
+    const token = await getToken(); // ✅ Pega o token de autenticação
     
-    const token = await getToken();
     const response = await fetch(`http://localhost:8000/api/shopping_carts/${cart.id}`, {
       method: 'PUT',
-      headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+      headers: { 
+        'Content-Type': 'application/json',
+        'Authorization': `Bearer ${token}` // ✅ Envia o token para o backend
+      },
       body: JSON.stringify({ products: productsPayload }),
     });
 
     if (!response.ok) throw new Error('Falha ao atualizar o carrinho no servidor (PUT)');
     
     const data = await response.json();
-    console.log('[updateCartOnServer] Resposta do backend após PUT:', data);
-    setAndLogCart({ id: data.id, items: formatItemsFromAPI(data.items) }, "updateCartOnServer");
+    setCart({ id: data.id, items: formatItemsFromAPI(data.items) });
   };
 
   const addToCart = async (newItem: Omit<CartItem, 'quantity'>, quantity: number) => {
     if (!userId) throw new Error("Usuário não está logado.");
-    console.log('[addToCart] Adicionando item:', newItem);
 
     const existingItems = cart.items.map(item => ({ product_id: item.id, quantity: item.quantity }));
     const itemIndex = existingItems.findIndex(item => item.product_id === newItem.id);
@@ -113,18 +117,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       if (cart.id) {
         await updateCartOnServer(productsForBackend);
       } else {
-        console.log('[addToCart] Carrinho não existe, criando um novo (POST)...');
-        const token = await getToken();
+        const token = await getToken(); // ✅ Pega o token de autenticação
         const response = await fetch(`http://localhost:8000/api/shopping_carts`, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json', 'Authorization': `Bearer ${token}` },
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}` // ✅ Envia o token para o backend
+          },
           body: JSON.stringify({ products: productsForBackend }),
         });
 
         if (!response.ok) throw new Error('Falha ao criar o carrinho no servidor (POST)');
         const data = await response.json();
-        console.log('[addToCart] Resposta do backend após POST:', data);
-        setAndLogCart({ id: data.id, items: formatItemsFromAPI(data.items) }, "addToCart - SUCESSO (POST)");
+        setCart({ id: data.id, items: formatItemsFromAPI(data.items) });
       }
     } catch (error) {
       console.error("[addToCart] Erro:", error);
@@ -133,7 +138,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
   };
 
   const removeFromCart = async (productId: number) => {
-    console.log(`[removeFromCart] Removendo produto ID: ${productId}`);
     const productsForBackend = cart.items
       .filter(item => item.id !== productId)
       .map(item => ({ product_id: item.id, quantity: item.quantity }));
@@ -143,7 +147,6 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
   const updateQuantity = async (productId: number, newQuantity: number) => {
     if (newQuantity < 1) return removeFromCart(productId);
-    console.log(`[updateQuantity] Atualizando produto ID: ${productId} para quantidade: ${newQuantity}`);
     
     const productsForBackend = cart.items.map(item => 
       item.id === productId 

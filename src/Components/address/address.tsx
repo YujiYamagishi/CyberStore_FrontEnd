@@ -5,33 +5,42 @@ import { useNavigate } from "react-router-dom";
 import AddressForm from './AddressForm';
 import { useAddress } from "../../context/AdressContext";
 
-const Address: React.FC = () => {
+interface AddressItem {
+  id: number;
+  title: string;
+  type: "HOME" | "OFFICE";
+  address: string;
+  phone: string;
+}
+
+interface AddressProps {
+  selectedId: number | null;
+  onSelect: (id: number | null) => void;
+}
+
+const Address: React.FC<AddressProps> = ({ selectedId, onSelect }) => {
   const { addresses, addAddress, deleteAddress } = useAddress();
-  const [selectedId, setSelectedId] = useState<number>(1);
   const [showAddForm, setShowAddForm] = useState<boolean>(false);
   const navigate = useNavigate();
 
-  const handleAddNew = () => {
-    setShowAddForm(true);
-  };
-
-  const handleCancel = () => {
-    setShowAddForm(false);
-  };
+  const handleAddNew = () => setShowAddForm(true);
+  const handleCancel = () => setShowAddForm(false);
 
   const handleAddSubmit = (newAddress: Omit<AddressItem, 'id'>) => {
     addAddress(newAddress);
     setShowAddForm(false);
   };
-  
-  const handleDelete = (id: number) => {
+
+  const handleDelete = (id: number, e: React.MouseEvent) => {
+    e.stopPropagation(); // impede que clique selecione o endereço
     deleteAddress(id);
     if (selectedId === id) {
-      setSelectedId(0);
+      onSelect(null); // limpa seleção
     }
   };
 
-  const handleEdit = (id: number) => {
+  const handleEdit = (id: number, e: React.MouseEvent) => {
+    e.stopPropagation(); // impede que clique selecione o endereço
     navigate(`/edit-address/${id}`);
   };
 
@@ -43,13 +52,13 @@ const Address: React.FC = () => {
           <div
             key={addr.id}
             className={`addressCard ${selectedId === addr.id ? 'selected' : ''}`}
-            onClick={() => setSelectedId(addr.id)}
+            onClick={() => onSelect(addr.id)}
           >
             <div className="radio">
               <input
                 type="radio"
                 checked={selectedId === addr.id}
-                onChange={() => setSelectedId(addr.id)}
+                onChange={() => onSelect(addr.id)}
               />
             </div>
             <div className="addressInfo">
@@ -60,8 +69,8 @@ const Address: React.FC = () => {
               <div>{addr.phone}</div>
             </div>
             <div className="actions">
-              <FaEdit className="icon" onClick={() => handleEdit(addr.id)} />
-              <FaTimes className="icon" onClick={() => handleDelete(addr.id)} />
+              <FaEdit className="icon" onClick={(e) => handleEdit(addr.id, e)} />
+              <FaTimes className="icon" onClick={(e) => handleDelete(addr.id, e)} />
             </div>
           </div>
         ))}

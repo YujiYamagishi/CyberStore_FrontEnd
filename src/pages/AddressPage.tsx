@@ -1,29 +1,40 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckoutFooter from '../components/CheckoutFooter';
 import CheckoutSteps from '../components/CheckoutSteps';
-import Address from '../components/address/address';
+import Address from '../components/address/Address';
+import { toast } from 'react-hot-toast';
 import '../styles/address.css';
 
 const AddressPage: React.FC = () => {
   const navigate = useNavigate();
+  const [selectedId, setSelectedId] = useState<number | null>(null);
 
-  const handleBack = () => {
-    navigate('/shoppingCart');
-  };
+  const handleBack = () => navigate('/shoppingCart');
 
   const handleNext = () => {
-    navigate('/shipping');
+    if (selectedId) {
+      navigate('/shipping');
+    } else {
+      toast('Please select an address before continuing!', {
+        icon: '⚠️',
+        style: { background: '#28a745', color: '#fff' },
+        position: 'bottom-right',
+        duration: 3000,
+      });
+    }
   };
 
   return (
-    <div className="pageContainer">
-      <main className="mainContent">
+   <div className="pageContainer flex flex-col min-h-screen">
+    <main className="mainContent flex flex-col flex-grow justify-between">
+      <div>
         <CheckoutSteps activeStep="address" />
-        <Address />
-      </main>
-      <CheckoutFooter onBack={handleBack} onNext={handleNext} />
-    </div>
+        <Address selectedId={selectedId} onSelect={setSelectedId} />
+      </div>
+    </main>
+    <CheckoutFooter onBack={handleBack} onNext={handleNext} />
+  </div>
   );
 };
 
