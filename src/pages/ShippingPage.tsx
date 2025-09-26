@@ -1,24 +1,31 @@
-// ShippingPage.tsx
-import React from 'react';
+// src/pages/ShippingPage.tsx
+
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckoutSteps from '../Components/CheckoutSteps';
 import CheckoutFooter from '../Components/CheckoutFooter';
-import Shipping from '../Components/shipping/Shipping'; // Importe o novo componente
-
-import '../styles/address.css'; // Mantenha a importação do CSS
+import Shipping from '../Components/shipping/Shipping';
+import '../styles/address.css';
 
 const ShippingPage: React.FC = () => {
   const navigate = useNavigate();
+  const [selectedMethod, setSelectedMethod] = useState('');
   const handleBack = () => navigate('/address');
-  const handleNext = () => navigate('/payment');
+  const handleNext = () => {
+    if (!selectedMethod) {
+      alert("Please select a shipping method");
+      return;
+    }
+    navigate('/payment', { state: { shippingMethod: selectedMethod } });
+  };
 
   return (
     <div className="pageContainer">
       <main className="mainContent">
         <CheckoutSteps activeStep="shipping" />
-        <Shipping /> {/* Renderize o componente aqui */}
+        <Shipping selectedMethod={selectedMethod} setSelectedMethod={setSelectedMethod} />
       </main>
-      <CheckoutFooter onBack={handleBack} onNext={handleNext} />
+      <CheckoutFooter onBack={handleBack} onNext={handleNext} disabledNext={!selectedMethod} />
     </div>
   );
 };

@@ -1,25 +1,23 @@
-import React, { useState } from 'react';
+import React from 'react';
 import '../../styles/address.css';
 import '../../styles/shipping.css';
 
-const Shipping: React.FC = () => {
-  const [selectedMethod, setSelectedMethod] = useState('');
+interface ShippingProps {
+  selectedMethod: string;
+  setSelectedMethod: (method: string) => void;
+}
 
+const Shipping: React.FC<ShippingProps> = ({ selectedMethod, setSelectedMethod }) => {
   return (
     <div className="pageContainer">
       <h2>Shipment Method</h2>
 
       <div className="shippingMethods">
-        {/* Opção 1: Frete normal */}
         <div
           className={`shippingCard ${selectedMethod === 'regular' ? 'selected' : ''}`}
           onClick={() => setSelectedMethod('regular')}
         >
-          <input
-            type="radio"
-            checked={selectedMethod === 'regular'}
-            onChange={() => setSelectedMethod('regular')}
-          />
+          <input type="radio" checked={selectedMethod === 'regular'} readOnly />
           <div>
             <div className="methodTitle">
               Free <span className="methodType">Regular shipment</span>
@@ -28,16 +26,11 @@ const Shipping: React.FC = () => {
           </div>
         </div>
 
-        {/* Opção 2: Frete rápido */}
         <div
           className={`shippingCard ${selectedMethod === 'express' ? 'selected' : ''}`}
           onClick={() => setSelectedMethod('express')}
         >
-          <input
-            type="radio"
-            checked={selectedMethod === 'express'}
-            onChange={() => setSelectedMethod('express')}
-          />
+          <input type="radio" checked={selectedMethod === 'express'} readOnly />
           <div>
             <div className="methodTitle">
               $29 <span className="methodDescription">Get your delivery as soon as possible</span>
@@ -46,16 +39,11 @@ const Shipping: React.FC = () => {
           </div>
         </div>
 
-        {/* Opção 3: Agendado */}
         <div
           className={`shippingCard ${selectedMethod === 'schedule' ? 'selected' : ''}`}
           onClick={() => setSelectedMethod('schedule')}
         >
-          <input
-            type="radio"
-            checked={selectedMethod === 'schedule'}
-            onChange={() => setSelectedMethod('schedule')}
-          />
+          <input type="radio" checked={selectedMethod === 'schedule'} readOnly />
           <div>
             <div className="methodTitle">
               Schedule <span className="methodDescription">Pick a date when you want to get your delivery</span>

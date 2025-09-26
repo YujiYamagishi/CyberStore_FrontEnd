@@ -1,18 +1,32 @@
-// PaymentPage.tsx
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useLocation } from 'react-router-dom';
 import CheckoutFinish from '../Components/CheckoutFinish';
 import CheckoutSteps from '../Components/CheckoutSteps';
-import Payment from '../Components/payment/Payment'; // Importe o componente de conte\u00FAdo
-import '../styles/payment.css'; // Mantenha a importação do CSS
+import Payment from '../Components/payment/Payment';
+import '../styles/payment.css';
+
+interface LocationState {
+  shippingMethod?: string;
+}
 
 const PaymentPage: React.FC = () => {
   const navigate = useNavigate();
+  const location = useLocation();
+  const state = location.state as LocationState;
+
+  // Protege caso não tenha vindo do ShippingPage
+  const shippingMethod = state?.shippingMethod;
+  if (!shippingMethod) {
+    // Redireciona de volta para shipping se acessar direto
+    navigate('/shipping', { replace: true });
+    return null;
+  }
 
   const handleBack = () => navigate('/shipping');
+
   const handleNext = () => {
-    alert("Pagamento processado!");
-    // Lógica para finalizar a compra
+    alert(`Payment processed! Shipping method: ${shippingMethod}`);
+    navigate('/finish', { state: { success: true } });
   };
 
   return (
@@ -21,7 +35,6 @@ const PaymentPage: React.FC = () => {
         <CheckoutSteps activeStep="payment" />
         <Payment />
       </main>
-
       <CheckoutFinish onBack={handleBack} onNext={handleNext} />
     </div>
   );
