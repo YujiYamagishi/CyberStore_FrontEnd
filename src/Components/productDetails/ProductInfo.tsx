@@ -1,3 +1,5 @@
+// src/components/productDetails/Productinfo.tsx
+
 import { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '@clerk/clerk-react';
@@ -43,7 +45,6 @@ export default function ProductInfo({ product }: { product: any }) {
   };
 
   const colors = hasColors ? product.colors.map((c: any) => c.hex_code) : [];
-
   const storageOptions = hasStorage
     ? [...product.storageOptions].sort((a: string, b: string) => parseStorage(a) - parseStorage(b))
     : [];
@@ -79,7 +80,6 @@ export default function ProductInfo({ product }: { product: any }) {
     };
 
     if (!isSignedIn) {
-      // usuário não logado: salvar no localStorage
       const cart = JSON.parse(localStorage.getItem('cart') || '[]');
       cart.push(itemToAdd);
       localStorage.setItem('cart', JSON.stringify(cart));
@@ -89,9 +89,8 @@ export default function ProductInfo({ product }: { product: any }) {
       return;
     }
 
-    // usuário logado: usar contexto
     try {
-      await addToCart(itemToAdd, 1);
+      await addToCart(itemToAdd as any, 1);
       setNotification('Product added to cart!');
       setTimeout(() => setNotification(null), 2000);
     } catch (error) {
@@ -107,7 +106,6 @@ export default function ProductInfo({ product }: { product: any }) {
       setTimeout(() => setNotification(null), 3000);
       return;
     }
-
     setNotification('Product added to wishlist!');
     setTimeout(() => setNotification(null), 3000);
   };
@@ -128,14 +126,12 @@ export default function ProductInfo({ product }: { product: any }) {
           ))}
         </div>
       </div>
-
       <div className="product-info">
         <h1>{product.name}</h1>
         <div className="price-container">
           <p className="current-price">${product.discounted_price || product.price}</p>
           {product.discounted_price && <p className="original-price">${product.price}</p>}
         </div>
-
         {hasColors && (
           <div className="selection-container">
             <p className="selection-title">Select color:</p>
@@ -151,7 +147,6 @@ export default function ProductInfo({ product }: { product: any }) {
             </div>
           </div>
         )}
-
         {hasStorage && (
           <div className="selection-container">
             <div className="storage-options">
@@ -167,7 +162,6 @@ export default function ProductInfo({ product }: { product: any }) {
             </div>
           </div>
         )}
-
         {hasSpecs && (
           <div className="specs-grid">
             <div className="spec-item"><img src={screensizeIcon} alt="Screen size" /><div><span>Screen size</span><strong>{specs.screenSize}</strong></div></div>
@@ -179,12 +173,20 @@ export default function ProductInfo({ product }: { product: any }) {
           </div>
         )}
 
-        <p className="product-description">
-          {isDescriptionExpanded ? product.description : `${product.description.substring(0, 150)}... `}
-          <button className="more-button" onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}>
-            {isDescriptionExpanded ? 'less' : 'more...'}
-          </button>
-        </p>
+        {/* ======================================================= */}
+        {/* AQUI ESTÁ A ÚNICA CORREÇÃO REALMENTE NECESSÁRIA */}
+        {/* Trocamos <p> por <div> para evitar o erro de sintaxe */}
+        <div className="product-description">
+          <span>
+            {isDescriptionExpanded ? product.description : `${product.description?.substring(0, 150) || ''}... `}
+          </span>
+          {product.description && product.description.length > 150 && (
+            <button className="more-button" onClick={() => setIsDescriptionExpanded(!isDescriptionExpanded)}>
+              {isDescriptionExpanded ? ' less' : ' more...'}
+            </button>
+          )}
+        </div>
+        {/* ======================================================= */}
 
         <div className="action-buttons">
           <button className="wishlist-button" onClick={handleAddToWishlist}>

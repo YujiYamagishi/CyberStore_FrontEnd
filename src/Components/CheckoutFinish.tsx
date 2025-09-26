@@ -1,27 +1,24 @@
 // src/components/CheckoutFinish.tsx
+
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
 import '../styles/address.css';
 
+// Interface de props atualizada para aceitar onNext
 interface CheckoutFinishProps {
   onBack: () => void;
-  purchaseSuccess?: boolean; // opcional, pode definir sucesso ou erro
+  onNext: () => void;
 }
 
-const CheckoutFinish: React.FC<CheckoutFinishProps> = ({ onBack, purchaseSuccess = true }) => {
-  const navigate = useNavigate();
-
-  const handlePayClick = () => {
-    // Navega para finish passando o estado com sucesso ou erro
-    navigate('/finish', { state: { success: purchaseSuccess } });
-  };
+const CheckoutFinish: React.FC<CheckoutFinishProps> = ({ onBack, onNext }) => {
+  // A lógica interna de navegação (useNavigate, handlePayClick) foi removida.
 
   return (
     <footer className="footer-back-next">
       <button onClick={onBack} className="backButton">
         Back
       </button>
-      <button onClick={handlePayClick} className="payButton">
+      {/* O botão "Pay" agora executa a função onNext recebida do componente pai */}
+      <button onClick={onNext} className="payButton">
         Pay
       </button>
     </footer>

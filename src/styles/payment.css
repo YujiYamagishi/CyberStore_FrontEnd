@@ -1,58 +1,105 @@
-/* Container principal da p\u00E1gina de pagamento */
-.payment-page-container {
-    display: flex;
-    justify-content: center;
-    padding: 2rem 0;
+/* Estilos Globais e de Fundo */
+body {
+    background-color: #f9f9f9;
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+   
 }
 
-/* Centraliza o conte\u00FAdo principal e define a largura m\u00E1xima */
-.payment-content-wrapper {
-    display: flex;
-    gap: 3rem;
-    max-width: 1200px;
+/* --- CORREÇÃO DE CENTRALIZAÇÃO DEFINITIVA --- */
+
+/* 1. O novo wrapper que FORÇA a centralização de tudo */
+.page-wrapper-for-centering {
+    display: grid;
+    place-items: center;
+    min-height: 100vh;
+    width: 100%;
+    padding: 2rem 0;
+    box-sizing: border-box;
+}
+
+/* 2. O container do seu conteúdo, agora sem responsabilidade de centralizar */
+.pageContainer {
+    max-width: 1050px;
     width: 100%;
 }
 
-/* Se\u00E7\u00E3o de Resumo (coluna da esquerda) */
-.summarySection {
-    flex: 1.5; /* Mant\u00E9m o flexbox para controle de largura */
-    padding: 2rem;
-    background-color: white;
-    border-radius: 8px;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-    /* Removido: width: 512px; */
+/* 3. O mainContent, também sem responsabilidade de centralizar */
+.mainContent {
+    width: 100%;
+    
+    box-sizing: border-box;
 }
 
-.summarySection .section-title,
-.paymentSection .section-title {
+/* 4. Um container para o rodapé, para garantir alinhamento */
+.footer-container {
+    padding: 0 2rem 2rem;
+    box-sizing: border-box;
+}
+/* ---------------------------------- */
+
+
+/* Container que adiciona espaçamento vertical dentro da página */
+.payment-page-container {
+    padding: 3rem 0;
+}
+
+/* Wrapper que alinha as duas colunas */
+.payment-content-wrapper {
+    display: flex;
+    gap: 4rem;
+    width: 100%;
+}
+
+/* --- Coluna da Esquerda: Resumo --- */
+.summarySection {
+    width: 512px;
+    height: 704px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    overflow-y: auto;
+    box-sizing: border-box;
+}
+
+.summarySection .section-title {
     font-size: 1.25rem;
     font-weight: 600;
     margin-bottom: 1.5rem;
+    color: #1d1d1f;
 }
 
 .summaryItems {
     display: flex;
     flex-direction: column;
-    gap: 1.5rem;
+    gap: 1rem;
     padding-bottom: 1.5rem;
-    border-bottom: 1px solid #e0e0e0;
+    border-bottom: 1px solid #e5e5e5;
 }
 
 .summaryItem {
     display: flex;
     align-items: center;
     gap: 1rem;
+    background-color: #f5f5f7;
+    padding: 1rem;
+    border-radius: 12px;
 }
 
 .summaryItem img {
-    width: 60px;
-    height: 60px;
+    width: 50px;
+    height: 50px;
     object-fit: contain;
-    border-radius: 4px;
+    border-radius: 8px;
+    background-color: #fff;
 }
 
 .summaryItem .summaryItemName {
-    flex: 1;
+    flex-grow: 1;
     font-size: 1rem;
     font-weight: 500;
 }
@@ -60,222 +107,203 @@
 .summaryItem .summaryItemPrice {
     font-size: 1rem;
     font-weight: 600;
-    margin-left: auto;
 }
 
-.summaryDetails {
+.summaryDetails, .summaryTotals {
     display: flex;
     flex-direction: column;
-    gap: 0.75rem;
-    margin-top: 1.5rem;
-}
-
-.detailRow {
-    display: flex;
-    justify-content: space-between;
-    font-size: 0.95rem;
-    color: #555;
-}
-
-.detailRow .detailValue {
-    font-weight: 600;
-    color: #333;
-    text-align: right;
-}
-
-.summaryTotals {
-    display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    gap: 1rem;
     padding-top: 1.5rem;
-    border-top: 1px solid #e0e0e0;
-    margin-top: 1.5rem;
+    border-top: 1px solid #e5e5e5;
 }
-
-.total-final {
-    font-size: 1.25rem;
-    font-weight: 700;
+.summaryDetails {
+    border-top: none;
+}
+.detailRow, .totalRow {
     display: flex;
     justify-content: space-between;
+    font-size: 1rem;
+    color: #515154;
+}
+.detailRow .detailValue, .totalRow .totalValue {
+    font-weight: 500;
+    color: #1d1d1f;
+}
+.total-final .totalLabel, .total-final .totalValue {
+    font-size: 1.25rem;
+    font-weight: 600;
 }
 
-/* Se\u00E7\u00E3o de Pagamento (coluna da direita) */
+/* --- Coluna da Direita: Pagamento --- */
 .paymentSection {
-    flex: 1;
-    padding: 2rem;
-    background-color: white;
-    border-radius: 8px;
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
 }
 
 .paymentMethodsTabs {
     display: flex;
-    gap: 0.5rem;
-    margin-bottom: 1.5rem;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #d2d2d7;
 }
-
 .paymentMethodsTabs button {
-    padding: 0.6rem 1.2rem;
+    padding-bottom: 0.75rem;
     background: none;
-    border: 1px solid #e0e0e0;
-    border-radius: 6px;
+    border: none;
+    border-bottom: 2px solid transparent;
     cursor: pointer;
-    font-size: 0.9rem;
+    font-size: 1rem;
     font-weight: 500;
-    transition: all 0.2s ease-in-out;
+    color: #86868b;
+    transition: all 0.2s;
 }
-
 .paymentMethodsTabs button.active {
-    background: black;
-    color: white;
-    border-color: black;
+    color: #1d1d1f;
+    border-bottom-color: black;
 }
 
-/* Formul\u00E1rio do cart\u00E3o de cr\u00E9dito */
+/* Formulário e Card de Crédito */
 .creditCardForm {
     display: flex;
     flex-direction: column;
-    gap: 1rem;
+    gap: 1.5rem;
 }
 
 .creditCardDisplay {
-    background: black;
+    background-color: #000;
     color: white;
     padding: 1.5rem;
-    border-radius: 8px;
+    border-radius: 14px;
+    height: 220px;
     display: flex;
     flex-direction: column;
-    height: 180px;
     justify-content: space-between;
+    position: relative;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
 }
-
-.creditCardDisplay .cardNumber {
-    font-size: 1.1rem;
-    letter-spacing: 1px;
-    font-weight: 600;
-}
-
-.creditCardDisplay .cardholderName {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    color: #bbb;
-}
-
-.creditCardForm input {
-    padding: 0.8rem;
-    border: 1px solid #e0e0e0;
+.creditCardDisplay::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    width: 45px;
+    height: 35px;
+    background-color: #d4af37;
     border-radius: 4px;
-    font-size: 0.9rem;
+    z-index: 2;
 }
-
-.expiryCvv {
-    display: flex;
-    gap: 1rem;
+.creditCardDisplay::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    left: calc(1.5rem + 45px + 1rem);
+    width: 30px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+    z-index: 2;
 }
-
-.expiryCvv input {
-    flex: 1;
+.creditCardDisplay .card-diagonal-line-1,
+.creditCardDisplay .card-diagonal-line-2 {
+    position: absolute;
+    top: -50%;
+    width: 40px;
+    height: 200%;
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: rotate(30deg);
+    z-index: 1;
 }
-
-.sameBilling {
-    display: flex;
-    align-items: center;
-    gap: 0.5rem;
-    font-size: 0.9rem;
-    color: #555;
+.creditCardDisplay .card-diagonal-line-1 { left: 30%; }
+.creditCardDisplay .card-diagonal-line-2 { left: 45%; }
+.creditCardDisplay .card-logo-bottom-right {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 60px;
+    height: 38px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
 }
-
-.sameBilling input[type="checkbox"] {
-    accent-color: black;
-}
-
-.creditCardDisplay .cardNumber,
-.creditCardDisplay .cardholderName {
-    transition: all 0.3s ease-in-out;
-}
-
-/* Opcional: Formata\u00E7\u00E3o do texto do cart\u00E3o */
-.creditCardDisplay .cardNumber {
-    font-family: 'Courier New', Courier, monospace;
-    letter-spacing: 2px;
-}
-
 .creditCardDisplay .cardNumber-animated,
-.creditCardDisplay .cardholderName-animated,
-.creditCardDisplay .exp-value-animated,
-.creditCardDisplay .cvv-value-animated {
-    transition: all 0.3s ease-in-out;
+.creditCardDisplay .cardholderName-animated {
+    z-index: 3;
+    position: relative;
 }
+.creditCardDisplay .cardNumber-animated { font-size: 1.5rem; letter-spacing: 2px; }
+.creditCardDisplay .cardholderName-animated { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
 
-/* Formata\u00E7\u00E3o do texto do cart\u00E3o */
-.creditCardDisplay .cardNumber-animated {
-    font-family: 'Courier New', Courier, monospace;
-    letter-spacing: 2px;
-}
-.creditCardDisplay .card-details-row {
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
-    margin-top: auto; /* Empurra para o final */
-}
-
-.creditCardDisplay .card-exp-cvv {
-    display: flex;
-    gap: 0.5rem;
-    font-size: 0.8rem;
-    color: #bbb;
-}
-
-.creditCardDisplay .exp-value-animated,
-.creditCardDisplay .cvv-value-animated {
+/* Inputs do Formulário */
+.creditCardForm input[type="text"] {
+    padding: 0.8rem 0;
+    border: none;
+    border-bottom: 1px solid #d2d2d7;
+    border-radius: 0;
     font-size: 1rem;
-    color: white;
+    background-color: transparent;
+    transition: border-color 0.2s ease;
+}
+.creditCardForm input[type="text"]:focus {
+    outline: none;
+    border-bottom-color: black;
+}
+.creditCardForm ::placeholder { color: #a0a0a0; font-weight: 400; }
+.expiryCvv { display: flex; gap: 1.5rem; }
+.expiryCvv input { flex: 1; }
+.sameBilling { display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; }
+.sameBilling input[type="checkbox"] { accent-color: black; }
+
+/* Botões de Ação (Back/Next) */
+.payment-actions {
+    display: flex;
+    gap: 1rem;
+    margin-top: auto;
+    padding-top: 2rem;
 }
 
-/* Estilos para os bot\u00F5es de navega\u00E7\u00E3o no rodap\u00E9 */
-.footer-back-next {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
+.backButton, .payButton { /* Usando a classe 'payButton' do CheckoutFinish */
+    padding: 1rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    text-align: center;
+    transition: all 0.2s ease;
 }
 
 .backButton {
-    padding: 0.5rem 1.5rem;
-    border: 1px solid black;
-    background-color: white;
-    color: black;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+    flex-grow: 1;
+    background-color: #fff;
+    border: 1px solid #d2d2d7;
+    color: #1d1d1f;
 }
-
 .backButton:hover {
-    background-color: #f0f0f0;
+    border-color: #1d1d1f;
 }
 
-.payButton {
-    padding: 0.5rem 1.5rem;
-    border: none;
+.payButton, .nextButton { /* Aplicando o mesmo estilo para o botão 'Pay' ou 'Next' */
+    flex-grow: 1;
     background-color: black;
+    border: 1px solid black;
     color: white;
-    cursor: pointer;
-    border-radius: 4px;
-    transition: background-color 0.3s ease;
+}
+.payButton:hover, .nextButton:hover {
+    opacity: 0.8;
 }
 
-.payButton:hover {
-    background-color: #333;
-}
-
-@media (max-width: 768px) {
-    .payment-content-wrapper {
-        flex-direction: column;
-        gap: 2rem;
+/* Responsividade */
+@media (max-width: 850px) {
+    .page-wrapper-for-centering {
+        display: block; /* Desativa o grid em telas pequenas para um fluxo normal */
+        min-height: auto;
     }
-    .footer-back-next {
-        justify-content: center;
-    }
-    .backButton, .payButton {
-        padding: 0.8rem 2.5rem;
-    }
+    .mainContent { padding: 0 1rem; }
+    .payment-content-wrapper { flex-direction: column-reverse; }
+    .summarySection { max-width: 100%; height: auto; }
 }
