@@ -1,7 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom'; // para redirecionar
-import { useCart } from '../../context/CartContext'; // importa o contexto
+import { useCart } from '../../context/CartContext';
+import { useAuth } from '@clerk/clerk-react';
 
+// Seus imports de ícones e componentes
 import screensizeIcon from '../../assets/screensize.svg';
 import cpuIcon from '../../assets/cpu.svg';
 import coreIcon from '../../assets/core.svg';
@@ -11,41 +12,53 @@ import batteryIcon from '../../assets/battery.svg';
 import truckIcon from '../../assets/truck.svg';
 import shopIcon from '../../assets/shop.svg';
 import shieldCheckIcon from '../../assets/shieldcheck.svg';
-
 import Notification from '../Notification';
 
 export default function ProductInfo({ product }: { product: any }) {
+  if (!product) {
+    return <div>Carregando informações do produto...</div>;
+  }
+
   const [selectedColor, setSelectedColor] = useState<string | null>(null);
   const [selectedStorage, setSelectedStorage] = useState<string | null>(null);
   const [isDescriptionExpanded, setIsDescriptionExpanded] = useState(false);
   const [activeIndex, setActiveIndex] = useState(0);
   const [notification, setNotification] = useState<string | null>(null);
 
-  const { addToCart } = useCart(); // ✅ usa o contexto
+  const { addToCart, isLoading } = useCart();
+  const { isSignedIn } = useAuth();
   
-
   useEffect(() => {
     setActiveIndex(0);
   }, [product]);
 
-  const handleAddToCart = () => {
-    if (!isButtonEnabled) return;
+  const handleAddToCart = async () => {
+    if (isButtonDisabled) return;
 
-    const itemToAdd = {
-      id: product.id,
-      name: product.name,
-      price: product.discounted_price || product.price,
-      discounted_price: product.discounted_price,
-      quantity: 1,
-      image: product.url_image,
-      color: selectedColor || undefined,
-      storage: selectedStorage || undefined,
-    };
+    if (!isSignedIn) {
+      setNotification('Por favor, faça login para adicionar itens ao carrinho.');
+      setTimeout(() => setNotification(null), 3000);
+      return;
+    }
 
-    addToCart(itemToAdd);
-    setNotification('Product added to cart!');
-    setTimeout(() => setNotification(null), 2000);
+    try {
+      const itemToAdd = {
+        id: product.id,
+        name: product.name,
+        price: product.discounted_price || product.price,
+        image: product.url_image,
+      };
 
+      await addToCart(itemToAdd, 1);
+      
+      setNotification('Product added to cart!');
+      setTimeout(() => setNotification(null), 2000);
+
+    } catch (error) {
+      console.error("Erro ao adicionar ao carrinho:", error);
+      setNotification('Erro ao adicionar produto. Tente novamente.');
+      setTimeout(() => setNotification(null), 3000);
+    }
   };
 
   const handleAddToWishlist = () => {
@@ -60,10 +73,13 @@ export default function ProductInfo({ product }: { product: any }) {
   const colorRequirementMet = !hasColors || (hasColors && selectedColor !== null);
   const storageRequirementMet = !hasStorage || (hasStorage && selectedStorage !== null);
   const isButtonEnabled = colorRequirementMet && storageRequirementMet;
+  
+  const isButtonDisabled = !isButtonEnabled || isLoading || !isSignedIn;
 
   const thumbnails = product.url_image ? [product.url_image, product.url_image, product.url_image, product.url_image] : [];
 
   const parseStorage = (storageStr: string) => {
+    if (!storageStr) return 0;
     const value = parseInt(storageStr.replace(/\D/g, ''));
     if (storageStr.toUpperCase().includes('TB')) {
       return value * 1024;
@@ -72,8 +88,11 @@ export default function ProductInfo({ product }: { product: any }) {
   };
 
   const colors = hasColors ? product.colors.map((c: any) => c.hex_code) : [];
+  
+  // ✅ CORREÇÃO APLICADA AQUI
+  // A lógica foi ajustada para ordenar uma lista de strings, e não de objetos.
   const storageOptions = hasStorage
-    ? [...product.storageOptions].sort((a, b) => parseStorage(a) - parseStorage(b))
+    ? [...product.storageOptions].sort((a: string, b: string) => parseStorage(a) - parseStorage(b))
     : [];
 
   const specs = {
@@ -143,48 +162,12 @@ export default function ProductInfo({ product }: { product: any }) {
 
         {hasSpecs && (
           <div className="specs-grid">
-            <div className="spec-item">
-              <img src={screensizeIcon} alt="Screen size" />
-              <div className="spec-item-text">
-                <span>Screen size</span>
-                <strong>{specs.screenSize}</strong>
-              </div>
-            </div>
-            <div className="spec-item">
-              <img src={cpuIcon} alt="CPU" />
-              <div className="spec-item-text">
-                <span>CPU</span>
-                <strong>{specs.cpu}</strong>
-              </div>
-            </div>
-            <div className="spec-item">
-              <img src={coreIcon} alt="Number of Cores" />
-              <div className="spec-item-text">
-                <span>Number of Cores</span>
-                <strong>{specs.cores}</strong>
-              </div>
-            </div>
-            <div className="spec-item">
-              <img src={cameraIcon} alt="Main camera" />
-              <div className="spec-item-text">
-                <span>Main camera</span>
-                <strong>{specs.mainCamera}</strong>
-              </div>
-            </div>
-            <div className="spec-item">
-              <img src={fcameraIcon} alt="Front-camera" />
-              <div className="spec-item-text">
-                <span>Front-camera</span>
-                <strong>{specs.frontCamera}</strong>
-              </div>
-            </div>
-            <div className="spec-item">
-              <img src={batteryIcon} alt="Battery capacity" />
-              <div className="spec-item-text">
-                <span>Battery capacity</span>
-                <strong>{specs.battery}</strong>
-              </div>
-            </div>
+            <div className="spec-item"><img src={screensizeIcon} alt="Screen size" /><div><span>Screen size</span><strong>{specs.screenSize}</strong></div></div>
+            <div className="spec-item"><img src={cpuIcon} alt="CPU" /><div><span>CPU</span><strong>{specs.cpu}</strong></div></div>
+            <div className="spec-item"><img src={coreIcon} alt="Number of Cores" /><div><span>Number of Cores</span><strong>{specs.cores}</strong></div></div>
+            <div className="spec-item"><img src={cameraIcon} alt="Main camera" /><div><span>Main camera</span><strong>{specs.mainCamera}</strong></div></div>
+            <div className="spec-item"><img src={fcameraIcon} alt="Front-camera" /><div><span>Front-camera</span><strong>{specs.frontCamera}</strong></div></div>
+            <div className="spec-item"><img src={batteryIcon} alt="Battery capacity" /><div><span>Battery capacity</span><strong>{specs.battery}</strong></div></div>
           </div>
         )}
 
@@ -196,42 +179,18 @@ export default function ProductInfo({ product }: { product: any }) {
         </p>
 
         <div className="action-buttons">
-          <button className="wishlist-button" disabled={!isButtonEnabled} onClick={handleAddToWishlist}>
+          <button className="wishlist-button" disabled={isButtonDisabled} onClick={handleAddToWishlist}>
             Add to Wishlist
           </button>
-          <button className="add-to-cart-button" disabled={!isButtonEnabled} onClick={handleAddToCart}>
-            Add to Cart
+          <button className="add-to-cart-button" disabled={isButtonDisabled} onClick={handleAddToCart}>
+            {isLoading ? 'Carregando...' : 'Add to Cart'}
           </button>
         </div>
 
         <div className="service-info">
-          <div className="service-item">
-            <div className="service-icon-wrapper">
-              <img src={truckIcon} alt="Free Delivery" />
-            </div>
-            <div className="service-item-text">
-              <strong>Free Delivery</strong>
-              <span>1-2 day</span>
-            </div>
-          </div>
-          <div className="service-item">
-            <div className="service-icon-wrapper">
-              <img src={shopIcon} alt="In Stock" />
-            </div>
-            <div className="service-item-text">
-              <strong>In Stock</strong>
-              <span>Today</span>
-            </div>
-          </div>
-          <div className="service-item">
-            <div className="service-icon-wrapper">
-              <img src={shieldCheckIcon} alt="Guaranteed" />
-            </div>
-            <div className="service-item-text">
-              <strong>Guaranteed</strong>
-              <span>1 year</span>
-            </div>
-          </div>
+            <div className="service-item"><div><img src={truckIcon} alt="Free Delivery" /></div><div><strong>Free Delivery</strong><span>1-2 day</span></div></div>
+            <div className="service-item"><div><img src={shopIcon} alt="In Stock" /></div><div><strong>In Stock</strong><span>Today</span></div></div>
+            <div className="service-item"><div><img src={shieldCheckIcon} alt="Guaranteed" /></div><div><strong>Guaranteed</strong><span>1 year</span></div></div>
         </div>
       </div>
 

@@ -6,27 +6,21 @@ import OrderSummary from '../Components/shoppingCart/OrderSummary';
 
 import '../styles/shoppingCart.css';
 
-export interface Product {
-  id: string;
-  name: string;
-  price: number;
-  discounted_price?: number;
-  quantity: number;
-  image: string;
-  color?: string;
-  storage?: string;
-  specs: string; 
-  code: string;
-}
-
 const ShoppingCart: React.FC = () => {
-  const { cart, removeFromCart, updateQuantity } = useCart(); // ✅ agora com updateQuantity
+  // Pega o objeto `cart` completo e o estado `isLoading`
+  const { cart, removeFromCart, updateQuantity, isLoading } = useCart();
 
-  const handleQuantityChange = (id: string, delta: number) => {
-    updateQuantity(id, delta); // ✅ funcional!
-  };
+  // Exibe uma mensagem de "Carregando..." enquanto os dados são buscados
+  if (isLoading) {
+    return (
+      <div className="shopping-cart-page-wrapper">
+        <h1>Carregando seu carrinho...</h1>
+      </div>
+    );
+  }
 
-  const subtotal = cart.reduce((sum, item) => sum + item.price * item.quantity, 0);
+  // Calcula o subtotal a partir da lista `cart.items`
+  const subtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const estimatedTax = 50;
   const estimatedShipping = 29;
 
@@ -36,20 +30,29 @@ const ShoppingCart: React.FC = () => {
         <div className="cart-items-column">
           <h1>Shopping Cart</h1>
 
-          <CartList
-            cartItems={cart}
-            onQuantityChange={handleQuantityChange}
-            onRemove={removeFromCart}
-          />
+          {/* Verifica se a lista `cart.items` está vazia */}
+          {cart.items.length === 0 ? (
+            <p>Seu carrinho está vazio.</p>
+          ) : (
+            <CartList
+              // Passa a lista `cart.items` para o componente filho
+              cartItems={cart.items}
+              onQuantityChange={updateQuantity}
+              onRemove={removeFromCart}
+            />
+          )}
         </div>
-
-        <div className="order-summary-column">
-          <OrderSummary
-            subtotal={subtotal}
-            tax={estimatedTax}
-            shipping={estimatedShipping}
-          />
-        </div>
+        
+        {/* Mostra o resumo do pedido apenas se houver itens no carrinho */}
+        
+          <div className="order-summary-column">
+            <OrderSummary
+              subtotal={subtotal}
+              tax={estimatedTax}
+              shipping={estimatedShipping}
+            />
+          </div>
+        
       </div>
     </div>
   );

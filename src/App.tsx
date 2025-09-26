@@ -28,6 +28,7 @@ import Footer from './components/footer';
 
 // Contextos
 import { CartProvider } from './context/CartContext';
+import { AuthProvider } from './context/AuthContext';
 import { AddressProvider } from './context/AdressContext';
 
 // Tipagem para rotas protegidas
@@ -63,6 +64,7 @@ function App() {
 
   return (
     <AddressProvider>
+       <AuthProvider>
       <CartProvider>
         <div className="min-h-screen flex flex-col bg-gray-50">
           {/* Componente global para notificações */}
@@ -96,6 +98,7 @@ function App() {
           {!hideLayout && <Footer />}
         </div>
       </CartProvider>
+      </AuthProvider>
     </AddressProvider>
   );
 }
