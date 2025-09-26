@@ -69,42 +69,4 @@
     font-size: 0.9rem;
 }
 
-/*
- * Estilos para os botões "Back" e "Next"
- */
-.button-container {
-    display: flex;
-    justify-content: flex-end; /* Alinha os botões à direita */
-    gap: 1rem;
-    padding-top: 1rem;
-    /* As linhas max-width e margin foram removidas daqui,
-       pois o .main-container já faz esse controle. */
-}
 
-.back-button, .next-button {
-    padding: 12px 24px;
-    border-radius: 6px;
-    font-weight: 600;
-    cursor: pointer;
-    transition: all 0.2s ease-in-out;
-}
-
-.back-button {
-    background-color: white;
-    color: black;
-    border: 1px solid #ccc;
-}
-
-.back-button:hover {
-    background-color: #f0f0f0;
-}
-
-.next-button {
-    background-color: black;
-    color: white;
-    border: none;
-}
-
-.next-button:hover {
-    background-color: #333;
-}

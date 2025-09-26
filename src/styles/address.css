@@ -25,6 +25,7 @@ h2 {
 /* =================================================== */
 
 .steps {
+    margin-top: 150px;
     display: flex;
     justify-content: space-between;
     margin-bottom: 2rem;
@@ -237,38 +238,23 @@ h2 {
     transform: translateX(-50%);
 }
 
-.back-button {
-    background: none;
-    border: none;
-    color: #555;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.2s ease-in-out;
-    padding: 0;
-    z-index: 10;
-}
 
-.back-button:hover {
-    color: #000;
-}
 
 /* =================================================== */
 /* Estilos do Rodapé (CheckoutFooter) */
 /* =================================================== */
 
 .footer-back-next {
-    display: flex;
-    justify-content: flex-end;
-    gap: 1rem;
-    margin-top: 2rem;
+    display: flex; /* ESSENCIAL: Ativa o layout flexível */
+    justify-content: flex-end; /* Alinha os botões à direita */
+    gap: 1rem; /* Espaço entre os botões */
+    padding-bottom: 8px;
+    
 }
 
 .backButton {
     padding: 0.5rem 1.5rem;
-    border: 1px solid black;
+    border: 1px solid #d2d2d7;
     background-color: white;
     color: black;
     cursor: pointer;

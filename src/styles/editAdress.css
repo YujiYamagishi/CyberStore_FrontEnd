@@ -1,9 +1,7 @@
 /* ======================================= */
 /* Estilos para a página de edição de endereço */
 /* ======================================= */
-main {
-    padding-top: 50px; /* Este valor precisa ser a altura exata da sua navbar */
-}
+
 /* Container principal da página de edição */
 .edit-container {
     max-width: 600px;
@@ -33,24 +31,8 @@ main {
     transform: translateX(-50%); /* Ajusta 50% para a esquerda para uma centralização perfeita */
 }
 
-/* Botão de voltar */
-.back-button {
-    background: none;
-    border: none;
-    color: #555;
-    font-size: 1rem;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: color 0.2s ease-in-out;
-    padding: 0; /* Remove padding padrão do botão */
-    z-index: 10; /* Garante que o botão fique por cima do título */
-}
 
-.back-button:hover {
-    color: #000;
-}
+
 
 /* Formulário de edição */
 .edit-form {

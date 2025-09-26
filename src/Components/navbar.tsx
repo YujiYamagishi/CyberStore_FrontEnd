@@ -8,7 +8,7 @@ import {
   SignedOut,
 } from "@clerk/clerk-react";
 
-import "../styles/index.css";
+
 
 const navLinks = [
   { to: "/", label: "Home", key: "home" },

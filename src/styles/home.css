@@ -9,10 +9,11 @@
 body {
   font-family: 'Inter';
   display: block;
-  background: #ffffff;
+  background-color: #ffffff;
   overflow-x: hidden;
   padding: 0;
   margin: 0;
+  height: 100%;
 }
 
 
@@ -1569,22 +1570,13 @@ body {
 }
 
 
-
-
-
-
-
-
-
-
-
-
 .footer {
   background-color: #000;
   color: #fff;
   padding: 90px 20px;
   height: 506px;
   position: relative;
+  min-height: 46vh;
 }
 
 .footer-container {
@@ -1643,8 +1635,8 @@ body {
   display: flex;
   gap: 16px;
   font-size: 18px;
-  left: 100px;
-  bottom: 140px;
+  bottom: 250px;
+   left: calc(52% - 620px); 
 }
 
 

@@ -1,5 +1,5 @@
 import React from 'react';
-import '../styles/address.css';
+import '../styles/back-next.css';
 
 interface CheckoutFooterProps {
   onBack: () => void;
