@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../../styles/address.css'
 
 interface AddressFormData {
   id?: number;
@@ -58,7 +59,7 @@ const AddressForm: React.FC<AddressFormProps> = ({ initialData, onSubmit, onCanc
           <input type="text" name="phone" value={formData.phone} onChange={handleChange} required />
         </label>
         <div className="form-actions">
-          <button type="submit" className="save-button">Salvar Endereço</button>
+          <button type="submit" className="save-button">Save adress</button>
           <button type="button" className="cancel-button" onClick={onCancel}>Cancelar</button>
         </div>
       </form>

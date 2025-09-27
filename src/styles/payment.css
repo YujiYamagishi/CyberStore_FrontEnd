@@ -1,7 +1,7 @@
 /* Estilos Globais e de Fundo */
 body {
     background-color: #ffffff;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+    font-family: 'inter';
     color: #1d1d1f;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -286,7 +286,13 @@ background-color: black;
 }
 
 /* Responsividade */
-@media (max-width: 850px) {
+@media (max-width: 768px) {
+
+    
+    .payment-page-container {
+    margin-top:70px;
+   
+}
     .page-wrapper-for-centering {
         display: block; /* Desativa o grid em telas pequenas para um fluxo normal */
         min-height: auto;
@@ -294,4 +300,12 @@ background-color: black;
     .mainContent { padding: 0 1rem; }
     .payment-content-wrapper { flex-direction: column-reverse; }
     .summarySection { max-width: 100%; height: auto; }
+
+    .summarySection{
+        display: none;
+    }
+
+    .creditCardDisplay .card-logo-bottom-right{
+        right: 10px;
+    }
 }

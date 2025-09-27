@@ -46,8 +46,9 @@ const Address: React.FC<AddressProps> = ({ selectedId, onSelect }) => {
 
   return (
     <div className="pageContainer">
-      <h2>Select Address</h2>
+      
       <div className="addressList">
+        <h2>Select Address</h2>
         {addresses.map((addr) => (
           <div
             key={addr.id}

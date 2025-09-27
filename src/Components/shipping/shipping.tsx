@@ -10,9 +10,10 @@ interface ShippingProps {
 const Shipping: React.FC<ShippingProps> = ({ selectedMethod, setSelectedMethod }) => {
   return (
     <div className="pageContainer">
-      <h2>Shipment Method</h2>
+      
 
       <div className="shippingMethods">
+        <h2>Shipment Method</h2>
         <div
           className={`shippingCard ${selectedMethod === 'regular' ? 'selected' : ''}`}
           onClick={() => setSelectedMethod('regular')}
