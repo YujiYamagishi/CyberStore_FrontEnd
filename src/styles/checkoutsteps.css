@@ -1,0 +1,47 @@
+.steps {
+    margin-top: 150px;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 2rem;
+    font-size: 0.9rem;
+    color: #999;
+}
+
+.step {
+    text-align: left;
+    display: flex;
+    align-items: center;
+    transition: color 0.3s ease;
+}
+
+.step-content {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+.step span {
+    display: block;
+    margin-top: 0.2rem;
+    transition: color 0.3s ease;
+}
+
+.step-icon {
+    width: 32px;
+    height: 32px;
+    object-fit: contain;
+    transition: filter 0.3s ease;
+    filter: brightness(1.3); 
+}
+
+.step-active {
+    color: black; 
+}
+
+.step-active span {
+    color: black;
+}
+
+.step-active .step-icon {
+    filter: brightness(0.8); 
+}

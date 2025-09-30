@@ -1,0 +1,475 @@
+.pageContainer {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 2rem;
+    font-family: 'Inter';
+    
+}
+
+.header {
+    text-align: center;
+    margin-bottom: 2rem;
+}
+
+h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: #333;
+}
+
+.addressList {
+    margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.addressCard {
+    display: flex;
+    align-items: center;
+    background: #f7f7f7;
+    padding: 1rem;
+    border: 2px solid transparent;
+    border-radius: 8px;
+    position: relative;
+    transition: border 0.3s;
+    cursor: pointer;
+}
+
+.selected {
+    border-color: black;
+}
+
+.radio input {
+    margin-right: 1rem;
+    cursor: pointer;
+}
+
+.addressInfo {
+    flex: 1;
+}
+
+.title {
+    font-weight: bold;
+    margin-bottom: 0.2rem;
+}
+
+.type {
+    background: black;
+    color: white;
+    font-size: 0.7rem;
+    padding: 0 4px;
+    margin-left: 0.5rem;
+    border-radius: 4px;
+}
+
+.actions {
+    display: flex;
+    gap: 0.5rem;
+    color: #999;
+}
+
+.icon {
+    cursor: pointer;
+}
+
+.addNew-container {
+    display: flex;
+    justify-content: center;
+    margin: 1.5rem 0;
+}
+
+.addNew {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    cursor: pointer;
+    color: black;
+    border: none;
+    background: none;
+    padding: 0;
+    font-size: 1rem;
+}
+
+
+.address-form-container {
+    max-width: 500px;
+    margin: 40px auto;
+    padding: 25px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.address-form-container form {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.address-form-container label {
+    font-weight: 600;
+    color: #444;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.address-form-container input[type="text"],
+.address-form-container select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    font-size: 1rem;
+    transition: border-color 0.2s ease-in-out;
+}
+
+.address-form-container input[type="text"]:focus,
+.address-form-container select:focus {
+    outline: none;
+    border-color: #007bff;
+    box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
+}
+
+.form-actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: 15px;
+    margin-top: 20px;
+}
+
+.save-button {
+    padding: 12px 25px;
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.save-button:hover {
+    background-color: #0056b3;
+}
+
+.cancel-button {
+    padding: 12px 25px;
+    background-color: #e9ecef;
+    color: #495057;
+    border: 1px solid #ced4da;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.cancel-button:hover {
+    background-color: #d1d9e0;
+}
+
+.edit-container {
+    max-width: 600px;
+    margin: 40px auto;
+    padding: 30px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.edit-container .header {
+    display: flex;
+    align-items: center;
+    position: relative;
+    margin-bottom: 25px;
+    height: 40px;
+    text-align: left;
+}
+
+.edit-container .header h2 {
+    font-size: 1.8rem;
+    color: #333;
+    margin: 0;
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+
+.footer-back-next {
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 1rem; 
+    padding-bottom: 8px;
+    
+}
+
+.backButton {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #d2d2d7;
+    background-color: white;
+    color: black;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.backButton:hover {
+    background-color: #f0f0f0;
+}
+
+.nextButton {
+    padding: 0.5rem 1.5rem;
+    border: none;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s ease;
+}
+
+.nextButton:hover {
+    background-color: #333;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    
+.addressList{
+    margin-top: 90px;
+}
+.edit-container {
+  position: relative;
+  top: 70px;
+  margin-bottom: 180px;
+  width: 500px;
+}
+
+.edit-container .header {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;   
+  gap: 16px;
+  margin-bottom: 30px;
+  height: auto;
+}
+
+.edit-container .-buttonback {
+  align-self: flex-start; 
+}
+
+.edit-container .header h2 {
+  position: static; 
+  transform: none; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  font-size: 2.2rem;
+  color: #333;
+  text-align: center; 
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.back-button:hover {
+  background-color: #f2f2f2;
+}
+
+.back-button svg {
+  font-size: 1.3rem;
+}
+  
+  .footer-back-next {
+    justify-content: center; 
+    padding: 1.2rem 0; 
+  }
+
+  
+  .backButton,
+  .nextButton, .payButton {
+   
+    width: 200px;
+    height: 72px;
+
+    
+    padding: 0;
+
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    border-radius: 14px;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+  }
+  
+  
+  .backButton {
+    border-color: #000;
+  }
+ 
+    
+    .pageContainer {
+        padding: 0 1rem; 
+    }
+  
+  
+    .addressCard {
+        flex-direction: column;
+        align-items: flex-start;
+        height: 180px;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .radio {
+        margin-bottom: 1.2rem;
+    }
+    
+    .addressInfo {
+        text-align: left;
+        font-size: 1rem;
+    }
+    
+    .actions {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+}
+
+
+@media (max-width: 768px) {
+    
+.addressList{
+    margin-top: 70px;
+}
+.edit-container {
+  position: relative;
+  top: 50px;
+  margin-bottom: 150px;
+}
+
+.edit-container .header {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;   
+  gap: 12px;
+  margin-bottom: 25px;
+  height: auto;
+}
+
+.edit-container .-buttonback {
+  align-self: flex-start; 
+}
+
+.edit-container .header h2 {
+  position: static; 
+  transform: none; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  font-size: 1.8rem;
+  color: #333;
+  text-align: center; 
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+.back-button:hover {
+  background-color: #f2f2f2;
+}
+
+.back-button svg {
+  font-size: 1.1rem;
+}
+  
+  
+  .footer-back-next {
+    justify-content: center; 
+    padding: 1rem 0; 
+  }
+
+  
+  .backButton,
+  .nextButton, .payButton {
+   
+    width: 158px;
+    height: 64px;
+
+    
+    padding: 0;
+
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    border-radius: 12px;
+    margin-bottom: 30px;
+  }
+  
+  
+  .backButton {
+    border-color: #000;
+  }
+ 
+    
+    .pageContainer {
+        padding: 0; 
+    }
+  
+  
+    .addressCard {
+        flex-direction: column;
+        align-items: flex-start;
+        height: 161px;
+        width: 341px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .radio {
+        margin-bottom: 1rem;
+    }
+    
+    .addressInfo {
+        text-align: left;
+    }
+    
+    .actions {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+}

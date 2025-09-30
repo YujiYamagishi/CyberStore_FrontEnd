@@ -1,0 +1,314 @@
+body {
+    background-color: #ffffff;
+    font-family: 'inter';
+    color: #1d1d1f;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+.page-wrapper-for-centering {
+    display: grid;
+    place-items: center;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.pageContainer {
+    max-width: 1050px;
+    width: 100%;
+}
+
+.mainContent {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.footer-container {
+    padding: 0 2rem 2rem;
+    box-sizing: border-box;
+}
+
+.payment-page-container {
+    margin-top: 100px;
+}
+
+.payment-content-wrapper {
+    display: flex;
+    gap: 4rem;
+    width: 100%;
+}
+
+.summarySection {
+    width: 512px;
+    height: 704px;
+    flex-shrink: 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    padding: 2rem;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.07);
+    overflow-y: auto;
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+}
+
+.summarySection .section-title {
+    font-size: 1.25rem;
+    font-weight: 600;
+    margin-bottom: 1.5rem;
+    color: #1d1d1f;
+}
+
+.summaryItems {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid #e5e5e5;
+}
+
+.summaryItem {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    background-color: #f5f5f7;
+    padding: 1rem;
+    border-radius: 12px;
+}
+
+.summaryItem img {
+    width: 50px;
+    height: 50px;
+    object-fit: contain;
+    border-radius: 8px;
+    background-color: #fff;
+}
+
+.summaryItem .summaryItemName {
+    flex-grow: 1;
+    font-size: 1rem;
+    font-weight: 500;
+}
+
+.summaryItem .summaryItemPrice {
+    font-size: 1rem;
+    font-weight: 600;
+}
+
+.summaryDetails, .summaryTotals {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid #e5e5e5;
+}
+
+.summaryDetails {
+    border-top: none;
+}
+
+.detailRow, .totalRow {
+    display: flex;
+    justify-content: space-between;
+    font-size: 1rem;
+    color: #515154;
+}
+
+.detailRow {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+}
+
+.detailRow .detailLabel {
+    font-weight: 500;
+    font-size: 0.95rem;
+    color: #86868b;
+}
+
+.detailRow .detailValue {
+    font-weight: 600;
+    font-size: 1rem;
+    color: #1d1d1f;
+}
+
+.totalRow .totalValue {
+    font-weight: 500;
+    color: #1d1d1f;
+}
+
+.total-final .totalLabel, .total-final .totalValue {
+    font-size: 1.25rem;
+    font-weight: 600;
+}
+
+.paymentSection {
+    flex: 1.5;
+    display: flex;
+    flex-direction: column;
+}
+
+.paymentMethodsTabs {
+    display: flex;
+    gap: 1.5rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid #d2d2d7;
+}
+
+.paymentMethodsTabs button {
+    padding-bottom: 0.75rem;
+    background: none;
+    border: none;
+    border-bottom: 2px solid transparent;
+    cursor: pointer;
+    font-size: 1rem;
+    font-weight: 500;
+    color: #86868b;
+    transition: all 0.2s;
+}
+
+.paymentMethodsTabs button.active {
+    color: #1d1d1f;
+    border-bottom-color: black;
+}
+
+.creditCardForm {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.creditCardDisplay {
+    background-color: #000;
+    color: white;
+    padding: 1.5rem;
+    border-radius: 14px;
+    height: 220px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    font-family: 'SF Mono', 'Courier New', monospace;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+    overflow: hidden;
+}
+
+.creditCardDisplay::before {
+    content: '';
+    position: absolute;
+    top: 1.5rem;
+    left: 1.5rem;
+    width: 45px;
+    height: 35px;
+    background-color: #d4af37;
+    border-radius: 4px;
+    z-index: 2;
+}
+
+.creditCardDisplay::after {
+    content: '';
+    position: absolute;
+    top: 2rem;
+    left: calc(1.5rem + 45px + 1rem);
+    width: 30px;
+    height: 20px;
+    background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.55a11 11 0 0 1 14.08 0"></path><path d="M1.42 9a16 16 0 0 1 21.16 0"></path><path d="M8.53 16.11a6 6 0 0 1 6.95 0"></path><line x1="12" y1="20" x2="12.01" y2="20"></line></svg>');
+    background-size: contain;
+    background-repeat: no-repeat;
+    opacity: 0.9;
+    z-index: 2;
+}
+
+.creditCardDisplay .card-diagonal-line-1,
+.creditCardDisplay .card-diagonal-line-2 {
+    position: absolute;
+    top: -50%;
+    width: 40px;
+    height: 200%;
+    background-color: rgba(255, 255, 255, 0.08);
+    transform: rotate(30deg);
+    z-index: 1;
+}
+
+.creditCardDisplay .card-diagonal-line-1 { left: 30%; }
+.creditCardDisplay .card-diagonal-line-2 { left: 45%; }
+.creditCardDisplay .card-logo-bottom-right {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    width: 60px;
+    height: 38px;
+    background-image: url('https://upload.wikimedia.org/wikipedia/commons/2/2a/Mastercard-logo.svg');
+    background-size: contain;
+    background-repeat: no-repeat;
+    z-index: 2;
+}
+
+.creditCardDisplay .cardNumber-animated,
+.creditCardDisplay .cardholderName-animated {
+    z-index: 3;
+    position: relative;
+}
+
+.creditCardDisplay .cardNumber-animated { font-size: 1.5rem; letter-spacing: 2px; }
+.creditCardDisplay .cardholderName-animated { font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; }
+
+.creditCardForm input[type="text"] {
+    padding: 0.8rem 0;
+    border: none;
+    border-bottom: 1px solid #d2d2d7;
+    border-radius: 0;
+    font-size: 1rem;
+    background-color: transparent;
+    transition: border-color 0.2s ease;
+}
+
+.creditCardForm input[type="text"]:focus {
+    outline: none;
+    border-bottom-color: black;
+}
+
+.creditCardForm ::placeholder { color: #a0a0a0; font-weight: 400; }
+.expiryCvv { display: flex; gap: 1.5rem; }
+.expiryCvv input { flex: 1; }
+.sameBilling { display: flex; align-items: center; gap: 0.75rem; font-size: 1rem; }
+.sameBilling input[type="checkbox"] { accent-color: black; }
+
+.backButton,
+.nextButton, .payButton {
+  padding: 24px 86px;
+  font-size: 1rem;
+  font-weight: 600;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.payButton {
+    background-color: black;
+    color: white;
+    border-color: black;
+}
+
+.payButton:hover, .nextButton:hover {
+    opacity: 0.8;
+}
+
+@media (min-width: 769px) and (max-width: 1024px) {
+    .payment-page-container { margin-top:90px; }
+    .page-wrapper-for-centering { display: block; min-height: auto; }
+    .mainContent { padding: 0 2rem; }
+    .payment-content-wrapper { flex-direction: column-reverse; }
+    .summarySection { max-width: 100%; height: auto; display: none; }
+    .creditCardDisplay .card-logo-bottom-right { right: 20px; }
+}
+
+
+@media (max-width: 768px) {
+    .payment-page-container { margin-top:70px; }
+    .page-wrapper-for-centering { display: block; min-height: auto; }
+    .mainContent { padding: 0 1rem; }
+    .payment-content-wrapper { flex-direction: column-reverse; }
+    .summarySection { max-width: 100%; height: auto; display: none; }
+    .creditCardDisplay .card-logo-bottom-right { right: 10px; }
+}

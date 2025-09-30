@@ -63,9 +63,10 @@ export default function BigSummer() {
           <>
             <h2
               style={{
-                fontSize: "1.25rem",
+                fontSize: "3rem",
                 fontWeight: 300,
                 marginBottom: "6px",
+                color: "#ddd",
               }}
             >
               Big Summer
