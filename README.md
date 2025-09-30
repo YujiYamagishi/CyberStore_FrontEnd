@@ -98,10 +98,8 @@ src/
 ├── package.json             # Dependencies and scripts
 └── vite.config.ts           # Vite configuration
  ```
-👨‍💻 Developers
+👨‍💻 Developer Full Stack  
 
-## 👨‍💻 Developer Full Stack  
-
-|[<img src="https://avatars.githubusercontent.com/u/181165633?v=4" width=125><br><sub>Yuji Yamagishi</sub>](https://github.com/YujiYamagishi)  |
-| :---: | :---: | :---: | :---: |
+[<img src="https://avatars.githubusercontent.com/u/181165633?v=4" width=125><br><sub>Yuji Yamagishi</sub>](https://github.com/YujiYamagishi) 
+| :---: |
 
