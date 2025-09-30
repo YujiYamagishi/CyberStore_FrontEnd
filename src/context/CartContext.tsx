@@ -55,20 +55,20 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return { id: data.id, items: formatItemsFromAPI(data.items) };
       }
     } catch (err) {
-      console.error('Erro ao buscar carrinho do servidor:', err);
+      console.error('Error fetching cart from server:', err);
     }
     return { id: null, items: [] };
   };
 
   const updateCartOnServer = async (productsPayload: { product_id: number; quantity: number }[]) => {
-    if (!cart.id) throw new Error("ID do carrinho não encontrado para atualização.");
+    if (!cart.id) throw new Error("Cart ID not found for update.");
     const token = await getToken();
     const response = await fetch(`http://localhost:8000/api/shopping_carts/${cart.id}`, {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({ products: productsPayload }),
     });
-    if (!response.ok) throw new Error('Falha ao atualizar o carrinho no servidor (PUT)');
+    if (!response.ok) throw new Error('Failed to update cart on server (PUT)');
     const data = await response.json();
     setCart({ id: data.id, items: formatItemsFromAPI(data.items) });
   };
@@ -96,7 +96,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
       headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
       body: JSON.stringify({ products: payload }),
     });
-    if (!response.ok) throw new Error('Erro ao atualizar carrinho no servidor');
+    if (!response.ok) throw new Error('Error updating cart on server');
 
     const data = await response.json();
     localStorage.removeItem('cart');

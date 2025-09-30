@@ -235,6 +235,125 @@ h2 {
     background-color: #333;
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+    
+.addressList{
+    margin-top: 90px;
+}
+.edit-container {
+  position: relative;
+  top: 70px;
+  margin-bottom: 180px;
+  width: 500px;
+}
+
+.edit-container .header {
+  display: flex;
+  flex-direction: column; 
+  align-items: center;   
+  gap: 16px;
+  margin-bottom: 30px;
+  height: auto;
+}
+
+.edit-container .-buttonback {
+  align-self: flex-start; 
+}
+
+.edit-container .header h2 {
+  position: static; 
+  transform: none; 
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin: 0;
+  font-size: 2.2rem;
+  color: #333;
+  text-align: center; 
+}
+
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 10px; 
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 1.2rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 8px;
+  transition: all 0.2s ease-in-out;
+}
+
+.back-button:hover {
+  background-color: #f2f2f2;
+}
+
+.back-button svg {
+  font-size: 1.3rem;
+}
+  
+  .footer-back-next {
+    justify-content: center; 
+    padding: 1.2rem 0; 
+  }
+
+  
+  .backButton,
+  .nextButton, .payButton {
+   
+    width: 200px;
+    height: 72px;
+
+    
+    padding: 0;
+
+   
+    display: flex;
+    justify-content: center;
+    align-items: center;
+   
+    border-radius: 14px;
+    margin-bottom: 40px;
+    font-size: 1.1rem;
+  }
+  
+  
+  .backButton {
+    border-color: #000;
+  }
+ 
+    
+    .pageContainer {
+        padding: 0 1rem; 
+    }
+  
+  
+    .addressCard {
+        flex-direction: column;
+        align-items: flex-start;
+        height: 180px;
+        width: 400px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+    
+    .radio {
+        margin-bottom: 1.2rem;
+    }
+    
+    .addressInfo {
+        text-align: left;
+        font-size: 1rem;
+    }
+    
+    .actions {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+    }
+}
 
 
 @media (max-width: 768px) {

@@ -294,6 +294,16 @@ body {
     opacity: 0.8;
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+    .payment-page-container { margin-top:90px; }
+    .page-wrapper-for-centering { display: block; min-height: auto; }
+    .mainContent { padding: 0 2rem; }
+    .payment-content-wrapper { flex-direction: column-reverse; }
+    .summarySection { max-width: 100%; height: auto; display: none; }
+    .creditCardDisplay .card-logo-bottom-right { right: 20px; }
+}
+
+
 @media (max-width: 768px) {
     .payment-page-container { margin-top:70px; }
     .page-wrapper-for-centering { display: block; min-height: auto; }

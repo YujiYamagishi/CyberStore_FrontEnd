@@ -61,14 +61,14 @@ const PaymentPage: React.FC = () => {
     }
 
     try {
-      console.log("Processando pagamento...");
+      console.log("Processing payment...");
 
       await clearCart();
 
       navigate('/finish', { state: { success: true } });
     } catch (error) {
-      console.error("Falha no processo de pagamento:", error);
-      toast.error("Houve um erro ao processar sua compra. Tente novamente.");
+      console.error("Payment process failure:", error);
+      toast.error("There was an error processing your purchase. Please try again.");
     }
   };
 

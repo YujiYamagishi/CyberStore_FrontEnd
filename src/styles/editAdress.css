@@ -113,6 +113,50 @@
     background-color: #636364;
 }
 
+@media (min-width: 769px) and (max-width: 1024px) {
+    .edit-container {
+        position: relative;
+        top: 70px; 
+        margin-bottom: 180px;
+        padding: 120px 40px 80px 40px; 
+    }
+
+    .edit-form input[type="text"],
+    .edit-form select {
+        padding: 14px;
+        font-size: 1.1rem;
+    }
+
+    .save-button {
+        padding: 14px 28px;
+        font-size: 1.1rem;
+    }
+
+    .edit-container .header {
+        display: flex;          
+        flex-direction: row;    
+        align-items: center;     
+        justify-content: flex-start; 
+        gap: 16px;               
+        height: auto;
+    }
+
+    .edit-container .header h2 {
+        position: static;        
+        transform: none;        
+        font-size: 2rem;
+        margin: 0;
+        text-align: left;        
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .edit-container .back-button {
+        align-self: auto;      
+    }
+}
+
 
 @media (max-width: 768px) {
     .edit-container {

@@ -9,13 +9,13 @@
 </p>
 
 🚀 **Cyber Frontend** is the main web application of the Cyber ecosystem.  
-It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS + CSS3**, and fully integrated with the [Cyber Backend](https://github.com/fromanoel/cyber-web-backend.git).  
+It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS + CSS3**, and fully integrated with the [Cyber Backend](https://github.com/YujiYamagishi/AWS_FS_ABR25_D03_COMPASS_CYBER_BACKEND.git).  
 
 ---
 
 ## 🌐 Project Ecosystem  
 
-- **[Cyber - Backend](https://github.com/fromanoel/cyber-web-backend)** → API responsible for business logic and persistence  
+- **[Cyber - Backend](https://github.com/YujiYamagishi/AWS_FS_ABR25_D03_COMPASS_CYBER_BACKEND)** → API responsible for business logic and persistence  
 - **Cyber - Frontend (this repo)** → React web client consuming the API  
 
 ---
@@ -31,7 +31,7 @@ It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS + CSS
 
 1. **Clone the repository**  
    ```sh
-   git clone https://github.com/Ericklys/cyber-web-frontend.git
+   git clone https://github.com/YujiYamagishi/AWS_FS_ABR25_D03_COMPASS_CYBER_FRONTEND.git
    ```
 2. Navigate into the project folder
    ```sh
@@ -75,17 +75,23 @@ The app will be available at 👉 http://localhost:5173
 .
 ├── public/                  # Static assets (images, svg, etc.)
 │
-├── src/                     
-│   ├── assets/              # Additional resources
-│   ├── components/          # Reusable components (Navbar, Footer, Cards, etc.)
-│   ├── home/                # Home-specific components (Hero, ProductsNav, Suggest...)
-│   ├── productDetails/      # Product detail components
-│   ├── productsPage/        # Product listing, filters, pagination, etc.
-│   ├── hooks/               # Custom hooks (e.g. useMediaQuery)
-│   ├── pages/               # Main pages (Home, Products, ProductDetails)
-│   ├── styles/              # CSS modules for components and pages
-│   ├── App.tsx              # Root component
-│   └── main.tsx             # Application entry point
+src/
+├── assets/                # Additional resources
+├── components/            # Reusable components (Navbar, Footer, Cards, etc.)
+├── context/               # Context API (ex: AuthContext, CartContext)
+├── home/                  # Home-specific components (Hero, ProductsNav, Suggest...)
+├── productDetails/        # Product detail components
+├── productsPage/          # Product listing, filters, pagination, etc.
+├── shoppingCart/          # Cart shopping
+├── address/               # Adress checkout
+├── shipping/              # Shipping checkout
+├── payment/               # Payment checkout
+├── finish/                # Finish checkout 
+├── hooks/                 # Custom hooks (useMediaQuery, useCart, etc.)
+├── pages/                 # Main pages (Home, Products, ProductDetails, etc)
+├── styles/                # CSS modules for components and pages
+├── App.tsx                # Root component
+└── main.tsx               # Application entry point
 │
 ├── .env                     # Environment variables
 ├── index.html               # Main HTML entry
@@ -94,14 +100,8 @@ The app will be available at 👉 http://localhost:5173
  ```
 👨‍💻 Developers
 
-## 👨‍💻 Developers  
+## 👨‍💻 Developer Full Stack  
 
-### Frontend team  
-
-| [<img src="https://avatars.githubusercontent.com/u/128267135?v=4" width=125><br><sub>Ericklys</sub>](https://github.com/Ericklys) | [<img src="https://avatars.githubusercontent.com/u/133705031?v=4" width=125><br><sub>Tarcisio Lucas</sub>](https://github.com/T-Lucas43) | [<img src="https://avatars.githubusercontent.com/u/181165633?v=4" width=125><br><sub>Yuji Yamagishi</sub>](https://github.com/YujiYamagishi) | [<img src="https://avatars.githubusercontent.com/u/18268176?v=4" width=125><br><sub>Alvino Pedrosa</sub>](https://github.com/alvinopf) |
+|[<img src="https://avatars.githubusercontent.com/u/181165633?v=4" width=125><br><sub>Yuji Yamagishi</sub>](https://github.com/YujiYamagishi)  |
 | :---: | :---: | :---: | :---: |
 
-### Backend team  
-
-| [<img src="https://avatars.githubusercontent.com/u/130419872?v=4" width=125><br><sub>Fernanda Romanoel</sub>](https://github.com/fromanoel) | [<img src="https://avatars.githubusercontent.com/u/112771403?v=4" width=125><br><sub>Fernando Emidio</sub>](https://github.com/Fernando7492) | [<img src="https://avatars.githubusercontent.com/u/117694456?v=4" width=125><br><sub>Jefferson Lucas</sub>](https://github.com/JeufoDev) |
-| :---: | :---: | :---: |
