@@ -32,15 +32,15 @@ const Address: React.FC<AddressProps> = ({ selectedId, onSelect }) => {
   };
 
   const handleDelete = (id: number, e: React.MouseEvent) => {
-    e.stopPropagation(); // impede que clique selecione o endereço
+    e.stopPropagation(); 
     deleteAddress(id);
     if (selectedId === id) {
-      onSelect(null); // limpa seleção
+      onSelect(null); 
     }
   };
 
   const handleEdit = (id: number, e: React.MouseEvent) => {
-    e.stopPropagation(); // impede que clique selecione o endereço
+    e.stopPropagation(); 
     navigate(`/edit-address/${id}`);
   };
 

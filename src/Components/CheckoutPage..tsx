@@ -7,7 +7,7 @@ const CheckoutPage: React.FC = () => {
   const navigate = useNavigate();
 
   const handleBack = () => {
-    navigate(-1); // voltar uma página
+    navigate(-1); 
   };
 
   return (

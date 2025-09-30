@@ -1,20 +1,11 @@
-/*
- * Centraliza o conteúdo principal da página
- * e adiciona um espaçamento nas laterais.
- */
 .main-container {
-    /* Alterado de 1120px para 90% para ser mais responsivo e ocupar mais tela.
-       Você também pode usar um valor fixo maior, como 1440px. */
     max-width: 90%;
-    margin: 0 auto;      /* Centraliza o contêiner */
-    padding: 0 20px;     /* Adiciona espaçamento nas laterais */
+    margin: 0 auto;      
+    padding: 0 20px;     
 }
 
 
-/*
- * Estilos para os cartões de envio
- * (Shipping Cards)
- */
+
 .shippingMethods {
     display: flex;
     flex-direction: column;

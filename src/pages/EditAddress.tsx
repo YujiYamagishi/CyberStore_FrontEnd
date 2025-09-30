@@ -6,7 +6,7 @@ import '../styles/editAdress.css'
 const EditAddress: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  // Use o contexto para obter a lista e a função de atualização
+  
   const { addresses, updateAddress } = useAddress();
   
   const [addressData, setAddressData] = useState({
@@ -17,7 +17,7 @@ const EditAddress: React.FC = () => {
   });
 
   useEffect(() => {
-    // Busca o endereço na lista que veio do contexto
+    
     const addressToEdit = addresses.find(addr => addr.id === Number(id));
     if (addressToEdit) {
       setAddressData(addressToEdit);
@@ -36,9 +36,9 @@ const EditAddress: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    // Chame a função de atualização do contexto
+  
     updateAddress({ ...addressData, id: Number(id) });
-    navigate('/address'); // Volta para a página de endereços
+    navigate('/address'); 
   };
 
   return (

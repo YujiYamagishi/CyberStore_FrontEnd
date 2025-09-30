@@ -25,7 +25,7 @@ interface ProtectedRouteProps { children: ReactNode; }
 const ProtectedRoute = ({ children }: ProtectedRouteProps) => {
   const { isSignedIn, isLoaded } = useAuth();
 
-  if (!isLoaded) return null; // espera carregar estado do Clerk
+  if (!isLoaded) return null; 
   if (!isSignedIn) return <SignIn />;
 
   return <>{children}</>;

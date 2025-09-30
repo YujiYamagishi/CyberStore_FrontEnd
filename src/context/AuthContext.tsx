@@ -3,7 +3,7 @@ import { createContext, useContext, useState, ReactNode } from 'react';
 type User = {
   id: number;
   name: string;
-  // Adicione outras propriedades do usuário que precisar
+ 
 };
 
 type AuthContextType = {
@@ -17,16 +17,15 @@ const AuthContext = createContext<AuthContextType | undefined>(undefined);
 export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const [user, setUser] = useState<User | null>(null);
 
-  // Exemplo de função de login
-  // Em um app real, isso aconteceria após uma chamada de API
+ 
   const login = (userData: User) => {
     setUser(userData);
-    // Você também pode salvar o usuário no localStorage para persistir a sessão
+   
   };
 
   const logout = () => {
     setUser(null);
-    // Limpe o localStorage se estiver usando
+    
   };
 
   return (

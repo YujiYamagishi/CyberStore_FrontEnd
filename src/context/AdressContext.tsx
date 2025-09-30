@@ -10,6 +10,8 @@ interface AddressItem {
 
 interface AddressContextType {
   addresses: AddressItem[];
+  selectedAddress: AddressItem | null;
+  setSelectedAddress: (addr: AddressItem | null) => void;
   addAddress: (newAddress: Omit<AddressItem, 'id'>) => void;
   updateAddress: (updatedAddress: AddressItem) => void;
   deleteAddress: (id: number) => void;
@@ -23,6 +25,8 @@ export const AddressProvider: React.FC<{ children: ReactNode }> = ({ children })
     { id: 2, title: "Headoffice", type: "OFFICE", address: "2715 Ash Dr. San Jose, South Dakota 83475", phone: "(704) 555-0127" },
   ]);
 
+  const [selectedAddress, setSelectedAddress] = useState<AddressItem | null>(null);
+
   const addAddress = (newAddress: Omit<AddressItem, 'id'>) => {
     const newId = addresses.length > 0 ? Math.max(...addresses.map(a => a.id)) + 1 : 1;
     setAddresses(prev => [...prev, { ...newAddress, id: newId }]);
@@ -30,14 +34,16 @@ export const AddressProvider: React.FC<{ children: ReactNode }> = ({ children })
 
   const updateAddress = (updated: AddressItem) => {
     setAddresses(prev => prev.map(a => a.id === updated.id ? updated : a));
+    if (selectedAddress?.id === updated.id) setSelectedAddress(updated);
   };
 
   const deleteAddress = (id: number) => {
     setAddresses(prev => prev.filter(a => a.id !== id));
+    if (selectedAddress?.id === id) setSelectedAddress(null);
   };
 
   return (
-    <AddressContext.Provider value={{ addresses, addAddress, updateAddress, deleteAddress }}>
+    <AddressContext.Provider value={{ addresses, selectedAddress, setSelectedAddress, addAddress, updateAddress, deleteAddress }}>
       {children}
     </AddressContext.Provider>
   );

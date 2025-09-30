@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface CartItemProps {
-  id: number; // <-- Ajustei para number, porque no seu CartContext o `id` é number
+  id: number; 
   name: string;
   specs: string;
   code: string;

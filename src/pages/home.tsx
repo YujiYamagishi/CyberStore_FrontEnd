@@ -1,4 +1,3 @@
-
 import Hero from '../Components/home/hero'
 import Browse from '../Components/home/browse'
 import Suggest from '../Components/home/suggest'

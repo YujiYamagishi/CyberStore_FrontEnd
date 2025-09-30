@@ -1,11 +1,11 @@
 .finish-container {
-  min-height: calc(100vh - 6rem - 4rem); /* altura da tela menos navbar e footer (ajuste se necessário) */
+  min-height: calc(100vh - 6rem - 4rem); 
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  background-color: #f9fafb; /* equivalente a bg-gray-50 */
-  padding: 1rem 1rem; /* px-4 */
+  background-color: #f9fafb; 
+  padding: 1rem 1rem; 
   text-align: center;
 }
 
@@ -15,26 +15,26 @@
 }
 
 .finish-container h1.success {
-  font-size: 2.25rem; /* text-4xl */
+  font-size: 2.25rem; 
 }
 
 .finish-container h1.error {
-  font-size: 1.875rem; /* text-3xl */
-  color: #dc2626; /* text-red-600 */
+  font-size: 1.875rem; 
+  color: #dc2626; 
   font-weight: 600;
 }
 
 .finish-container p {
   margin-bottom: 1.5rem;
-  font-size: 1.125rem; /* text-lg */
+  font-size: 1.125rem; 
 }
 
 .finish-button {
-  margin-top: 1.5rem; /* mt-6 */
-  padding: 0.75rem 1.5rem; /* px-6 py-3 */
-  background-color: #000000; /* bg-blue-600 */
+  margin-top: 1.5rem; 
+  padding: 0.75rem 1.5rem; 
+  background-color: #000000; 
   color: white;
-  border-radius: 0.5rem; /* rounded-lg */
+  border-radius: 0.5rem; 
   border: none;
   cursor: pointer;
   transition: background-color 0.3s ease;
@@ -42,9 +42,9 @@
 }
 
 .finish-button:hover {
-  background-color: #1e40af; /* hover:bg-blue-800 */
+  background-color: #5e5e5f; 
 }
 
 .finish-button:focus {
-  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); /* focus:ring-2 focus:ring-blue-400 */
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.5); 
 }

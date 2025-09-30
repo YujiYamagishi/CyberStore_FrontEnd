@@ -1,7 +1,6 @@
-// src/pages/ShippingPage.tsx
-
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import toast from 'react-hot-toast'; 
 import CheckoutSteps from '../Components/CheckoutSteps';
 import CheckoutFooter from '../Components/CheckoutFooter';
 import Shipping from '../Components/shipping/Shipping';
@@ -10,13 +9,25 @@ import '../styles/address.css';
 const ShippingPage: React.FC = () => {
   const navigate = useNavigate();
   const [selectedMethod, setSelectedMethod] = useState('');
+  
   const handleBack = () => navigate('/address');
-  const handleNext = () => {
-    if (!selectedMethod) {
-      alert("Please select a shipping method");
-      return;
-    }
-    navigate('/payment', { state: { shippingMethod: selectedMethod } });
+  
+const handleNext = () => {
+  if (!selectedMethod) {
+    console.log("next clicado");
+    toast.error("Please select a shipping method to continue.", {
+      style: {background: '#28a745', color: '#fff', fontWeight: 500,
+      },
+      iconTheme: {
+        primary: '#ef4444',
+        secondary: '#fee2e2',
+      },
+      position: 'bottom-right',
+    });
+    return;
+  }
+
+  navigate('/payment', { state: { shippingMethod: selectedMethod } });
   };
 
   return (
@@ -25,7 +36,7 @@ const ShippingPage: React.FC = () => {
         <CheckoutSteps activeStep="shipping" />
         <Shipping selectedMethod={selectedMethod} setSelectedMethod={setSelectedMethod} />
       </main>
-      <CheckoutFooter onBack={handleBack} onNext={handleNext} disabledNext={!selectedMethod} />
+      <CheckoutFooter onBack={handleBack} onNext={handleNext}/>
     </div>
   );
 };

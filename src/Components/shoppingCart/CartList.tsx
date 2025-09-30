@@ -4,7 +4,7 @@ import type { CartItem as CartItemType } from '../../context/CartContext';
 import { useAuth } from '@clerk/clerk-react';
 
 interface CartListProps {
-  cartItems?: CartItemType[]; // opcional, se vier do contexto
+  cartItems?: CartItemType[];
   onQuantityChange?: (id: number, newQuantity: number) => void;
   onRemove?: (id: number) => void;
 }
@@ -13,7 +13,6 @@ const CartList: React.FC<CartListProps> = ({ cartItems = [], onQuantityChange, o
   const { isSignedIn } = useAuth();
   const [localCart, setLocalCart] = useState<CartItemType[]>([]);
 
-  // Inicializa localCart e ouve evento de atualização
   useEffect(() => {
     const initializeLocalCart = () => {
       const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
@@ -27,30 +26,22 @@ const CartList: React.FC<CartListProps> = ({ cartItems = [], onQuantityChange, o
     }
   }, [isSignedIn]);
 
-  // Alterar quantidade
   const handleQuantityChange = (id: number, newQuantity: number) => {
     if (!isSignedIn) {
-      const updated = localCart.map(item =>
-        item.id === id ? { ...item, quantity: newQuantity } : item
-      );
+      const updated = localCart.map(item => item.id === id ? { ...item, quantity: newQuantity } : item);
       setLocalCart(updated);
       localStorage.setItem('cart', JSON.stringify(updated));
-      window.dispatchEvent(new Event('cartUpdated')); // dispara evento para atualizar UI
-    } else if (onQuantityChange) {
-      onQuantityChange(id, newQuantity);
-    }
+      window.dispatchEvent(new Event('cartUpdated'));
+    } else if (onQuantityChange) onQuantityChange(id, newQuantity);
   };
 
-  // Remover item
   const handleRemove = (id: number) => {
     if (!isSignedIn) {
       const updated = localCart.filter(item => item.id !== id);
       setLocalCart(updated);
       localStorage.setItem('cart', JSON.stringify(updated));
-      window.dispatchEvent(new Event('cartUpdated')); // dispara evento para atualizar UI
-    } else if (onRemove) {
-      onRemove(id);
-    }
+      window.dispatchEvent(new Event('cartUpdated'));
+    } else if (onRemove) onRemove(id);
   };
 
   const itemsToRender = isSignedIn ? cartItems : localCart;
@@ -59,7 +50,7 @@ const CartList: React.FC<CartListProps> = ({ cartItems = [], onQuantityChange, o
     <div className="cart-list">
       {itemsToRender.map(item => (
         <CartItem
-          key={`${item.id}-${item.selectedColor}-${item.selectedStorage}`} // garante chave única
+          key={item.id}
           id={item.id}
           name={item.name}
           specs={item.specs ?? ''}

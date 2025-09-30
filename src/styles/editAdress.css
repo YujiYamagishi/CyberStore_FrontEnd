@@ -1,44 +1,53 @@
-/* ======================================= */
-/* Estilos para a página de edição de endereço */
-/* ======================================= */
-
-/* Container principal da página de edição */
 .edit-container {
     max-width: 600px;
-    margin: 40px auto;
-    padding: 30px;
+    margin: 0 auto; 
+    padding: 160px 30px 90px 30px; 
     background-color: #fff;
     border-radius: 8px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-/* Cabeçalho que contém o botão de voltar e o título */
+.back-button {
+  display: flex;
+  align-items: center;
+  gap: 8px; 
+  border: none;
+  background-color: transparent;
+  color: #333;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 6px;
+  transition: all 0.2s ease-in-out;
+}
+
+
+.back-button svg {
+  font-size: 1.1rem;
+}
+
 .header {
     display: flex;
     align-items: center;
-    position: relative; /* Ponto de referência para o posicionamento do título */
+    position: relative; 
     margin-bottom: 25px;
-    height: 40px; /* Garante que o container do header tenha uma altura definida */
+    height: 40px; 
 }
 
-/* Título centralizado, independentemente do botão */
+
 .header h2 {
     font-size: 1.8rem;
     color: #333;
     margin: 0;
-    position: absolute; /* Posição absoluta para centralizar */
-    left: 50%; /* Inicia no meio da tela */
-    transform: translateX(-50%); /* Ajusta 50% para a esquerda para uma centralização perfeita */
+    position: absolute; 
+    left: 50%;
+    transform: translateX(-50%); 
 }
 
-
-
-
-/* Formulário de edição */
 .edit-form {
     display: flex;
     flex-direction: column;
-    gap: 20px; /* Adiciona espaçamento entre os campos */
+    gap: 20px; 
 }
 
 .edit-form label {
@@ -66,10 +75,10 @@
     box-shadow: 0 0 0 3px rgba(0, 123, 255, 0.25);
 }
 
-/* Botão de salvar */
 .save-button {
-    margin-top: 10px; /* Espaço para separar do último campo */
-    padding: 12px 25px;
+    margin-top: 10px; 
+    width: 158px;
+    height: 64px;
     background-color: #000000;
     color: #fff;
     border: none;
@@ -83,4 +92,69 @@
 
 .save-button:hover {
     background-color: #636364;
+}
+
+.cancel-button {
+    margin-top: 10px; 
+    width: 158px;
+    height: 64px;
+    background-color: #ffffff;
+    color: #000000;
+    border: 1px solid black;
+    border-radius: 6px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    transition: background-color 0.2s ease-in-out;
+}
+
+.cancel-button:hover {
+    background-color: #636364;
+}
+
+
+@media (max-width: 768px) {
+    .edit-container {
+        position: relative;
+        top: 50px; 
+        margin-bottom: 150px;
+        padding: 100px 20px 60px 20px; 
+    }
+
+    .edit-form input[type="text"],
+    .edit-form select {
+        padding: 10px;
+        font-size: 0.95rem;
+    }
+
+    .save-button {
+        padding: 10px 20px;
+        font-size: 0.95rem;
+    }
+
+    
+    .edit-container .header {
+        display: flex;          
+        flex-direction: row;    
+        align-items: center;     
+        justify-content: flex-start; 
+        gap: 12px;               
+        height: auto;
+    }
+
+    .edit-container .header h2 {
+        position: static;        
+        transform: none;        
+        font-size: 1.6rem;
+        margin: 0;
+        text-align: left;        
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+
+    .edit-container .back-button {
+        align-self: auto;      
+    }
 }

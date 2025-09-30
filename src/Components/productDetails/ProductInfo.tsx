@@ -1,5 +1,3 @@
-// src/components/productDetails/Productinfo.tsx
-
 import { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '@clerk/clerk-react';
@@ -173,9 +171,7 @@ export default function ProductInfo({ product }: { product: any }) {
           </div>
         )}
 
-        {/* ======================================================= */}
-        {/* AQUI ESTÁ A ÚNICA CORREÇÃO REALMENTE NECESSÁRIA */}
-        {/* Trocamos <p> por <div> para evitar o erro de sintaxe */}
+       
         <div className="product-description">
           <span>
             {isDescriptionExpanded ? product.description : `${product.description?.substring(0, 150) || ''}... `}
@@ -186,7 +182,7 @@ export default function ProductInfo({ product }: { product: any }) {
             </button>
           )}
         </div>
-        {/* ======================================================= */}
+       
 
         <div className="action-buttons">
           <button className="wishlist-button" onClick={handleAddToWishlist}>

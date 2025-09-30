@@ -60,7 +60,7 @@ export default function Navbar() {
   return (
     <nav className="navbar relative">
       <div className="navbar-container">
-        {/* Logo */}
+        
         <Link
           to="/"
           className="navbar-logo"
@@ -70,7 +70,7 @@ export default function Navbar() {
           cyber
         </Link>
 
-        {/* Search bar - desktop */}
+        
         <form
           className="navbar-search hidden md:flex w-96"
           onSubmit={(e) => {
@@ -94,7 +94,7 @@ export default function Navbar() {
           </div>
         </form>
 
-        {/* Navigation links - desktop */}
+        
         <div className="navbar-links hidden md:flex">
           {navLinks.map((link) => (
             <Link
@@ -111,7 +111,7 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Icons - always visible */}
+        
         <div className="navbar-icons flex gap-3">
           <Link
             to="/favorites"
@@ -129,7 +129,7 @@ export default function Navbar() {
             <ShoppingCart size={22} />
           </Link>
 
-          {/* Clerk Account Button */}
+          
           <SignedIn>
             <UserButton afterSignOutUrl="/" />
           </SignedIn>
@@ -142,7 +142,7 @@ export default function Navbar() {
           </SignedOut>
         </div>
 
-        {/* Mobile menu toggle */}
+        
         <button
           onClick={() => (isOpen ? closeMenu() : setIsOpen(true))}
           className="navbar-toggle md:hidden"
@@ -151,10 +151,10 @@ export default function Navbar() {
         </button>
       </div>
 
-      {/* Mobile menu */}
+    
       {isOpen && (
         <div className={`navbar-mobile-menu ${isClosing ? "closing" : ""}`}>
-          {/* Search - mobile */}
+         
           <form
             className="navbar-search flex md:hidden w-full mb-4"
             onSubmit={(e) => {
@@ -179,7 +179,7 @@ export default function Navbar() {
             </div>
           </form>
 
-          {/* Links - mobile */}
+          
           <ul className="flex flex-col gap-4 px-4">
             {navLinks.map((link) => (
               <li key={link.key}>
@@ -194,7 +194,7 @@ export default function Navbar() {
             ))}
           </ul>
 
-          {/* Icons - mobile */}
+          
           <div className="mobile-icons flex gap-6 mt-6 md:hidden justify-center">
             <Link
               to="/favorites"
@@ -214,7 +214,7 @@ export default function Navbar() {
               <ShoppingCart size={22} />
             </Link>
 
-            {/* Clerk Account Button - mobile */}
+            
             <SignedIn>
               <div onClick={closeMenu}>
                 <UserButton afterSignOutUrl="/" />

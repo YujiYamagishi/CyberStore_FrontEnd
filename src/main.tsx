@@ -6,7 +6,7 @@ import { Toaster } from 'react-hot-toast';
 import App from './App';
 import '../src/styles/home.css';
 
-// Mantendo a key exatamente como estava
+
 const PUBLISHABLE_KEY = "pk_test_aGlwLW11c3RhbmctMy5jbGVyay5hY2NvdW50cy5kZXYk";
 
 const rootElement = document.getElementById('root');
@@ -18,7 +18,7 @@ createRoot(rootElement).render(
   <StrictMode>
     <BrowserRouter>
       <ClerkProvider publishableKey={PUBLISHABLE_KEY}>
-        {/* Toaster global */}
+        
         <Toaster position="bottom-right" toastOptions={{ duration: 3000 }} />
         <App />
       </ClerkProvider>

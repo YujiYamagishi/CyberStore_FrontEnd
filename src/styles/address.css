@@ -1,7 +1,3 @@
-/* =================================================== */
-/* Estilos Gerais (Aplicáveis a toda a página de Checkout) */
-/* =================================================== */
-
 .pageContainer {
     max-width: 800px;
     margin: 0 auto;
@@ -20,37 +16,6 @@ h2 {
     font-size: 1.8rem;
     color: #333;
 }
-
-/* =================================================== */
-/* Estilos para o Componente de Etapas (CheckoutSteps) */
-/* =================================================== */
-
-.steps {
-    margin-top: 150px;
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 2rem;
-    font-size: 0.9rem;
-    color: #999;
-}
-
-.step {
-    text-align: center;
-}
-
-.step span {
-    display: block;
-    margin-top: 0.2rem;
-}
-
-.step-active {
-    font-weight: bold;
-    color: black;
-}
-
-/* =================================================== */
-/* Estilos para o Componente Address (Lista de Endereços) */
-/* =================================================== */
 
 .addressList {
     margin-top: 50px;
@@ -126,9 +91,6 @@ h2 {
     font-size: 1rem;
 }
 
-/* =================================================== */
-/* Estilos para o Componente AddressForm (Adicionar/Editar) */
-/* =================================================== */
 
 .address-form-container {
     max-width: 500px;
@@ -209,10 +171,6 @@ h2 {
     background-color: #d1d9e0;
 }
 
-/* =================================================== */
-/* Estilos para o Componente de Edição (EditAddress) */
-/* =================================================== */
-
 .edit-container {
     max-width: 600px;
     margin: 40px auto;
@@ -241,15 +199,10 @@ h2 {
 }
 
 
-
-/* =================================================== */
-/* Estilos do Rodapé (CheckoutFooter) */
-/* =================================================== */
-
 .footer-back-next {
-    display: flex; /* ESSENCIAL: Ativa o layout flexível */
-    justify-content: flex-end; /* Alinha os botões à direita */
-    gap: 1rem; /* Espaço entre os botões */
+    display: flex; 
+    justify-content: flex-end; 
+    gap: 1rem; 
     padding-bottom: 8px;
     
 }
@@ -282,9 +235,7 @@ h2 {
     background-color: #333;
 }
 
-/* =================================================== */
-/* Media Query para telas pequenas (ex: mobile) */
-/* =================================================== */
+
 
 @media (max-width: 768px) {
     
@@ -293,48 +244,45 @@ h2 {
 }
 .edit-container {
   position: relative;
-  top: 50px; /* continua empurrando pra baixo da navbar */
+  top: 50px;
   margin-bottom: 150px;
 }
 
 .edit-container .header {
   display: flex;
-  flex-direction: column; /* botão em cima, título embaixo */
-  align-items: center;    /* centraliza horizontalmente */
+  flex-direction: column; 
+  align-items: center;   
   gap: 12px;
   margin-bottom: 25px;
   height: auto;
 }
 
-.edit-container .back-button {
-  align-self: flex-start; /* força o botão a ficar na esquerda */
+.edit-container .-buttonback {
+  align-self: flex-start; 
 }
 
 .edit-container .header h2 {
-  position: static; /* <<< ESSENCIAL: tira o absolute antigo */
-  transform: none;  /* <<< remove o translateX */
+  position: static; 
+  transform: none; 
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
   margin: 0;
   font-size: 1.8rem;
   color: #333;
-  text-align: center; /* reforça centralização */
+  text-align: center; 
 }
 
 .back-button {
   display: flex;
   align-items: center;
-  gap: 8px; /* espaço entre o ícone e o texto */
-  
-  
+  gap: 8px; 
   border: none;
   background-color: transparent;
   color: #333;
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
-
   border-radius: 6px;
   transition: all 0.2s ease-in-out;
 }
@@ -347,54 +295,47 @@ h2 {
   font-size: 1.1rem;
 }
   
-   /* 1. Muda o alinhamento do CONTAINER */
+  
   .footer-back-next {
-    justify-content: center; /* <<< MUDANÇA PRINCIPAL: Centraliza os botões */
-    padding: 1rem 0; /* Melhora o espaçamento vertical no celular */
+    justify-content: center; 
+    padding: 1rem 0; 
   }
 
-  /* 2. Aplica as novas dimensões e centraliza o texto nos BOTÕES */
+  
   .backButton,
   .nextButton, .payButton {
-    /* Dimensões exatas solicitadas */
+   
     width: 158px;
     height: 64px;
 
-    /* Remove o padding antigo, pois o tamanho agora é fixo */
+    
     padding: 0;
 
-    /* Garante que o texto fique perfeitamente centralizado no botão */
+   
     display: flex;
     justify-content: center;
     align-items: center;
-    
-    /* Ajuste visual opcional para mobile */
+   
     border-radius: 12px;
     margin-bottom: 30px;
   }
   
-  /* Ajuste para a borda do botão "Back" ficar mais visível */
+  
   .backButton {
     border-color: #000;
   }
  
-
-  
-    /* PASSO 1: Reduz o padding da página para criar espaço */
+    
     .pageContainer {
-        padding: 0; /* Diminui o espaçamento lateral para 16px */
+        padding: 0; 
     }
   
-  /* PASSO 2: Define a largura fixa desejada para o AddressCard */
+  
     .addressCard {
         flex-direction: column;
         align-items: flex-start;
         height: 161px;
-        
-        /* LARGURA FIXA, CONFORME SOLICITADO */
         width: 341px;
-        
-        /* Centraliza o card no novo espaço disponível */
         margin-left: auto;
         margin-right: auto;
     }

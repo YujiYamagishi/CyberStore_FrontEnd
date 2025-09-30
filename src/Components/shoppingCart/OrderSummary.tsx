@@ -2,7 +2,7 @@ import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useUser, SignInButton } from '@clerk/clerk-react';
 import toast from 'react-hot-toast';
-import { useCart } from '../../context/CartContext'; // IMPORT CORRETO
+import { useCart } from '../../context/CartContext'; 
 
 interface OrderSummaryProps {
   subtotal: number;
@@ -14,7 +14,7 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ subtotal, tax, shipping }) 
   const total = subtotal + tax + shipping;
   const navigate = useNavigate();
   const { isSignedIn } = useUser();
-  const { cart } = useCart(); // AQUI USAMOS cart (do contexto)
+  const { cart } = useCart(); 
 
   const formatCurrency = (amount: number): string => {
     return `$${amount.toLocaleString('en-US', { minimumFractionDigits: 0 })}`;
@@ -27,14 +27,10 @@ const OrderSummary: React.FC<OrderSummaryProps> = ({ subtotal, tax, shipping }) 
       return;
     }
 
-    if (cart.length === 0) {
+    if (cart.items.length === 0) {
       toast.success("Your cart is empty. Add items to proceed.", {
-        style: {
-          background: '#065f46',
-          color: '#ffffffff',
-          border: '1px solid #10b981',
-          fontWeight: 500,
-        },
+         icon: '⚠️',
+        style: { background: '#28a745', color: '#fff',fontWeight: 500, },
         iconTheme: {
           primary: '#10b981',
           secondary: '#ecfdf5',
