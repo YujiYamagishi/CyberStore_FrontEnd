@@ -1,8 +1,11 @@
 import React from 'react';
-import AdressImg from '../assets/Location.png';
-import ShippingImg from '../assets/Shipping.png';
-import PaymentImg from '../assets/Payment.png';
 import '../styles/checkoutsteps.css';
+
+const baseURL = 'https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/';
+
+const AdressImg = `${baseURL}Location.png`;
+const ShippingImg = `${baseURL}Shipping.png`;
+const PaymentImg = `${baseURL}Payment.png`;
 
 interface CheckoutStepsProps {
   activeStep: 'address' | 'shipping' | 'payment';
