@@ -16,8 +16,7 @@ const handleNext = () => {
   if (!selectedMethod) {
     console.log("next clicado");
     toast.error("Please select a shipping method to continue.", {
-      style: {background: '#28a745', color: '#fff', fontWeight: 500,
-      },
+      style: {background: '#dc3545', color: '#fff', fontWeight: 500}, 
       iconTheme: {
         primary: '#ef4444',
         secondary: '#fee2e2',
