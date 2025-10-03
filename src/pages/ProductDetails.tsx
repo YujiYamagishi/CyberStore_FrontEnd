@@ -2,10 +2,10 @@ import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import ProductInfo from '../Components/productDetails/ProductInfo';
-import Reviews from '../Components/productDetails/Reviews';
-import RelatedProducts from '../Components/productDetails/RelatedProducts';
-import Breadcrumb from '../Components/Breadcrumb';
+import ProductInfo from '../components/productDetails/ProductInfo';
+import Reviews from '../components/productDetails/Reviews';
+import RelatedProducts from '../components/productDetails/RelatedProducts';
+import Breadcrumb from '../components/Breadcrumb';
 
 import '../styles/product-details.css';
 

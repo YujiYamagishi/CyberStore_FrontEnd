@@ -1,9 +1,9 @@
-import Hero from '../Components/home/hero'
-import Browse from '../Components/home/browse'
-import Suggest from '../Components/home/suggest'
-import ProductsNavigation from '../Components/home/productsnavigation'
-import DiscountProducts from '../Components/home/discountproducts'
-import BigSummer from '../Components/home/bigsummer'
+import Hero from '../components/home/hero'
+import Browse from '../components/home/browse'
+import Suggest from '../components/home/suggest'
+import ProductsNavigation from '../components/home/productsnavigation'
+import DiscountProducts from '../components/home/discountproducts'
+import BigSummer from '../components/home/bigsummer'
 import '../styles/home.css'
 
 
