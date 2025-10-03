@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'; 
-import CheckoutSteps from '../Components/CheckoutSteps';
-import CheckoutFooter from '../Components/CheckoutFooter';
-import Shipping from '../Components/shipping/Shipping';
+import CheckoutSteps from '../components/CheckoutSteps';
+import CheckoutFooter from '../components/CheckoutFooter';
+import Shipping from '../components/shipping/Shipping';
 import '../styles/address.css';
 
 const ShippingPage: React.FC = () => {
