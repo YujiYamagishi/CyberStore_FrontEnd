@@ -2,7 +2,7 @@ import { createContext, useContext, useState, ReactNode, useEffect, useCallback 
 import { useAuth } from '@clerk/clerk-react';
 
 // 1. URL da API dinâmica injetada pelo bundler (Vite/CRA)
-const API_URL = (import.meta.env.REACT_APP_API_URL as string) || 'http://localhost:8000';
+const API_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8000';
 
 export type CartItem = {
     id: number;

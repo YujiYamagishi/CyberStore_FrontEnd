@@ -12,7 +12,7 @@ import {
 import { useNavigate } from "react-router-dom";
 
 // 1. Definição da URL da API dinâmica
-const API_URL = (import.meta.env.REACT_APP_API_URL as string) || 'http://localhost:8000';
+const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const iconMap: Record<string, React.ReactNode> = {
     Phones: <FaMobileAlt />,

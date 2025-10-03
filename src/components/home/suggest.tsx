@@ -23,7 +23,7 @@ export default function Suggest() {
   const [loading, setLoading] = useState(true);
 
   const API_URL =
-    (import.meta.env.REACT_APP_API_URL as string) || "http://localhost:8000";
+    (import.meta.env.VITE_API_URL as string) || "http://localhost:8000";
 
 
   async function fetchProducts(tag: string) {

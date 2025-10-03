@@ -4,7 +4,7 @@ import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
 // 1. Definição da URL da API dinâmica
-const API_URL = (import.meta.env.REACT_APP_API_URL as string) || 'http://localhost:8000';
+const API_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8000';
 
 export default function Reviews({ summary, productId }: { summary: any, productId: any }) {
     const [comments, setComments] = useState<any[]>([]);

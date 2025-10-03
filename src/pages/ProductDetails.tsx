@@ -10,7 +10,7 @@ import Breadcrumb from '../components/Breadcrumb';
 import '../styles/product-details.css';
 
 // 1. Definição da URL da API dinâmica
-const API_URL = (import.meta.env.REACT_APP_API_URL as string) || 'http://localhost:8000';
+const API_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8000';
 
 export default function ProductDetails() {
     const { productId } = useParams();
