@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../card";
 
+
 type Product = {
   id: number;
   title: string;
