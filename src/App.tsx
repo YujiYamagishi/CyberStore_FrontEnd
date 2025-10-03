@@ -18,7 +18,7 @@ import Footer from './components/footer';
 
 import { CartProvider } from './context/CartContext';
 import { AuthProvider } from './context/AuthContext';
-import { AddressProvider } from './context/AdressContext';
+import { AddressProvider } from './context/AddressContext';
 
 interface ProtectedRouteProps { children: ReactNode; }
 

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
-import { useAddress } from '../context/AdressContext';
+import { useAddress } from '../context/AddressContext';
 import '../styles/editAdress.css'
 
 // Assumindo a interface AddressItem do AddressContext

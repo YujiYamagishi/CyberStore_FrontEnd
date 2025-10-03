@@ -4,7 +4,7 @@ import CheckoutFooter from '../components/CheckoutFooter';
 import CheckoutSteps from '../components/CheckoutSteps';
 import Address from '../components/address/Address';
 import { toast } from 'react-hot-toast';
-import { useAddress } from '../context/AddressContext'; // CORRIGIDO: AdressContext -> AddressContext
+import { useAddress } from '../context/AddressContext';
 import '../styles/address.css';
 
 const AddressPage: React.FC = () => {
