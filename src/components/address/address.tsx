@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../../../styles/address.css';
+import '../../styles/address.css';
 import { FaEdit, FaTimes, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AddressForm from './AddressForm';

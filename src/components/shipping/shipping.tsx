@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../../styles/address.css';
-import '../../../styles/shipping.css';
+import '../../styles/address.css';
+import '../../styles/shipping.css';
 
 interface ShippingProps {
   selectedMethod: string;
