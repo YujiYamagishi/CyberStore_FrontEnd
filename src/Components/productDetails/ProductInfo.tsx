@@ -1,16 +1,19 @@
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAuth } from '@clerk/clerk-react';
-import screensizeIcon from '../../assets/screensize.svg';
-import cpuIcon from '../../assets/cpu.svg';
-import coreIcon from '../../assets/core.svg';
-import cameraIcon from '../../assets/camera.svg';
-import fcameraIcon from '../../assets/fcamera.svg';
-import batteryIcon from '../../assets/battery.svg';
-import truckIcon from '../../assets/truck.svg';
-import shopIcon from '../../assets/shop.svg';
-import shieldCheckIcon from '../../assets/shieldcheck.svg';
 import Notification from '../Notification';
+
+const baseURL = 'https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/';
+
+const screensizeIcon = `${baseURL}screensize.svg`;
+const cpuIcon = `${baseURL}cpu.svg`;
+const coreIcon = `${baseURL}core.svg`;
+const cameraIcon = `${baseURL}camera.svg`;
+const fcameraIcon = `${baseURL}fcamera.svg`;
+const batteryIcon = `${baseURL}battery.svg`;
+const truckIcon = `${baseURL}truck.svg`;
+const shopIcon = `${baseURL}shop.svg`;
+const shieldCheckIcon = `${baseURL}shieldcheck.svg`;
 
 export default function ProductInfo({ product }: { product: any }) {
   if (!product) return <div>Loading product information...</div>;
@@ -171,7 +174,7 @@ export default function ProductInfo({ product }: { product: any }) {
           </div>
         )}
 
-       
+        
         <div className="product-description">
           <span>
             {isDescriptionExpanded ? product.description : `${product.description?.substring(0, 150) || ''}... `}
@@ -182,7 +185,7 @@ export default function ProductInfo({ product }: { product: any }) {
             </button>
           )}
         </div>
-       
+        
 
         <div className="action-buttons">
           <button className="wishlist-button" onClick={handleAddToWishlist}>
