@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import ProductCard from "../card";
+import ProductCard from "../Card";
 
 
 type Product = {
