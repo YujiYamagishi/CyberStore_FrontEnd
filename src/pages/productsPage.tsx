@@ -188,7 +188,7 @@ export default function ProductsPage() {
 
     const renderPaginationButtons = () => {
         // ... Lógica de paginação (mantida) ...
-        const buttons = [];
+        const buttons: Array<React.ReactNode> = []; 
         const maxVisible = 5;
 
         buttons.push(
