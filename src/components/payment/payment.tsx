@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAddress } from '../../context/AddressContext'; 
-import '../../../styles/payment.css';
+import '../../styles/payment.css';
 
 interface PaymentProps {
   cardholderName: string;
