@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast'; 
 import CheckoutSteps from '../components/CheckoutSteps';
 import CheckoutFooter from '../components/CheckoutFooter';
-import Shipping from '../components/shipping/Shipping';
+import Shipping from '../components/shipping/shipping';
 import '../styles/address.css';
 
 const ShippingPage: React.FC = () => {

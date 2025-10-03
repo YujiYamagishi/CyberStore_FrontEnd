@@ -3,7 +3,7 @@ import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import CheckoutFinish from '../components/CheckoutFinish';
 import CheckoutSteps from '../components/CheckoutSteps';
-import Payment from '../components/payment/Payment';
+import Payment from '../components/payment/payment';
 import { useCart } from '../context/CartContext';
 import '../styles/payment.css';
 
@@ -92,7 +92,7 @@ const PaymentPage: React.FC = () => {
           </div>
         </main>
         <div className="footer-back-next">
-          <CheckoutFinish onBack={handleBack} onNext={handleNext} />
+          <CheckoutFinish onBack={handleBack} onNext={handleNext} purchaseSuccess={false} />
         </div>
       </div>
     </div>

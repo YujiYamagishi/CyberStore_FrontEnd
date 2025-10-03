@@ -6,7 +6,7 @@
     "useDefineForClassFields": true,
     
     // **CORREÇÃO DE SINTAXE E AMBIENTE**
-    "lib": ["ES2020", "DOM", "DOMContentLoaded", "WebWorker"], 
+    "lib": ["ES2020", "DOM", "WebWorker"], 
     "module": "ESNext",
     "skipLibCheck": true,
 
