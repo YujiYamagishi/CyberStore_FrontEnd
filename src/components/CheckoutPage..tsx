@@ -13,7 +13,9 @@ const CheckoutPage: React.FC = () => {
   return (
     <>
       <Payment />
-      <CheckoutFinish onBack={handleBack} purchaseSuccess={true} />
+
+      <CheckoutFinish onBack={handleBack} purchaseSuccess={true} onNext={() => {}} />
+
     </>
   );
 };

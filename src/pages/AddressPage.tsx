@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import CheckoutFooter from '../components/CheckoutFooter';
 import CheckoutSteps from '../components/CheckoutSteps';
-import Address from '../components/address/Address';
+import Address from '../components/address/address';
 import { toast } from 'react-hot-toast';
 import { useAddress } from '../context/AddressContext';
 import '../styles/address.css';
