@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
 import { useAddress } from '../../context/AdressContext';
-import '../../styles/payment.css';
+import '../../../styles/payment.css';
 
 interface PaymentProps {
   cardholderName: string;
@@ -12,7 +12,7 @@ interface PaymentProps {
   setExpDate: (val: string) => void;
   cvv: string;
   setCvv: (val: string) => void;
-  shippingMethod: string; 
+  shippingMethod: string;
 }
 
 const Payment: React.FC<PaymentProps> = ({
@@ -20,7 +20,7 @@ const Payment: React.FC<PaymentProps> = ({
   cardNumber, setCardNumber,
   expDate, setExpDate,
   cvv, setCvv,
-  shippingMethod 
+  shippingMethod
 }) => {
   const { cart } = useCart();
   const { selectedAddress } = useAddress();
@@ -28,9 +28,9 @@ const Payment: React.FC<PaymentProps> = ({
 
   const subtotal = cart.items.reduce((sum, item) => sum + item.price * item.quantity, 0);
   const estimatedTax = 50;
-  
-  
-  const estimatedShipping = shippingMethod === 'express' ? 29 : 0; 
+
+
+  const estimatedShipping = shippingMethod === 'express' ? 29 : 0;
   const total = subtotal + estimatedTax + estimatedShipping;
 
   return (
@@ -40,7 +40,8 @@ const Payment: React.FC<PaymentProps> = ({
         <div className="summaryItems">
           {cart.items.map(item => (
             <div key={item.id} className="summaryItem">
-              <img src={item.image} alt={item.name} />
+              {/* Ajuste o caminho da imagem se necessário. */}
+              <img src={item.image} alt={item.name} /> 
               <span className="summaryItemName">{item.name}</span>
               <span className="summaryItemPrice">
                 ${(item.price * item.quantity).toLocaleString('en-US', { minimumFractionDigits: 0 })}
@@ -63,7 +64,7 @@ const Payment: React.FC<PaymentProps> = ({
             <span className="detailValue">
               {shippingMethod === 'regular' ? 'Free (Regular shipment)'
                : shippingMethod === 'express' ? '$29 (Express shipment)'
-               : shippingMethod === 'schedule' ? 'Schedule shipment' 
+               : shippingMethod === 'schedule' ? 'Schedule shipment'
                : 'Unknown'}
             </span>
           </div>

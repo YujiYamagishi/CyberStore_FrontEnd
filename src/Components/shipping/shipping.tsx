@@ -1,6 +1,6 @@
 import React from 'react';
-import '../../styles/address.css';
-import '../../styles/shipping.css';
+import '../../../styles/address.css';
+import '../../../styles/shipping.css';
 
 interface ShippingProps {
   selectedMethod: string;
@@ -10,7 +10,7 @@ interface ShippingProps {
 const Shipping: React.FC<ShippingProps> = ({ selectedMethod, setSelectedMethod }) => {
   return (
     <div className="pageContainer">
-      
+
 
       <div className="shippingMethods">
         <h2>Shipment Method</h2>

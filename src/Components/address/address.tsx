@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import '../../styles/address.css';
+import '../../../styles/address.css';
 import { FaEdit, FaTimes, FaPlus } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 import AddressForm from './AddressForm';
@@ -32,21 +32,21 @@ const Address: React.FC<AddressProps> = ({ selectedId, onSelect }) => {
   };
 
   const handleDelete = (id: number, e: React.MouseEvent) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     deleteAddress(id);
     if (selectedId === id) {
-      onSelect(null); 
+      onSelect(null);
     }
   };
 
   const handleEdit = (id: number, e: React.MouseEvent) => {
-    e.stopPropagation(); 
+    e.stopPropagation();
     navigate(`/edit-address/${id}`);
   };
 
   return (
     <div className="pageContainer">
-      
+
       <div className="addressList">
         <h2>Select Address</h2>
         {addresses.map((addr) => (
