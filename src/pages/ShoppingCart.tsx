@@ -1,7 +1,7 @@
 import React from 'react';
 import { useCart } from '../context/CartContext';
-import CartList from '../Components/shoppingCart/CartList';
-import OrderSummary from '../Components/shoppingCart/OrderSummary';
+import CartList from '../components/shoppingCart/CartList';
+import OrderSummary from '../components/shoppingCart/OrderSummary';
 import { useAuth } from '@clerk/clerk-react';
 import '../styles/shoppingCart.css';
 
