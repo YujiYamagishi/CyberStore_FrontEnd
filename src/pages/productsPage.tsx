@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import ProductsFilter from "../components/productsPage/productsFilter";
-import ProductCard from "../components/card";
+import ProductCard from "../components/Card";
 import useMediaQuery from "../hooks/useMediaQuery";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/products.css";

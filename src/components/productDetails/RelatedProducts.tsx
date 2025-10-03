@@ -1,4 +1,4 @@
-import ProductCard from "../card";
+import ProductCard from "../Card";
 export default function RelatedProducts({ products }: { products: any[] }) {
   return (
     <section className="related-products-section">
