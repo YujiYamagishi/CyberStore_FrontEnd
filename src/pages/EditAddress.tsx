@@ -3,24 +3,36 @@ import { useParams, useNavigate } from 'react-router-dom';
 import { FaArrowLeft } from 'react-icons/fa';
 import { useAddress } from '../context/AdressContext';
 import '../styles/editAdress.css'
+
+// Assumindo a interface AddressItem do AddressContext
+interface AddressItem {
+    id: number;
+    title: string;
+    type: "HOME" | "OFFICE";
+    address: string;
+    phone: string;
+}
+
 const EditAddress: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  
+
   const { addresses, updateAddress } = useAddress();
-  
-  const [addressData, setAddressData] = useState({
+
+  const [addressData, setAddressData] = useState<Omit<AddressItem, 'id'>>({
     title: '',
-    type: 'HOME',
+    // Garante que o estado inicial é de um tipo válido
+    type: 'HOME', 
     address: '',
     phone: '',
   });
 
   useEffect(() => {
-    
+
     const addressToEdit = addresses.find(addr => addr.id === Number(id));
     if (addressToEdit) {
-      setAddressData(addressToEdit);
+      // O spread operator funciona bem aqui, pois o tipo AddressItem é compatível
+      setAddressData(addressToEdit); 
     } else {
       navigate('/address');
     }
@@ -28,6 +40,7 @@ const EditAddress: React.FC = () => {
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
+
     setAddressData(prevData => ({
       ...prevData,
       [name]: value,
@@ -36,9 +49,17 @@ const EditAddress: React.FC = () => {
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-  
-    updateAddress({ ...addressData, id: Number(id) });
-    navigate('/address'); 
+
+    // CORREÇÃO TS2345: Aplicando type casting para garantir que o 'type'
+    // é um dos literais esperados ("HOME" | "OFFICE").
+    const updatedData = {
+        ...addressData,
+        type: addressData.type as "HOME" | "OFFICE",
+        id: Number(id)
+    };
+    
+    updateAddress(updatedData);
+    navigate('/address');
   };
 
   return (
@@ -56,7 +77,13 @@ const EditAddress: React.FC = () => {
         </label>
         <label>
           Tipo:
-          <select name="type" value={addressData.type} onChange={handleChange}>
+          <select 
+             name="type" 
+             value={addressData.type} 
+             onChange={handleChange}
+             // Embora o tipo seja string no evento, sabemos que o valor será 'HOME' ou 'OFFICE'
+             // conforme as opções do select.
+          >
             <option value="HOME">HOME</option>
             <option value="OFFICE">OFFICE</option>
           </select>
