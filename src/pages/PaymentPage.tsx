@@ -1,9 +1,9 @@
 import React, { useState } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import toast from 'react-hot-toast';
-import CheckoutFinish from '../Components/CheckoutFinish';
-import CheckoutSteps from '../Components/CheckoutSteps';
-import Payment from '../Components/payment/Payment';
+import CheckoutFinish from '../components/CheckoutFinish';
+import CheckoutSteps from '../components/CheckoutSteps';
+import Payment from '../components/payment/Payment';
 import { useCart } from '../context/CartContext';
 import '../styles/payment.css';
 
