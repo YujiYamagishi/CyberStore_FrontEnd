@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useCart } from '../../context/CartContext';
-import { useAddress } from '../../context/AdressContext';
+import { useAddress } from '../../context/AddressContext'; // CORRIGIDO: AdressContext -> AddressContext
 import '../../../styles/payment.css';
 
 interface PaymentProps {

@@ -36,7 +36,7 @@ const PaymentPage: React.FC = () => {
     
     if (!cardholderName || !cardNumber || !expDate || !cvv) {
       toast.error("Please fill in all credit card details before proceeding.", {
-        style: { background: '#28a745', color: '#fff'},
+        style: { background: '#dc3545', color: '#fff'}, 
         iconTheme: {
           primary: '#ef4444',
           secondary: '#fee2e2',
