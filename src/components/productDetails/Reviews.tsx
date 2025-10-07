@@ -3,7 +3,7 @@ import axios from 'axios';
 import { FaStar, FaStarHalfAlt, FaRegStar } from 'react-icons/fa';
 import { ChevronDown, ChevronUp } from 'lucide-react';
 
-// 1. Definição da URL da API dinâmica
+
 const API_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8000';
 
 export default function Reviews({ summary, productId }: { summary: any, productId: any }) {
@@ -13,36 +13,36 @@ export default function Reviews({ summary, productId }: { summary: any, productI
     const [loadingComments, setLoadingComments] = useState(true);
     const [errorComments, setErrorComments] = useState<string | null>(null);
 
-    // 2. Função de busca inicial com useCallback
+    
     const fetchInitialComments = useCallback(async () => {
         if (!productId) return;
         
-        // Reinicia o estado para a primeira página (1)
+        
         setCurrentPage(1); 
         setLoadingComments(true);
         setErrorComments(null);
 
         try {
-            // CORREÇÃO: Usando API_URL
+            
             const response = await axios.get(`${API_URL}/api/reviews/comments/${productId}?page=1`);
             
             setComments(response.data.data);
-            setHasMore(response.data.data.length > 0); // Presume que há mais se houver algum dado
-            // Se o backend enviar um campo "totalPages" ou "hasNextPage", use-o aqui
+            setHasMore(response.data.data.length > 0); 
+           
             
         } catch (err: any) {
             setErrorComments(err.response?.data?.error || 'Could not load initial comments.');
         } finally {
             setLoadingComments(false);
         }
-    }, [productId]); // Recarrega se o productId mudar
+    }, [productId]); 
 
-    // 3. Efeito para carregar comentários iniciais
+   
     useEffect(() => {
         fetchInitialComments();
-    }, [fetchInitialComments]); // Dependência: fetchInitialComments
+    }, [fetchInitialComments]); 
 
-    // 4. Função para carregar mais comentários
+    
     const handleViewMore = async () => {
         if (!productId) return;
         
@@ -50,7 +50,7 @@ export default function Reviews({ summary, productId }: { summary: any, productI
         setLoadingComments(true);
 
         try {
-            // CORREÇÃO: Usando API_URL
+         
             const response = await axios.get(`${API_URL}/api/reviews/comments/${productId}?page=${nextPage}`);
             
             const newComments = response.data.data || [];
@@ -58,12 +58,10 @@ export default function Reviews({ summary, productId }: { summary: any, productI
             setComments(prevComments => [...prevComments, ...newComments]);
             setCurrentPage(nextPage);
             
-            // Lógica para desativar o botão 'View More'
             if (newComments.length === 0) {
                 setHasMore(false);
             }
-            // Se o backend retornar menos do que o tamanho da página esperado, pode ser o final.
-            // Aqui, mantemos a lógica original: se não houver novos dados, não tem mais.
+         
 
         } catch (err) {
             setErrorComments('Could not load more comments.');
@@ -72,7 +70,7 @@ export default function Reviews({ summary, productId }: { summary: any, productI
         }
     };
 
-    // Dados para as barras de classificação (mantidos)
+    
     const ratingBarsData = summary ? [
         { label: 'Excellent', count: summary.excellent },
         { label: 'Good', count: summary.good },

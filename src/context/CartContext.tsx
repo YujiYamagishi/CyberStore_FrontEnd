@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 import { useAuth } from '@clerk/clerk-react';
 
-// 1. URL da API dinâmica injetada pelo bundler (Vite/CRA)
+
 const API_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8000';
 
 export type CartItem = {
@@ -35,7 +35,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     const [isLoading, setIsLoading] = useState(true);
     const { userId, getToken, isSignedIn } = useAuth();
 
-    // Função auxiliar para mapear dados da API para o formato de estado
+    
     const formatItemsFromAPI = useCallback((apiItems: any[]): CartItem[] =>
         (apiItems || []).map(item => ({
             id: item.product.id,
@@ -47,11 +47,11 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             code: item.product.code ?? '',
         })), []);
 
-    // Função para buscar o carrinho no servidor
+   
     const fetchCartFromServer = useCallback(async (currentUserId: string) => {
         try {
             const token = await getToken();
-            // CORREÇÃO: Usando API_URL
+           
             const response = await fetch(`${API_URL}/shopping-cart/${currentUserId}`, { 
                 headers: { Authorization: `Bearer ${token}` },
             });
@@ -65,13 +65,13 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         return { id: null, items: [] };
     }, [getToken, formatItemsFromAPI]);
 
-    // Função para atualizar o carrinho no servidor (PUT)
+   
     const updateCartOnServer = useCallback(async (productsPayload: { product_id: number; quantity: number }[]) => {
         if (!cart.id) throw new Error("Cart ID not found for update.");
         
         try {
             const token = await getToken();
-            // CORREÇÃO: Usando API_URL
+            
             const response = await fetch(`${API_URL}/api/shopping_carts/${cart.id}`, { 
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -92,7 +92,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
     }, [cart.id, getToken, formatItemsFromAPI]);
 
-    // Função para mesclar o estado local com o do servidor
+    
     const mergeLocalCartWithServer = useCallback(async (serverCart: CartState) => {
         const localCart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
         if (localCart.length === 0) return serverCart;
@@ -109,7 +109,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
         try {
             const token = await getToken();
-            // CORREÇÃO: Usando API_URL
+           
             const response = await fetch(`${API_URL}/api/shopping_carts/${serverCart.id}`, { 
                 method: 'PUT',
                 headers: { 'Content-Type': 'application/json', Authorization: `Bearer ${token}` },
@@ -127,18 +127,18 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
         } catch (error) {
             console.error("Error during cart merge:", error);
-            // Em caso de falha, retorna o carrinho do servidor e mantém o local
+            
             return serverCart; 
         }
 
     }, [getToken, formatItemsFromAPI]);
 
-    // Efeito para inicializar/sincronizar o carrinho no login/logout
+   
     useEffect(() => {
         const initializeCart = async () => {
             setIsLoading(true);
             
-            // Garante que o Clerk já resolveu o estado de autenticação
+           
             if (typeof isSignedIn !== 'boolean') return;
 
             if (!isSignedIn || !userId) {
@@ -157,7 +157,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
 
 
     const addToCart = async (newItem: Omit<CartItem, 'quantity'>, quantity: number) => {
-        // --- Lógica Local ---
+       
         if (!isSignedIn) {
             const localCart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
             const index = localCart.findIndex(i => i.id === newItem.id);
@@ -174,7 +174,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             return;
         }
 
-        // --- Lógica Servidor ---
+        
         const existingItems = cart.items.map(item => ({ product_id: item.id, quantity: item.quantity }));
         const itemIndex = existingItems.findIndex(item => item.product_id === newItem.id);
         const productsForBackend =
@@ -191,7 +191,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const removeFromCart = async (productId: number) => {
-        // --- Lógica Local ---
+        
         if (!isSignedIn) {
             const updated = cart.items.filter(item => item.id !== productId);
             localStorage.setItem('cart', JSON.stringify(updated));
@@ -200,7 +200,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             return;
         }
 
-        // --- Lógica Servidor ---
+        
         if (!cart.id) return;
         const productsForBackend = cart.items
             .filter(item => item.id !== productId)
@@ -211,7 +211,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const updateQuantity = async (productId: number, newQuantity: number) => {
-        // --- Lógica Local ---
+       
         if (!isSignedIn) {
             if (newQuantity < 1) return removeFromCart(productId);
             const updated = cart.items.map(item => (item.id === productId ? { ...item, quantity: newQuantity } : item));
@@ -221,7 +221,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             return;
         }
 
-        // --- Lógica Servidor ---
+      
         if (!cart.id) return;
 
         if (newQuantity < 1) return removeFromCart(productId);
@@ -233,7 +233,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
     };
 
     const clearCart = async () => {
-        // --- Lógica Local ---
+        
         if (!isSignedIn) {
             localStorage.removeItem('cart');
             setCart({ id: null, items: [] });
@@ -241,7 +241,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
             return;
         }
         
-        // --- Lógica Servidor ---
+      
         if (!cart.id) return;
         await updateCartOnServer([]);
         window.dispatchEvent(new Event('cartUpdated'));

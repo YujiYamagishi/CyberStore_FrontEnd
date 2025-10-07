@@ -11,7 +11,7 @@ import {
 } from "react-icons/fa";
 import { useNavigate } from "react-router-dom";
 
-// 1. Definição da URL da API dinâmica
+
 const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:8000';
 
 const iconMap: Record<string, React.ReactNode> = {
@@ -32,7 +32,7 @@ export default function Browse() {
     const navigate = useNavigate();
 
     useEffect(() => {
-        // CORREÇÃO: Usando API_URL para buscar categorias
+        
         fetch(`${API_URL}/api/categories`)
             .then((res) => {
                 if (!res.ok) {
@@ -42,7 +42,7 @@ export default function Browse() {
             })
             .then((data) => setCategories(data.categories || []))
             .catch((err) => console.error("Erro ao carregar categorias:", err));
-    }, []); // Array de dependências vazio para rodar apenas no mount
+    }, []); 
 
     const handleScroll = (direction: "left" | "right") => {
         if (direction === "left") {

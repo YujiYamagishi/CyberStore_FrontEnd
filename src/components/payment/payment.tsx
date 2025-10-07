@@ -40,7 +40,7 @@ const Payment: React.FC<PaymentProps> = ({
         <div className="summaryItems">
           {cart.items.map(item => (
             <div key={item.id} className="summaryItem">
-              {/* Ajuste o caminho da imagem se necessário. */}
+              
               <img src={item.image} alt={item.name} /> 
               <span className="summaryItemName">{item.name}</span>
               <span className="summaryItemPrice">

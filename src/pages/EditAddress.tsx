@@ -4,7 +4,7 @@ import { FaArrowLeft } from 'react-icons/fa';
 import { useAddress } from '../context/AddressContext';
 import '../styles/editAdress.css'
 
-// Assumindo a interface AddressItem do AddressContext
+
 interface AddressItem {
     id: number;
     title: string;
@@ -21,7 +21,7 @@ const EditAddress: React.FC = () => {
 
   const [addressData, setAddressData] = useState<Omit<AddressItem, 'id'>>({
     title: '',
-    // Garante que o estado inicial é de um tipo válido
+   
     type: 'HOME', 
     address: '',
     phone: '',
@@ -31,7 +31,7 @@ const EditAddress: React.FC = () => {
 
     const addressToEdit = addresses.find(addr => addr.id === Number(id));
     if (addressToEdit) {
-      // O spread operator funciona bem aqui, pois o tipo AddressItem é compatível
+      
       setAddressData(addressToEdit); 
     } else {
       navigate('/address');
@@ -50,8 +50,7 @@ const EditAddress: React.FC = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
 
-    // CORREÇÃO TS2345: Aplicando type casting para garantir que o 'type'
-    // é um dos literais esperados ("HOME" | "OFFICE").
+    
     const updatedData = {
         ...addressData,
         type: addressData.type as "HOME" | "OFFICE",
@@ -81,8 +80,7 @@ const EditAddress: React.FC = () => {
              name="type" 
              value={addressData.type} 
              onChange={handleChange}
-             // Embora o tipo seja string no evento, sabemos que o valor será 'HOME' ou 'OFFICE'
-             // conforme as opções do select.
+          
           >
             <option value="HOME">HOME</option>
             <option value="OFFICE">OFFICE</option>

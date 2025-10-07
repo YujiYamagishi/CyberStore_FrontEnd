@@ -6,7 +6,7 @@ import useMediaQuery from "../hooks/useMediaQuery";
 import Breadcrumb from "../components/Breadcrumb";
 import "../styles/products.css";
 
-// 1. Definição da URL da API dinâmica
+
 const API_BASE_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8000';
 
 type Product = {
@@ -53,23 +53,21 @@ export default function ProductsPage() {
         { label: categoryToFetch, path: `/products?category=${categoryToFetch}` },
     ];
 
-    // Efeito para resetar a página ao mudar a query ou filtros
     useEffect(() => {
         setCurrentPage(1);
     }, [query, currentFilters, categoryToFetch]);
 
-    // Usamos useCallback para envolver a lógica de busca e evitar a recriação desnecessária da função
+    
     const fetchProducts = useCallback(async () => {
         try {
-            // --- 1. Requisição para a página atual de produtos ---
-            // CORREÇÃO: Usando API_BASE_URL dinâmico
+           
             const productsUrl = new URL(
                 `${API_BASE_URL}/api/products/category/${categoryToFetch}` 
             );
             productsUrl.searchParams.append("limit", itemsPerPage.toString());
             productsUrl.searchParams.append("page", currentPage.toString());
 
-            // Adiciona parâmetros de ordenação
+           
             if (sortOption === "high") {
                 productsUrl.searchParams.append("sort", "price");
                 productsUrl.searchParams.append("order", "desc");
@@ -78,7 +76,7 @@ export default function ProductsPage() {
                 productsUrl.searchParams.append("order", "asc");
             }
 
-            // Adiciona parâmetros de filtro de preço
+          
             if (currentFilters.minPrice !== undefined)
                 productsUrl.searchParams.append(
                     "minPrice",
@@ -90,7 +88,7 @@ export default function ProductsPage() {
                     currentFilters.maxPrice.toString()
                 );
 
-            // Adiciona filtros de marca
+            
             if (currentFilters.brands && currentFilters.brands.length > 0) {
                 productsUrl.searchParams.append(
                     "brands",
@@ -98,10 +96,8 @@ export default function ProductsPage() {
                 );
             }
 
-            // Adiciona parâmetro de busca (query)
             if (query) {
-                 // Esta lógica de busca por marca baseada em availableBrands é um pouco estranha,
-                 // pois availableBrands é populado mais abaixo, mas mantemos o fluxo original.
+                
                 const matchingBrand = availableBrands.find(
                     (b) => b.name.toLowerCase() === query.toLowerCase()
                 );
@@ -120,14 +116,12 @@ export default function ProductsPage() {
             setProducts(productsArray);
             setTotalItems(productsData.metadata?.total_items || 0);
 
-            // --- 2. Requisição para obter TODAS as marcas disponíveis (para o filtro) ---
-            // CORREÇÃO: Usando API_BASE_URL dinâmico
+            
             const allProductsUrl = new URL(
                 `${API_BASE_URL}/api/products/category/${categoryToFetch}`
             );
-            allProductsUrl.searchParams.append("limit", "9999"); // Limite alto para pegar todos
-
-            // Filtros que devem ser aplicados para calcular as marcas disponíveis
+            allProductsUrl.searchParams.append("limit", "9999");
+           
             if (currentFilters.minPrice !== undefined)
                 allProductsUrl.searchParams.append(
                     "minPrice",
@@ -146,7 +140,7 @@ export default function ProductsPage() {
             const allProductsData = await allProductsResponse.json();
             const allProductsArray: Product[] = allProductsData.data || [];
 
-            // Lógica para contar marcas (mantida)
+           
             const uniqueBrandsMap = new Map<string, number>();
             allProductsArray.forEach((product) => {
                 uniqueBrandsMap.set(
@@ -175,19 +169,18 @@ export default function ProductsPage() {
         itemsPerPage,
         query,
         categoryToFetch,
-        // Remover availableBrands daqui, pois ele é definido DENTRO do useCallback.
-        // Sua inclusão causaria um loop infinito no useEffect.
+        
     ]);
     
-    // Efeito para chamar a função de busca
+    
     useEffect(() => {
         fetchProducts();
-    }, [fetchProducts]); // Depende apenas do useCallback
+    }, [fetchProducts]); 
 
     const totalPages = Math.ceil(totalItems / itemsPerPage);
 
     const renderPaginationButtons = () => {
-        // ... Lógica de paginação (mantida) ...
+       
         const buttons: Array<React.ReactNode> = []; 
         const maxVisible = 5;
 
