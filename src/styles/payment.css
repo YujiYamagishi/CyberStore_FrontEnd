@@ -118,6 +118,7 @@ body {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
+    margin-bottom: 10px;
 }
 
 .detailRow .detailLabel {
@@ -127,7 +128,7 @@ body {
 }
 
 .detailRow .detailValue {
-    font-weight: 600;
+    font-weight: 200;
     font-size: 1rem;
     color: #1d1d1f;
 }
