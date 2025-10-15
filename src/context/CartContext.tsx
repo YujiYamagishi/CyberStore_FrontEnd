@@ -107,17 +107,17 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
     }, [getToken, formatItemsFromAPI]);
 
-    // ### NOVA FUNÇÃO: Lógica para mesclar os carrinhos ###
+    
     const mergeAndSyncCarts = useCallback(async (localItems: CartItem[], serverCart: CartState) => {
-        // Usa um Map para facilitar a combinação de itens e quantidades
+        
         const mergedItems = new Map<number, { product_id: number; quantity: number }>();
 
-        // 1. Adiciona os itens do carrinho do servidor ao map
+       
         serverCart.items.forEach(item => {
             mergedItems.set(item.id, { product_id: item.id, quantity: item.quantity });
         });
 
-        // 2. Adiciona os itens do carrinho local, somando as quantidades se o item já existir
+        
         localItems.forEach(localItem => {
             if (mergedItems.has(localItem.id)) {
                 const existing = mergedItems.get(localItem.id)!;
@@ -131,19 +131,19 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         let finalCart: CartState;
 
         try {
-            // Se já existia um carrinho no servidor, atualiza (PUT)
+            
             if (serverCart.id) {
                 finalCart = await updateCartOnServer(serverCart.id, finalPayload);
-            } else { // Se não, cria um novo carrinho (POST)
+            } else { 
                 finalCart = await createCartOnServer(finalPayload);
             }
             
-            localStorage.removeItem('cart'); // Limpa o carrinho local APÓS o sucesso
+            localStorage.removeItem('cart'); 
             return finalCart;
 
         } catch (error) {
             console.error("Failed to merge carts on server:", error);
-            return serverCart; // Em caso de erro, retorna o carrinho do servidor para não perder dados
+            return serverCart; 
         }
     }, [updateCartOnServer, createCartOnServer]);
 
@@ -159,16 +159,16 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
                 const localCart: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
                 setCart({ id: null, items: localCart });
             } else {
-                // ### LÓGICA DE INICIALIZAÇÃO ATUALIZADA ###
+                
                 const localItems: CartItem[] = JSON.parse(localStorage.getItem('cart') || '[]');
                 const serverCart = await fetchCartFromServer(userId);
 
-                // Se houver itens no carrinho local, inicia o processo de mesclagem
+               
                 if (localItems.length > 0) {
                     const finalCartState = await mergeAndSyncCarts(localItems, serverCart);
                     setCart(finalCartState);
                 } else {
-                    // Se o carrinho local estiver vazio, apenas usa o do servidor
+                   
                     setCart(serverCart);
                 }
                 window.dispatchEvent(new Event('cartUpdated'));
@@ -212,7 +212,7 @@ export const CartProvider = ({ children }: { children: ReactNode }) => {
         }
     };
     
-    // (O resto do arquivo não precisa de alterações)
+    
     const removeFromCart = async (productId: number) => {
         if (!isSignedIn) {
             const updated = cart.items.filter(item => item.id !== productId);

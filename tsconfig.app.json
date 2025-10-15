@@ -5,17 +5,17 @@
     "target": "ES2020",
     "useDefineForClassFields": true,
     
-    // **CORREÇÃO DE SINTAXE E AMBIENTE**
+   
     "lib": ["ES2020", "DOM", "WebWorker"], 
     "module": "ESNext",
     "skipLibCheck": true,
 
-    // **CORREÇÕES DE COMPILAÇÃO**
+    
     "noUnusedLocals": false,        
     "noUnusedParameters": false,    
     "noImplicitAny": false,        
 
-    /* Configurações do React/Vite */
+   
     "moduleResolution": "bundler",
     "allowImportingTsExtensions": true,
     "resolveJsonModule": true,
