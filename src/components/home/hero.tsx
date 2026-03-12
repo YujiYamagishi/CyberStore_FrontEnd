@@ -1,32 +1,16 @@
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
-const baseURL = "https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/";
-
-
-const images = {
-  iphone: {
-    mobile: `${baseURL}iphone.png`,
-    desktop: `${baseURL}Iphone-desktop.png`,
-  },
-  airpods: {
-    mobile: `${baseURL}airpods.png`,
-    desktop: `${baseURL}airpods-desktop.png`,
-  },
-  visionpro: {
-    mobile: `${baseURL}visionpro.png`,
-    desktop: `${baseURL}visionpro-desktop.png`,
-  },
-  playstation: {
-    mobile: `${baseURL}playstation.png`, 
-    desktop: `${baseURL}playstation-desktop.png`, 
-  },
-  macbook: {
-    mobile: `${baseURL}macbook.png`, 
-    desktop: `${baseURL}macbook-desktop.png`, 
-  },
-};
-
+import iphone from "../../assets/iphone.png";
+import iphoneDesktop from "../../assets/iphone-desktop.png";
+import airpods from "../../assets/airpods.png";
+import airpodsDesktop from "../../assets/airpods-desktop.png";
+import visionpro from "../../assets/visionpro.png";
+import visionproDesktop from "../../assets/visionpro-desktop.png";
+import playstation from "../../assets/playstation.png";
+import playstationDesktop from "../../assets/playstation-desktop.png";
+import macbook from "../../assets/macbook.png";
+import macbookDesktop from "../../assets/macbook-desktop.png";
 
 export default function Hero() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
@@ -63,14 +47,14 @@ export default function Hero() {
               </button>
             </div>
             <img
-              src={isDesktop ? images.iphone.desktop : images.iphone.mobile}
+              src={isDesktop ? iphoneDesktop : iphone}
               alt="iPhone 14 Pro"
             />
           </>
         ) : (
           <>
             <img
-              src={isDesktop ? images.iphone.desktop : images.iphone.mobile}
+              src={isDesktop ? iphoneDesktop : iphone}
               alt="iPhone 14 Pro"
             />
             <div className="iphone-text">
@@ -94,7 +78,7 @@ export default function Hero() {
 
       <section className="airpods">
         <img
-          src={isDesktop ? images.airpods.desktop : images.airpods.mobile}
+          src={isDesktop ? airpodsDesktop : airpods}
           alt="AirPods Max"
         />
         <div className="text">
@@ -107,7 +91,7 @@ export default function Hero() {
 
       <section className="visionpro">
         <img
-          src={isDesktop ? images.visionpro.desktop : images.visionpro.mobile}
+          src={isDesktop ? visionproDesktop : visionpro}
           alt="Apple Vision Pro"
         />
         <div className="text">
@@ -120,7 +104,7 @@ export default function Hero() {
 
       <section className="playstation">
         <img
-          src={isDesktop ? images.playstation.desktop : images.playstation.mobile}
+          src={isDesktop ? playstationDesktop : playstation}
           alt="Playstation 5"
         />
         <div className="text">
@@ -136,7 +120,7 @@ export default function Hero() {
 
       <section className="macbook">
         <img
-          src={isDesktop ? images.macbook.desktop : images.macbook.mobile}
+          src={isDesktop ? macbookDesktop : macbook}
           alt="Macbook Air"
         />
         <div className="text">

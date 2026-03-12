@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-
+import popular from "../../assets/popular.png";
+import ipad from "../../assets/ipadpro.png";
+import galaxy from "../../assets/galaxy-samsung.png";
+import macbook from "../../assets/macbook.png";
 
 const products = [
   {
@@ -8,7 +11,7 @@ const products = [
     title: "Popular Products",
     description:
       "iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.",
-    images: ["https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/popular.png"],
+    images: [popular],
     background: "#fff",
     color: "#000",
     buttonWhite: false,
@@ -19,7 +22,7 @@ const products = [
     title: "Ipad Pro",
     description:
       "iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.",
-    images: ["https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/ipadpro.png"],
+    images: [ipad],
     background: "#F9F9F9",
     color: "#000",
     buttonWhite: false,
@@ -30,7 +33,7 @@ const products = [
     title: "Samsung Galaxy",
     description:
       "iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.",
-    images: ["https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/galaxy-samsung.png"],
+    images: [galaxy],
     background: "#EAEAEA",
     color: "#000",
     buttonWhite: false,
@@ -41,9 +44,9 @@ const products = [
     title: "Macbook Pro",
     description:
       "iPad combines a magnificent 10.2-inch Retina display, incredible performance, multitasking and ease of use.",
-    images: ["https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/macbook.png"],
+    images: [macbook],
     background: "#2C2C2C",
-    color: "#fff",
+    color:"white",
     buttonWhite: true,
     category: "Notebooks",
   },

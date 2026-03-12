@@ -1,10 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
-
-const baseURL = "https://cyber-imgs-bucket.s3.us-east-2.amazonaws.com/";
-
-const summerMobile = `${baseURL}Banner-mobile.png`;
-const summerDesktop = `${baseURL}Banner-desktop.png`;
+import summerMobile from "../../assets/Banner-mobile.png";
+import summerDesktop from "../../assets/Banner-desktop.png";
 
 export default function BigSummer() {
   const [isDesktop, setIsDesktop] = useState(window.innerWidth >= 1024);
@@ -66,10 +63,9 @@ export default function BigSummer() {
           <>
             <h2
               style={{
-                fontSize: "3rem",
+                fontSize: "1.25rem",
                 fontWeight: 300,
                 marginBottom: "6px",
-                color: "#ddd",
               }}
             >
               Big Summer

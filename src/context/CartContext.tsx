@@ -1,7 +1,7 @@
 import { createContext, useContext, useState, ReactNode, useEffect, useCallback } from 'react';
 import { useAuth } from '@clerk/clerk-react';
 
-const API_URL = (import.meta.env.VITE_API_URL as string) || 'http://localhost:8000';
+const API_URL = 'http://localhost:8000';
 
 export type CartItem = {
     id: number;

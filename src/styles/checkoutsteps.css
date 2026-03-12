@@ -30,12 +30,13 @@
     width: 32px;
     height: 32px;
     object-fit: contain;
-    transition: filter 0.3s ease, opacity 0.3s ease;
-    opacity: 0.3; 
+    transition: filter 0.3s ease, opacity 1.3s ease;
+    opacity: 0.2; 
 }
 
 .step-active {
     color: black; 
+    opacity: 1;
 }
 
 .step-active span {
