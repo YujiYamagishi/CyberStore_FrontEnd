@@ -15,7 +15,7 @@ It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS + CSS
 
 ## 🌐 Project Ecosystem  
 
-- **[Cyber - Backend](https://github.com/YujiYamagishi/AWS_FS_ABR25_D03_COMPASS_CYBER_BACKEND)** → API responsible for business logic and persistence  
+- **[Cyber - Backend](https://github.com/YujiYamagishi/CyberStore_Backend.git)** → API responsible for business logic and persistence  
 - **Cyber - Frontend (this repo)** → React web client consuming the API  
 
 ---
@@ -31,7 +31,8 @@ It is built with **React + Vite + TypeScript**, styled with **Tailwind CSS + CSS
 
 1. **Clone the repository**  
    ```sh
-   git clone https://github.com/YujiYamagishi/AWS_FS_ABR25_D03_COMPASS_CYBER_FRONTEND.git
+   git clone https://github.com/YujiYamagishi/CyberStore_Backend.git
+   git clone https://github.com/YujiYamagishi/CyberStore_FrontEnd.git
    ```
 2. Navigate into the project folder
    ```sh
